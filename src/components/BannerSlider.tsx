@@ -57,37 +57,41 @@ export default function BannerSlider() {
         </motion.p>
       </div>
 
-      {/* Bottom Text - Left */}
-      <motion.div 
-        className="absolute bottom-10 left-10 text-white font-display"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        <div className="flex items-baseline drop-shadow-lg">
-          <span className="text-6xl font-extrabold">70</span>
-          <span className="text-xl font-bold ml-1">+ YEARS OF</span>
-        </div>
-        <div className="text-3xl font-extrabold tracking-widest mt-[-5px] drop-shadow-lg">LEGACY</div>
-        <div className="text-[8px] mt-2 opacity-80 max-w-[200px] leading-tight drop-shadow-sm font-sans">
-          *T&C apply. Digitally created visual. Picture of vehicle was not taken while driving.
-        </div>
-      </motion.div>
+      {/* Bottom Content Container */}
+      <div className="absolute bottom-8 md:bottom-10 left-0 w-full px-4 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-end pointer-events-none z-10">
+        
+        {/* Bottom Text - Left */}
+        <motion.div 
+          className="text-white font-display pointer-events-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="flex items-baseline drop-shadow-lg">
+            <span className="text-4xl md:text-6xl font-extrabold">70</span>
+            <span className="text-sm md:text-xl font-bold ml-1">+ YEARS OF</span>
+          </div>
+          <div className="text-xl md:text-3xl font-extrabold tracking-widest mt-[-5px] drop-shadow-lg">LEGACY</div>
+          <div className="text-[8px] mt-2 opacity-80 max-w-[200px] leading-tight drop-shadow-sm font-sans hidden md:block">
+            *T&C apply. Digitally created visual. Picture of vehicle was not taken while driving.
+          </div>
+        </motion.div>
 
-      {/* Bottom Text - Right */}
-      <motion.div 
-        className="absolute bottom-12 right-10 text-white text-right font-display"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7 }}
-      >
-        <div className="text-sm tracking-widest drop-shadow-md">ALL NEW</div>
-        <div className="text-3xl font-extrabold tracking-widest drop-shadow-md">FORTUNER</div>
-      </motion.div>
+        {/* Bottom Text - Right */}
+        <motion.div 
+          className="text-white font-display text-left md:text-right mt-4 md:mt-0 pointer-events-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
+          <div className="text-xs md:text-sm tracking-widest drop-shadow-md">ALL NEW</div>
+          <div className="text-2xl md:text-3xl font-extrabold tracking-widest drop-shadow-md">FORTUNER</div>
+        </motion.div>
+      </div>
 
       {/* Scroll Down */}
       <motion.div 
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-white text-[10px] tracking-widest opacity-80"
+        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center text-white text-[10px] tracking-widest opacity-80 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.8 }}
         transition={{ duration: 1, delay: 1.5 }}

@@ -130,9 +130,11 @@ export default function Footer() {
               <div className="flex items-start group">
                 <MapPin size={18} className="text-[var(--toyota-red)] mr-4 mt-0.5 shrink-0" />
                 <p className="leading-relaxed">
-                  <strong className="text-gray-200 font-semibold block mb-1">Nippon Motor Corporation Pvt. Ltd.,</strong>
-                  X / 314 K, NH 47 Byepass,<br/>
-                  Nettoor P.O., Cochin-682304
+                  <strong className="text-gray-200 font-semibold block mb-1">NIPPON MOTOR CORPORATION (P) LTD.</strong>
+                  XIX/9C, Nippon Towers, NH - 544, HMT Junction,<br/>
+                  Kalamassery, Cochin - 683104, Kerala - India<br/>
+                  <span className="block mt-2">E-mail: <a href="mailto:nippon@nippontoyota.com" className="hover:text-white transition-colors">nippon@nippontoyota.com</a></span>
+                  <span className="block">CIN - U50101KL1999PTC012728</span>
                 </p>
               </div>
               

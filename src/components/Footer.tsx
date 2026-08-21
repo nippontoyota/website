@@ -141,8 +141,6 @@ export default function Footer() {
                 <Phone size={18} className="text-[var(--toyota-red)] mr-4 mt-0.5 shrink-0" />
                 <div className="flex flex-col space-y-2.5">
                   <span className="hover:text-white transition-colors cursor-pointer">+91 48471 70000 <span className="text-gray-600 mx-1">|</span> +91 97447 12345</span>
-                  <span className="hover:text-white transition-colors cursor-pointer">+91 48471 70000 <span className="text-gray-600 mx-1">|</span> +91 97447 12345</span>
-                  <span className="hover:text-white transition-colors cursor-pointer">+91 48471 70000</span>
                 </div>
               </div>
             </div>

@@ -30,7 +30,7 @@ export default function QuickLinks() {
   };
 
   return (
-    <div className="w-full bg-white relative z-10 py-6 border-b border-gray-100">
+    <div className="w-full bg-white relative z-10 py-6">
       <div className="max-w-[1200px] mx-auto px-4">
         <motion.div 
           className="flex flex-wrap justify-center gap-3 md:gap-4"

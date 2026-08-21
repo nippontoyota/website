@@ -28,6 +28,7 @@ export default function Header() {
                 width={200} 
                 height={40} 
                 className="object-contain h-10 w-auto"
+                style={{ width: "auto" }}
               />
             </motion.div>
           </Link>

@@ -20,10 +20,35 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Nippon Toyota | Toyota Dealer",
-  description: "Official Web Site of Nippon Toyota, Selling Toyota Cars.",
+  title: "Nippon Toyota | Official Toyota Dealer in Kerala",
+  description: "Welcome to Nippon Toyota. Explore the latest Toyota cars, book a test drive, and get the best deals on your next vehicle in Kerala.",
+  keywords: ["Toyota", "Nippon Toyota", "Toyota Dealer Kerala", "Fortuner", "Innova", "Buy Toyota"],
+  openGraph: {
+    title: "Nippon Toyota | Official Toyota Dealer",
+    description: "Welcome to Nippon Toyota. Explore the latest Toyota cars, book a test drive, and get the best deals on your next vehicle.",
+    url: "https://www.nippon-toyota.com",
+    siteName: "Nippon Toyota",
+    images: [
+      {
+        url: "/nippon-toyota.png",
+        width: 800,
+        height: 600,
+        alt: "Nippon Toyota Logo",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nippon Toyota | Official Toyota Dealer",
+    description: "Welcome to Nippon Toyota. Explore the latest Toyota cars and book a test drive today.",
+    images: ["/nippon-toyota.png"],
+  },
   icons: {
-    icon: "/nippon-logo.png",
+    icon: "/nippon-toyota.png",
+    shortcut: "/nippon-toyota.png",
+    apple: "/nippon-toyota.png",
   },
 };
 

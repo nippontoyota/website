@@ -23,7 +23,7 @@ export default function Header() {
               whileTap={{ scale: 0.98 }}
             >
               <Image 
-                src="/nippon-logo.png" 
+                src="/nippon-toyota.png" 
                 alt="Nippon Toyota Logo" 
                 width={200} 
                 height={40} 

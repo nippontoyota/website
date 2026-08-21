@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Search, ChevronDown } from 'lucide-react';
+import { Search, ChevronDown, Menu } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -69,14 +69,22 @@ export default function Header() {
         {/* Right: Search and Toyota Logo */}
         <div className="flex items-center">
           <motion.button 
-            className="flex items-center text-xs font-bold text-[#333] mr-6 border-r border-gray-300 pr-6 h-8 hover:text-[var(--toyota-red)] transition-colors"
+            className="hidden md:flex items-center text-xs font-bold text-[#333] mr-6 border-r border-gray-300 pr-6 h-8 hover:text-[var(--toyota-red)] transition-colors"
             whileHover={{ scale: 1.05 }}
           >
             <Search size={16} strokeWidth={3} className="mr-2" />
             SEARCH
           </motion.button>
-          <div className="text-[var(--toyota-red)] font-bold text-3xl tracking-tighter">
-            TOYOTA
+          
+          <div className="flex items-center gap-4">
+            <div className="text-[var(--toyota-red)] font-bold text-2xl md:text-3xl tracking-tighter">
+              TOYOTA
+            </div>
+            
+            {/* Mobile Menu Toggle */}
+            <button className="lg:hidden p-1 text-gray-800 hover:text-[var(--toyota-red)] transition-colors">
+              <Menu size={24} strokeWidth={2.5} />
+            </button>
           </div>
         </div>
       </div>

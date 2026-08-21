@@ -15,9 +15,9 @@ export default function PressRelease() {
         </div>
 
         {/* Press Release Cards */}
-        <div className="flex gap-4 relative">
+        <div className="flex flex-col md:flex-row gap-4 relative">
           {/* Card 1 */}
-          <div className="w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
+          <div className="w-full md:w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
             <div className="text-center min-w-[70px] pt-1">
               <div className="text-5xl font-bold text-[#94a3b8] group-hover:text-[var(--toyota-red)] transition-colors leading-none tracking-tighter">14</div>
               <div className="text-xs font-bold text-[#94a3b8] group-hover:text-gray-500 transition-colors mt-2 uppercase tracking-wide">Aug<br/>2026</div>
@@ -29,7 +29,7 @@ export default function PressRelease() {
           </div>
 
           {/* Card 2 */}
-          <div className="w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
+          <div className="w-full md:w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
             <div className="text-center min-w-[70px] pt-1">
               <div className="text-5xl font-bold text-[#94a3b8] group-hover:text-[var(--toyota-red)] transition-colors leading-none tracking-tighter">18</div>
               <div className="text-xs font-bold text-[#94a3b8] group-hover:text-gray-500 transition-colors mt-2 uppercase tracking-wide">Aug<br/>2026</div>
@@ -42,13 +42,13 @@ export default function PressRelease() {
 
           {/* Arrows */}
           <motion.div 
-            className="absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
+            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
             whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft size={20} strokeWidth={1.5} />
           </motion.div>
           <motion.div 
-            className="absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
+            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
             whileTap={{ scale: 0.95 }}
           >
             <ChevronRight size={20} strokeWidth={1.5} />
@@ -62,19 +62,19 @@ export default function PressRelease() {
         {/* More from Toyota */}
         <h2 className="font-display text-3xl font-extrabold text-center mb-10 text-[#111] tracking-tight">More from Toyota</h2>
         
-        <div className="flex gap-4 relative">
+        <div className="flex flex-col md:flex-row gap-4 relative">
           {/* TOYOTA TRUST */}
-          <div className="w-1/3 h-[220px] bg-[#f4f4f4] border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors">
+          <div className="w-full md:w-1/3 h-[220px] bg-[#f4f4f4] border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors">
             <span className="font-bold text-[#9ca3af] tracking-widest text-sm uppercase">TOYOTA TRUST</span>
           </div>
 
           {/* WHAT'S NEW */}
-          <div className="w-1/3 h-[220px] bg-[var(--toyota-red)] flex items-center justify-center cursor-pointer hover:bg-[#d60000] transition-colors">
+          <div className="w-full md:w-1/3 h-[220px] bg-[var(--toyota-red)] flex items-center justify-center cursor-pointer hover:bg-[#d60000] transition-colors">
             <span className="font-display font-bold text-white text-3xl tracking-wide">WHAT&apos;S NEW?</span>
           </div>
 
           {/* Toyota Financial Services */}
-          <div className="w-1/3 h-[220px] bg-white border border-gray-200 flex flex-col justify-end cursor-pointer hover:border-gray-300 transition-colors">
+          <div className="w-full md:w-1/3 h-[220px] bg-white border border-gray-200 flex flex-col justify-end cursor-pointer hover:border-gray-300 transition-colors">
             <div className="h-[70px] bg-[var(--toyota-red)] flex flex-col items-center justify-center text-white text-center w-full">
               <span className="font-bold text-[15px] leading-tight">Toyota Financial Services</span>
               <span className="font-bold text-[15px] leading-tight">Makes You Happier</span>
@@ -83,13 +83,13 @@ export default function PressRelease() {
           
           {/* Arrows */}
           <motion.div 
-            className="absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
+            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
             whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft size={20} strokeWidth={1.5} />
           </motion.div>
           <motion.div 
-            className="absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full flex items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
+            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
             whileTap={{ scale: 0.95 }}
           >
             <ChevronRight size={20} strokeWidth={1.5} />

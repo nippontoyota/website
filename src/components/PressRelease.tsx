@@ -36,7 +36,7 @@ export default function PressRelease() {
             </div>
             <div>
               <h3 className="font-bold text-[#111] text-[17px] leading-snug mb-3 group-hover:text-[var(--toyota-red)] transition-colors">Toyota Kirloskar Motor Concludes Environment Month 2026, Delivering Measurable Environmental Impact Through...</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme "Move Towards Climate Positive Company through Resource Recycling." The month-long...</p>
+              <p className="text-xs text-gray-500 leading-relaxed">Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot; The month-long...</p>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ export default function PressRelease() {
 
           {/* WHAT'S NEW */}
           <div className="w-1/3 h-[220px] bg-[var(--toyota-red)] flex items-center justify-center cursor-pointer hover:bg-[#d60000] transition-colors">
-            <span className="font-display font-bold text-white text-3xl tracking-wide">WHAT'S NEW?</span>
+            <span className="font-display font-bold text-white text-3xl tracking-wide">WHAT&apos;S NEW?</span>
           </div>
 
           {/* Toyota Financial Services */}

@@ -1,29 +1,29 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const services = [
+  { id: 1, title: "What's New", image: "/whats-new.jpg" },
+  { id: 2, title: "Q Service", image: "/q-service.jpg" },
+  { id: 3, title: "Driving School", image: "/driving-school.jpg" },
+  { id: 4, title: "iConnect", image: "/iconnect.jpg" }
+];
 
 export default function Services() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  const services = [
-    { id: 1, title: "What's New", image: "/whats-new.jpg" },
-    { id: 2, title: "Q Service", image: "/q-service.jpg" },
-    { id: 3, title: "Driving School", image: "/driving-school.jpg" },
-    { id: 4, title: "iConnect", image: "/iconnect.jpg" }
-  ];
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev === services.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev === 0 ? services.length - 1 : prev - 1));
-  };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,7 +31,7 @@ export default function Services() {
     }, 4000); // Auto swipe every 4 seconds
 
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [currentIndex, handleNext]);
 
   const variants = {
     enter: (dir: number) => ({

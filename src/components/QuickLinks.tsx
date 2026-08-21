@@ -45,14 +45,14 @@ export default function QuickLinks() {
               className="flex-1 min-w-[140px] max-w-[180px]"
             >
               <motion.div 
-                className="w-full h-28 flex flex-col items-center justify-center rounded-2xl bg-white border border-gray-100 cursor-pointer hover:border-gray-200 hover:bg-gray-50 transition-colors duration-200"
-                whileTap={{ scale: 0.97 }}
+                className="w-full h-28 flex flex-col items-center justify-center cursor-pointer group"
+                whileTap={{ scale: 0.95 }}
               >
                 <div className="flex flex-col items-center justify-center">
-                  <div className="mb-3 text-[var(--toyota-red)]">
+                  <div className="mb-3 text-[var(--toyota-red)] transition-all duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-1">
                     <link.Icon size={28} strokeWidth={1.5} />
                   </div>
-                  <span className="font-display text-[10px] font-bold tracking-widest text-gray-500 text-center uppercase">
+                  <span className="font-display text-[10px] font-bold tracking-widest text-gray-400 text-center uppercase transition-colors duration-300 group-hover:text-[#111]">
                     {link.label}
                   </span>
                 </div>

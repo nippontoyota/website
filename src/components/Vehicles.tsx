@@ -161,10 +161,10 @@ export default function Vehicles() {
 
   const handleDragEnd = (e: any, { offset, velocity }: any) => {
     const currentIndex = cars.findIndex(c => c.id === activeCar.id);
-    if (offset.x < -50 || velocity.x < -500) {
+    if (offset.x < -30 || velocity.x < -300) {
       // Swiped left (next car)
       if (currentIndex < cars.length - 1) setActiveCar(cars[currentIndex + 1]);
-    } else if (offset.x > 50 || velocity.x > 500) {
+    } else if (offset.x > 30 || velocity.x > 300) {
       // Swiped right (prev car)
       if (currentIndex > 0) setActiveCar(cars[currentIndex - 1]);
     }
@@ -249,18 +249,18 @@ export default function Vehicles() {
           {/* Center Column: The Hero Car with Reflections and Parallax */}
           <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[500px] xl:h-[600px] flex flex-col items-center justify-center">
             
-            <AnimatePresence mode="wait">
+            <AnimatePresence custom={activeCar.id}>
               <motion.div
                 key={activeCar.id + "-img"}
-                initial={{ opacity: 0, x: -80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
-                animate={{ opacity: 1, x: 0, scale: 1, filter: "brightness(1) blur(0px)" }}
-                exit={{ opacity: 0, x: 80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
-                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+                initial={{ opacity: 0, x: 100, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -100, scale: 0.9 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
+                dragElastic={0.4}
                 onDragEnd={handleDragEnd}
-                className="w-full h-full relative z-20 scale-110 lg:scale-[1.25] origin-bottom cursor-grab active:cursor-grabbing"
+                className="absolute inset-0 w-full h-full z-20 scale-110 lg:scale-[1.25] origin-bottom cursor-grab active:cursor-grabbing"
               >
                 {activeCar.image ? (
                   <>
@@ -270,6 +270,7 @@ export default function Vehicles() {
                       alt={activeCar.name}
                       fill
                       className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.9)]"
+                      draggable={false}
                       priority
                     />
                     
@@ -280,6 +281,7 @@ export default function Vehicles() {
                         alt={`${activeCar.name} Reflection`}
                         fill
                         className="object-contain"
+                        draggable={false}
                       />
                     </div>
                   </>

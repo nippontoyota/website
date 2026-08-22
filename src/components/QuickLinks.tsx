@@ -2,15 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { PhoneCall, Car, Tag, Smartphone, BookOpen, Repeat, ArrowUpRight } from 'lucide-react';
+import { useLeadStore } from '@/store/useLeadStore';
+import Link from 'next/link';
 
 export default function QuickLinks() {
+  const { openModal } = useLeadStore();
+
   const links = [
-    { label: 'TEST DRIVE', sub: 'Experience Toyota', Icon: Car, highlight: true },
-    { label: 'EXCHANGE CAR', sub: 'Value Your Vehicle', Icon: Repeat, highlight: true },
-    { label: 'CONTACT US', sub: 'Get in Touch', Icon: PhoneCall, highlight: false },
-    { label: 'PRICE LIST', sub: 'Latest Offers', Icon: Tag, highlight: false },
-    { label: 'EBOOK', sub: 'Digital Guide', Icon: Smartphone, highlight: false },
-    { label: 'BROCHURE', sub: 'Model Details', Icon: BookOpen, highlight: false },
+    { label: 'TEST DRIVE', sub: 'Experience Toyota', Icon: Car, highlight: true, isModal: true },
+    { label: 'EXCHANGE CAR', sub: 'Value Your Vehicle', Icon: Repeat, highlight: true, isModal: true },
+    { label: 'CONTACT US', sub: 'Get in Touch', Icon: PhoneCall, highlight: false, href: '/contact' },
+    { label: 'PRICE LIST', sub: 'Latest Offers', Icon: Tag, highlight: false, isModal: true },
+    { label: 'EBOOK', sub: 'Digital Guide', Icon: Smartphone, highlight: false, isModal: true },
+    { label: 'BROCHURE', sub: 'Model Details', Icon: BookOpen, highlight: false, isModal: true },
   ];
 
   return (
@@ -20,7 +24,13 @@ export default function QuickLinks() {
           {links.map((link, index) => (
             <motion.a
               key={index}
-              href="#"
+              href={link.href || "#"}
+              onClick={(e: React.MouseEvent) => {
+                if (link.isModal) {
+                  e.preventDefault();
+                  openModal();
+                }
+              }}
               className="group relative flex flex-col justify-between aspect-square p-6 md:p-8 bg-white border border-gray-100 hover:border-transparent shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 cursor-pointer overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

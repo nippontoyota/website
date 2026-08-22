@@ -116,7 +116,10 @@ const cars = [
   }
 ];
 
+import { useLeadStore } from '@/store/useLeadStore';
+
 export default function Vehicles() {
+  const { openModal } = useLeadStore();
   const [activeCar, setActiveCar] = useState(cars[0]);
 
   // Mouse Parallax Logic
@@ -317,9 +320,12 @@ export default function Vehicles() {
                     {activeCar.price}
                   </p>
                   
-                  <button className="group/btn relative w-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-zinc-950 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm">
+                  <button 
+                    onClick={() => openModal(activeCar.name)}
+                    className="group/btn relative w-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-zinc-950 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm"
+                  >
                     <span className="relative z-10 flex items-center justify-between w-full">
-                      Explore Series
+                      Book Test Drive
                       <ArrowRight size={16} className="transform group-hover/btn:translate-x-3 transition-transform duration-700 ease-out" />
                     </span>
                     <div className="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover/btn:scale-x-100 transition-transform duration-700 ease-[0.25,1,0.5,1]" />

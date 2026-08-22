@@ -58,6 +58,8 @@ export const metadata: Metadata = {
   },
 };
 
+import GlobalLeadModal from "@/components/GlobalLeadModal";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,7 +70,10 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-gray-50">{children}</body>
+      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-gray-50">
+        <GlobalLeadModal />
+        {children}
+      </body>
     </html>
   );
 }

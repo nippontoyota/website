@@ -1,7 +1,12 @@
+"use client";
+
 import Link from 'next/link';
 import { MapPin, Phone } from 'lucide-react';
+import { useLeadStore } from '@/store/useLeadStore';
 
 export default function Footer() {
+  const { openModal } = useLeadStore();
+
   return (
     <footer className="bg-zinc-900 text-white relative z-20 uppercase">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-24">
@@ -48,8 +53,8 @@ export default function Footer() {
             </ul>
             <h4 className="font-display text-[11px] font-bold mb-6 tracking-widest text-zinc-400">ONLINE REQUEST</h4>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest">
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">TEST DRIVE</Link></li>
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">BROCHURE</Link></li>
+              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">TEST DRIVE</button></li>
+              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">BROCHURE</button></li>
             </ul>
           </div>
 
@@ -57,9 +62,9 @@ export default function Footer() {
           <div className="col-span-1">
             <h4 className="font-display text-[11px] font-bold mb-6 tracking-widest text-zinc-400">U-TRUST</h4>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest mb-10">
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">BUY NOW</Link></li>
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">SELL CAR</Link></li>
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">EXCHANGE CAR</Link></li>
+              <li><Link href="/used-cars" className="hover:text-[#eb0a1e] transition-colors">BUY NOW</Link></li>
+              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">SELL CAR</button></li>
+              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">EXCHANGE CAR</button></li>
             </ul>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest">
               <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">PRICE LIST</Link></li>

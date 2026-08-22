@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyWidgets from '@/components/StickyWidgets';
+import { useLeadStore } from '@/store/useLeadStore';
 
 const connectFeatures = [
   {
@@ -68,6 +69,7 @@ const faqs = [
 ];
 
 export default function IConnectPage() {
+  const { openModal } = useLeadStore();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -206,20 +208,18 @@ export default function IConnectPage() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap gap-4 mt-10"
             >
-              <a
-                href="/i-connect/brochures/i-connect-brochure.pdf"
-                download
+              <button
+                onClick={() => openModal('Toyota i-Connect Brochure')}
                 className="bg-[var(--toyota-red)] hover:bg-[#c80000] transition-colors text-white px-8 py-3 text-sm font-bold tracking-widest text-center"
               >
                 DOWNLOAD BROCHURE
-              </a>
-              <a
-                href="/i-connect/brochures/i-connect-ev-brochure.pdf"
-                download
+              </button>
+              <button
+                onClick={() => openModal('Toyota i-Connect EV Brochure')}
                 className="border border-[var(--toyota-red)] text-[var(--toyota-red)] hover:bg-[var(--toyota-red)] hover:text-white transition-colors px-8 py-3 text-sm font-bold tracking-widest text-center"
               >
                 BEV BROCHURE
-              </a>
+              </button>
             </motion.div>
           </div>
         </section>

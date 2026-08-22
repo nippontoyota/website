@@ -66,9 +66,28 @@ export default function Header() {
           <Link href="/virtual-showroom" className={getLinkClass('/virtual-showroom')}>
             VIRTUAL SHOWROOM
           </Link>
-          <Link href="/service" className={getLinkClass('/service')}>
-            SERVICE <ChevronDown size={14} strokeWidth={2.5} className="ml-1 text-gray-500 group-hover:text-[var(--toyota-red)] transition-transform duration-300 group-hover:-rotate-180" />
-          </Link>
+          <div className="relative group/service py-2">
+            <Link href="/service" className={getLinkClass('/service')}>
+              SERVICE <ChevronDown size={14} strokeWidth={2.5} className="ml-1 text-gray-500 group-hover/service:text-[var(--toyota-red)] transition-transform duration-300 group-hover/service:-rotate-180" />
+            </Link>
+            
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover/service:opacity-100 group-hover/service:pointer-events-auto transition-all duration-300 z-50 transform translate-y-2 group-hover/service:translate-y-0">
+              <div className="bg-white shadow-xl py-2 w-[240px] rounded-b-md border-t-[3px] border-[var(--toyota-red)] flex flex-col items-start font-sans normal-case tracking-normal">
+                <Link 
+                  href="/service" 
+                  className="w-full px-6 py-2.5 text-[15px] font-medium text-gray-800 hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors flex justify-between items-center"
+                >
+                  Service Corner
+                </Link>
+                <Link 
+                  href="/i-connect" 
+                  className="w-full px-6 py-2.5 text-[15px] font-medium text-gray-800 hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors flex justify-between items-center"
+                >
+                  Toyota i-Connect
+                </Link>
+              </div>
+            </div>
+          </div>
           <Link href="/t-care" className={getLinkClass('/t-care')}>
             T-CARE
           </Link>

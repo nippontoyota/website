@@ -18,7 +18,6 @@ export async function POST(request: Request) {
     const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
     if (!scriptUrl || scriptUrl === 'PENDING') {
-      console.log('Mocking lead submission for UI testing:', { name, phone, model });
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       return NextResponse.json({ success: true, message: 'Mock submission successful' });

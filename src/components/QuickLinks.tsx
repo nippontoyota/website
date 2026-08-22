@@ -19,15 +19,9 @@ export default function QuickLinks() {
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {links.map((link, index) => (
-            <motion.a
+            <motion.button
               key={index}
-              href={link.href || "#"}
-              onClick={(e: React.MouseEvent) => {
-                if (link.isModal) {
-                  e.preventDefault();
-                  openModal();
-                }
-              }}
+              onClick={() => openModal()}
               className="group relative flex flex-col justify-between aspect-square p-6 md:p-8 bg-white border border-gray-100 hover:border-transparent shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 cursor-pointer overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +61,7 @@ export default function QuickLinks() {
                   {link.sub}
                 </p>
               </div>
-            </motion.a>
+            </motion.button>
           ))}
         </div>
       </div>

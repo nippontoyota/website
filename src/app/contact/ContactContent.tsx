@@ -235,9 +235,13 @@ export default function ContactContent() {
 
       {/* Map Section */}
       <section className="w-full h-[50vh] min-h-[400px] bg-zinc-100 relative grayscale hover:grayscale-0 transition-all duration-700">
-        <div className="absolute inset-0 flex items-center justify-center">
-           <span className="text-zinc-400 font-bold tracking-[0.2em] uppercase text-sm">Interactive Map for {city}</span>
-        </div>
+        <iframe 
+          src={`https://maps.google.com/maps?q=Nippon+Toyota+${encodeURIComponent(city)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+          className="absolute inset-0 w-full h-full border-0"
+          allowFullScreen={false}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </section>
 
     </div>

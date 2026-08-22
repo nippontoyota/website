@@ -222,7 +222,7 @@ export default function Vehicles() {
         {/* Sleek Horizontal Model Nav */}
         <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-16 gap-6 pb-8 relative">
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="shrink-0 xl:mr-6">
+          <div className="shrink-0 xl:mr-6 text-center xl:text-left mb-6 xl:mb-0 w-full xl:w-auto">
             <h2 className="text-xl md:text-2xl font-display font-thin tracking-[0.3em] uppercase text-white/90 hover:text-white transition-colors duration-1000 ease-out cursor-default">
               Select Model
             </h2>
@@ -243,11 +243,22 @@ export default function Vehicles() {
           </div>
         </div>
 
+        
         {/* The Showroom Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center relative">
+
           
           {/* Center Column: The Hero Car with Reflections and Parallax */}
-          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[500px] xl:h-[600px] flex flex-col items-center justify-center">
+          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[500px] xl:h-[600px] flex flex-col items-center justify-center group">
+            
+            {/* Gesture Overlay: explicitly handles drag events independent of the crossfading images */}
+            <motion.div 
+              className="absolute inset-0 z-40 cursor-grab active:cursor-grabbing touch-pan-y"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.1}
+              onDragEnd={handleDragEnd}
+            />
             
             <AnimatePresence custom={activeCar.id}>
               <motion.div
@@ -256,11 +267,7 @@ export default function Vehicles() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -100, scale: 0.9 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.4}
-                onDragEnd={handleDragEnd}
-                className="absolute inset-0 w-full h-full z-20 scale-110 lg:scale-[1.25] origin-bottom cursor-grab active:cursor-grabbing"
+                className="absolute inset-0 w-full h-full z-20 scale-110 lg:scale-[1.25] origin-bottom"
               >
                 {activeCar.image ? (
                   <>

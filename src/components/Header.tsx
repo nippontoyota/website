@@ -60,9 +60,6 @@ export default function Header() {
 
         {/* Middle: Navigation */}
         <nav className="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] font-display font-bold text-[#222] tracking-widest">
-          <Link href="/showroom" className={getLinkClass('/showroom')}>
-            SHOWROOM <ChevronDown size={14} strokeWidth={2.5} className="ml-1 text-gray-500 group-hover:text-[var(--toyota-red)] transition-transform duration-300 group-hover:-rotate-180" />
-          </Link>
           <Link href="/virtual-showroom" className={getLinkClass('/virtual-showroom')}>
             VIRTUAL SHOWROOM
           </Link>

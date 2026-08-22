@@ -175,7 +175,14 @@ export default function TCarePage() {
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-12">
               {tPrograms.map((prog, idx) => (
-                <div key={idx} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-50 p-6 rounded-xl transition-all duration-700 ease-out">
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: "easeOut", delay: (idx % 4) * 0.1 }}
+                  className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-50 p-6 rounded-xl transition-all duration-700 ease-out"
+                >
                   
                   {/* Logo / Brand Name */}
                   <div className="text-3xl font-display font-black tracking-tighter transition-colors duration-700 ease-out text-[#111] group-hover:text-[#eb0a1e]">
@@ -195,7 +202,7 @@ export default function TCarePage() {
                     </svg>
                   </div>
 
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

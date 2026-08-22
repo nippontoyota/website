@@ -54,10 +54,10 @@ export default function TCarePage() {
       id: 1,
       bg: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
       content: (
-        <div className="flex flex-col md:flex-row h-full w-full max-w-[1400px] mx-auto items-center px-4 md:px-16 pt-20 md:pt-0">
+        <div className="flex flex-col md:flex-row-reverse h-full w-full max-w-[1400px] mx-auto items-center px-4 md:px-16 pt-20 md:pt-0">
           <div className="w-full md:w-[45%] flex flex-col justify-center text-left relative z-10">
             <motion.h1 
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-4xl md:text-[5.5rem] font-display font-black text-[#111] leading-[0.85] italic tracking-tighter"
@@ -73,21 +73,21 @@ export default function TCarePage() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="mt-2 md:mt-4 ml-10 md:ml-32"
             >
-              <span className="font-caveat text-3xl md:text-5xl text-[var(--toyota-red)] font-bold transform -rotate-2 inline-block">Awesome</span>
+              <span className="font-signature text-3xl md:text-5xl text-[var(--toyota-red)] font-bold transform -rotate-2 inline-block">Awesome</span>
               <span className="font-display font-black text-lg md:text-2xl text-[#111] ml-2 tracking-widest uppercase">Together</span>
             </motion.div>
           </div>
           <div className="w-full md:w-[55%] flex justify-center items-center mt-10 md:mt-0 relative z-0">
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 1 }}
-              className="relative w-[120%] md:w-full ml-10 md:ml-0"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 1.2, ease: "easeOut" }}
+              className="relative w-full"
             >
               <img 
-                src="/toyota-cars.png" 
-                alt="Toyota Fleet" 
-                className="w-full h-auto drop-shadow-2xl object-contain scale-110 md:scale-125 origin-right"
+                src="/hyryder.webp" 
+                alt="Toyota Hyryder" 
+                className="w-full h-auto drop-shadow-2xl object-contain scale-110 md:scale-125"
               />
             </motion.div>
           </div>
@@ -121,20 +121,8 @@ export default function TCarePage() {
                 from Any Insurance Service Provider
               </h2>
               <div className="mt-8 flex flex-col">
-                 <p className="font-caveat text-4xl md:text-6xl text-[var(--toyota-red)] font-bold transform -rotate-3 mb-1 md:mb-2">Flexibility is</p>
-                 <p className="font-caveat text-5xl md:text-7xl text-[#111] font-bold transform -rotate-3 ml-12">Awesome</p>
-              </div>
-              
-              <div className="mt-10 md:mt-16 flex items-center justify-between border-t border-gray-100 pt-6">
-                 <div className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
-                   <div className="w-5 h-5 md:w-6 md:h-6 rounded-full border border-gray-300 flex items-center justify-center">i</div>
-                   www.toyotabharat.com
-                 </div>
-                 <div className="text-right">
-                   <p className="text-[8px] md:text-[10px] font-bold text-gray-400 tracking-wider">TALK TO TOYOTA ON</p>
-                   <p className="font-bold text-[#111] text-xs md:text-sm">1800 309 0001</p>
-                   <p className="font-bold text-[#111] text-xs md:text-sm">080 4505 9000</p>
-                 </div>
+                 <p className="font-signature text-4xl md:text-6xl text-[var(--toyota-red)] font-bold transform -rotate-3 mb-1 md:mb-2">Flexibility is</p>
+                 <p className="font-signature text-5xl md:text-7xl text-[#111] font-bold transform -rotate-3 ml-12">Awesome</p>
               </div>
             </motion.div>
           </div>
@@ -167,7 +155,7 @@ export default function TCarePage() {
           </AnimatePresence>
 
           {/* Navigation Arrows */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-2 md:left-6 z-20 cursor-pointer text-white/50 hover:text-white transition-colors drop-shadow-md" onClick={handlePrev}>
+          <div className="absolute top-1/2 -translate-y-1/2 left-2 md:left-6 z-20 cursor-pointer text-black/50 hover:text-black transition-colors drop-shadow-md" onClick={handlePrev}>
             <ChevronLeft size={48} strokeWidth={1} />
           </div>
           <div className="absolute top-1/2 -translate-y-1/2 right-2 md:right-6 z-20 cursor-pointer text-[#111]/30 hover:text-[#111] transition-colors drop-shadow-md" onClick={handleNext}>
@@ -184,26 +172,38 @@ export default function TCarePage() {
           </div>
         </section>
 
-        {/* T-Programs Infinite Marquee (Cooler than static row) */}
-        <section className="w-full bg-white border-b border-gray-200 py-6 overflow-hidden relative shadow-sm z-10">
-          <div className="flex w-[200%] md:w-[150%] animate-marquee">
-            {[...tPrograms, ...tPrograms].map((prog, idx) => (
-              <div key={idx} className="flex flex-col items-center justify-center w-[120px] md:w-[160px] flex-shrink-0 group cursor-pointer px-4">
-                <div className="text-2xl md:text-3xl font-display font-black tracking-tight text-[#111] group-hover:-translate-y-1 transition-transform duration-300">
-                  <span className="text-[var(--toyota-red)]">{prog.prefix}</span>{prog.name}
+        {/* Modern Clean Grid Section */}
+        <section className="w-full bg-[#f3f4f6] py-20 lg:py-28">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-16">
+              {tPrograms.map((prog, idx) => (
+                <div key={idx} className="flex flex-col group cursor-pointer">
+                  {/* Top Line */}
+                  <div className="w-full h-[1px] bg-gray-300 group-hover:bg-[var(--toyota-red)] transition-colors duration-500 mb-6"></div>
+                  
+                  {/* Logo / Brand Name */}
+                  <div className="mb-4">
+                     <div className="text-2xl lg:text-3xl font-display font-bold tracking-tighter text-gray-400 group-hover:text-[#111] transition-colors duration-500">
+                        <span className="text-[#111] group-hover:text-[var(--toyota-red)] transition-colors duration-500">{prog.prefix}</span>{prog.name}
+                     </div>
+                  </div>
+                  
+                  {/* Description */}
+                  <h3 className="text-[15px] font-medium text-[#333] mb-6 leading-snug">
+                    {prog.sub}
+                  </h3>
+                  
+                  {/* Read More Link */}
+                  <div className="mt-auto pt-2">
+                    <span className="text-xs font-semibold text-gray-500 group-hover:text-[var(--toyota-red)] transition-colors duration-500 uppercase tracking-widest">
+                      Read More
+                    </span>
+                  </div>
                 </div>
-                <div className="w-full h-px bg-gray-200 my-1 group-hover:bg-[var(--toyota-red)] transition-colors duration-300"></div>
-                <div className="text-[6px] md:text-[8px] font-bold text-gray-400 uppercase tracking-widest text-center mt-1 group-hover:text-gray-600 transition-colors duration-300">
-                  {prog.sub}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-          {/* Fade edges */}
-          <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-white to-transparent pointer-events-none" />
-          <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-white to-transparent pointer-events-none" />
         </section>
-
       </main>
 
       <Footer />

@@ -6,6 +6,11 @@ import { motion } from 'framer-motion';
 import { Search, ChevronDown, Menu } from 'lucide-react';
 
 export default function Header() {
+  const serviceLinks = [
+    { label: "Service Corner", href: "/q-service" },
+    { label: "Toyota i-Connect", href: "/i-connect" },
+  ];
+
   return (
     <motion.header 
       className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100"
@@ -43,9 +48,24 @@ export default function Header() {
             VIRTUAL SHOWROOM
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--toyota-red)] transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          <Link href="/service" className="flex items-center hover:text-[var(--toyota-red)] transition-colors group">
-            SERVICE <ChevronDown size={12} strokeWidth={3} className="ml-1 group-hover:rotate-180 transition-transform duration-300" />
-          </Link>
+          <div className="relative group py-2 -my-2">
+            <span className="flex items-center cursor-default group-hover:text-[var(--toyota-red)] transition-colors">
+              SERVICE <ChevronDown size={12} strokeWidth={3} className="ml-1 group-hover:rotate-180 transition-transform duration-300" />
+            </span>
+            <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
+              <div className="bg-white shadow-lg border border-gray-100 min-w-[180px] py-2">
+                {serviceLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block px-5 py-2.5 text-[11px] font-bold text-[#333] tracking-wider hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
           <Link href="/t-care" className="hover:text-[var(--toyota-red)] transition-colors relative group">
             T-CARE
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--toyota-red)] transition-all duration-300 group-hover:w-full"></span>

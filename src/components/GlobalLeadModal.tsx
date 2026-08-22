@@ -16,7 +16,7 @@ export default function GlobalLeadModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+            className="absolute inset-0 bg-black/60 backdrop-blur-2xl cursor-pointer"
           />
           
           <motion.div

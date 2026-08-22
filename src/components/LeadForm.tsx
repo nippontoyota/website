@@ -5,7 +5,7 @@ import LeadCaptureForm from './LeadCaptureForm';
 
 export default function LeadForm() {
   return (
-    <section className="bg-[#050505] py-24 md:py-32 relative overflow-hidden border-t border-white/10" id="lead-form">
+    <section className="bg-[#050505] py-24 md:py-32 relative border-t border-white/10" id="lead-form">
       
       {/* Background accents */}
       <div className="absolute top-0 right-0 w-[40%] h-full bg-[radial-gradient(circle_at_right,rgba(235,10,30,0.05),transparent_70%)] pointer-events-none mix-blend-screen" />

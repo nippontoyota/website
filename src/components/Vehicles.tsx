@@ -7,18 +7,6 @@ import Image from 'next/image';
 
 const cars = [
   {
-    id: "glanza",
-    name: "GLANZA",
-    tagline: "Go Hatchin'",
-    price: "₹6.86 Lakhs*",
-    stats: [
-      { label: "Efficiency", value: "22.9 km/l" },
-      { label: "Engine", value: "1.2L K-Series" },
-      { label: "Power", value: "66 kW" }
-    ],
-    image: "" 
-  },
-  {
     id: "taisor",
     name: "URBAN CRUISER TAISOR",
     tagline: "Make Your Way",
@@ -29,6 +17,18 @@ const cars = [
       { label: "Seating", value: "5 Seats" }
     ],
     image: "/taisor.webp" 
+  },
+  {
+    id: "glanza",
+    name: "GLANZA",
+    tagline: "Go Hatchin'",
+    price: "₹6.86 Lakhs*",
+    stats: [
+      { label: "Efficiency", value: "22.9 km/l" },
+      { label: "Engine", value: "1.2L K-Series" },
+      { label: "Power", value: "66 kW" }
+    ],
+    image: "" 
   },
   {
     id: "hyryder",
@@ -150,7 +150,7 @@ export default function Vehicles() {
     <section 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="bg-[#030303] pt-24 pb-12 md:pt-32 md:pb-16 relative overflow-hidden flex flex-col justify-center perspective-[2000px]"
+      className="bg-[#000000] min-h-screen pt-32 pb-24 md:pt-48 md:pb-32 relative overflow-hidden flex flex-col justify-center perspective-[2000px]"
     >
       {/* Dynamic Volumetric Spotlight mapped to mouse */}
       <motion.div 
@@ -170,7 +170,7 @@ export default function Vehicles() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 0.04, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] text-center pointer-events-none whitespace-nowrap overflow-hidden z-0"
         >
           <h1 className="text-[18vw] font-druk text-white leading-none tracking-tighter mix-blend-overlay">
@@ -196,10 +196,10 @@ export default function Vehicles() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full">
         
         {/* Sleek Horizontal Model Nav */}
-        <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-16 gap-8 pb-8 relative">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-16 gap-6 pb-8 relative">
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="shrink-0 xl:mr-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-thin tracking-[0.4em] uppercase text-white/90 hover:text-white transition-colors duration-1000 ease-out cursor-default">
+          <div className="shrink-0 xl:mr-6">
+            <h2 className="text-xl md:text-2xl font-display font-thin tracking-[0.3em] uppercase text-white/90 hover:text-white transition-colors duration-1000 ease-out cursor-default">
               Select Model
             </h2>
           </div>
@@ -220,10 +220,10 @@ export default function Vehicles() {
         </div>
 
         {/* The Showroom Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
           {/* Center Column: The Hero Car with Reflections and Parallax */}
-          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[450px] xl:h-[500px] flex flex-col items-center justify-center pointer-events-none">
+          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[450px] xl:h-[600px] lg:h-[500px] flex flex-col items-center justify-center pointer-events-none">
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -231,7 +231,7 @@ export default function Vehicles() {
                 initial={{ opacity: 0, x: -80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
                 animate={{ opacity: 1, x: 0, scale: 1, filter: "brightness(1) blur(0px)" }}
                 exit={{ opacity: 0, x: 80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
-                transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 2.8, ease: [0.22, 1, 0.36, 1] }}
                 className="w-full h-full relative z-20 scale-110 lg:scale-[1.25] origin-bottom"
               >
                 {activeCar.image ? (
@@ -268,7 +268,7 @@ export default function Vehicles() {
                 initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, x: -30, filter: "blur(10px)" }}
-                transition={{ duration: 0.9, ease: [0.2, 0.9, 0.4, 1] }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col space-y-10 relative"
               >
                 {/* Header & Tagline */}

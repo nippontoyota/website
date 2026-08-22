@@ -30,7 +30,7 @@ export default function AboutContent() {
         <Image 
           src="/nippon-towers.jpg" 
           alt="About Us" 
-          fill
+          fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover opacity-70 object-center"
           priority
         />
@@ -62,7 +62,7 @@ export default function AboutContent() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
           >
-            <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900">
+            <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-[#eb0a1e]">
               Dealer Mission
             </h2>
           </motion.div>
@@ -94,7 +94,7 @@ export default function AboutContent() {
           viewport={{ once: true }}
           variants={fadeUp}
         >
-          <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-[#eb0a1e] mb-6">
             Leadership
           </h2>
           <p className="text-xl md:text-2xl text-zinc-600 leading-relaxed max-w-3xl font-display font-medium">
@@ -117,7 +117,7 @@ export default function AboutContent() {
                 <Image 
                   src={person.image} 
                   alt={person.name}
-                  fill
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
                 {/* Subtle hover reveal */}
@@ -147,7 +147,7 @@ export default function AboutContent() {
           variants={fadeUp}
         >
           <div>
-            <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900">
+            <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-[#eb0a1e]">
               Explore More
             </h2>
           </div>
@@ -169,7 +169,7 @@ export default function AboutContent() {
                 <Image 
                   src={item.image} 
                   alt={item.title} 
-                  fill 
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>

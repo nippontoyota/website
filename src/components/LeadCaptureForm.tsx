@@ -17,7 +17,16 @@ const TOYOTA_MODELS = [
   "CAMRY",
   "VELLFIRE",
   "LAND CRUISER 300",
-  "Not sure yet"
+  "NOT SURE YET"
+];
+
+const SERVICE_OPTIONS = [
+  "GENERAL SERVICE",
+  "BODY & PAINT REPAIR",
+  "MAINTENANCE PACKAGE",
+  "EXTENDED WARRANTY",
+  "ROADSIDE ASSISTANCE",
+  "OTHER SERVICE"
 ];
 
 interface LeadCaptureFormProps {
@@ -27,6 +36,7 @@ interface LeadCaptureFormProps {
 
 export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadCaptureFormProps) {
   const { prefilledModel, closeModal } = useLeadStore();
+  const [inquiryType, setInquiryType] = useState<'SALES' | 'SERVICE'>('SALES');
   const [formData, setFormData] = useState({ name: '', phone: '', model: prefilledModel || '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -42,10 +52,16 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
     setStatus('submitting');
 
     try {
+      const payload = {
+        name: formData.name,
+        phone: formData.phone,
+        model: inquiryType === 'SERVICE' ? `[SERVICE] ${formData.model}` : formData.model
+      };
+
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       if (!res.ok) throw new Error('Submission failed');
@@ -71,9 +87,9 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
       {!standalone && (
         <button 
           onClick={closeModal}
-          className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
+          className="fixed top-8 right-8 md:top-12 md:right-12 text-white/60 hover:text-white transition-colors z-[60]"
         >
-          <X size={24} />
+          <X size={40} strokeWidth={1} />
         </button>
       )}
 
@@ -89,7 +105,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
               <CheckCircle2 size={32} />
             </div>
             <h3 className="font-druk text-3xl text-white uppercase tracking-wider mb-2">Request Received</h3>
-            <p className="text-zinc-400 font-light text-sm">A Toyota specialist will contact you shortly.</p>
+            <p className="text-white/70 font-light text-sm">A Toyota specialist will contact you shortly.</p>
           </motion.div>
         ) : (
           <motion.form 
@@ -103,9 +119,43 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
             {!standalone && (
               <div className="text-center mb-8">
                 <h3 className="font-druk text-3xl text-white uppercase tracking-wider">Request Callback</h3>
-                <p className="text-zinc-400 font-light text-sm mt-2">Connect with our Toyota specialists today.</p>
+                <p className="text-white/70 font-light text-sm mt-2">Connect with our Toyota specialists today.</p>
               </div>
             )}
+
+            {/* Inquiry Type Toggle */}
+            <div className="flex space-x-12 mb-8 border-b border-white/20">
+              <button
+                type="button"
+                onClick={() => {
+                  setInquiryType('SALES');
+                  setFormData({...formData, model: ''});
+                }}
+                className={`pb-4 text-2xl md:text-3xl font-druk tracking-wider transition-colors relative ${
+                  inquiryType === 'SALES' ? 'text-white' : 'text-white/40 hover:text-white/80'
+                }`}
+              >
+                SALES
+                {inquiryType === 'SALES' && (
+                  <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#eb0a1e]" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setInquiryType('SERVICE');
+                  setFormData({...formData, model: ''});
+                }}
+                className={`pb-4 text-2xl md:text-3xl font-druk tracking-wider transition-colors relative ${
+                  inquiryType === 'SERVICE' ? 'text-white' : 'text-white/40 hover:text-white/80'
+                }`}
+              >
+                SERVICE
+                {inquiryType === 'SERVICE' && (
+                  <motion.div layoutId="underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#eb0a1e]" />
+                )}
+              </button>
+            </div>
             
             {/* Name Input */}
             <div className="relative mt-4">
@@ -114,20 +164,29 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full bg-transparent border-b border-white/20 px-0 py-6 text-white text-2xl md:text-3xl font-display font-light uppercase tracking-widest placeholder-zinc-700 outline-none focus:border-[#eb0a1e] transition-colors caret-white"
-                placeholder="ENTER YOUR NAME"
+                className="w-full bg-transparent border-b border-white/20 px-0 py-4 text-white text-2xl md:text-3xl font-druk uppercase tracking-wider placeholder-white/60 outline-none focus:border-[#eb0a1e] transition-colors caret-white"
+                placeholder="NAME"
               />
             </div>
 
             {/* Phone Input */}
-            <div className="relative">
+            <div className="relative flex items-center border-b border-white/20 focus-within:border-[#eb0a1e] transition-colors">
+              <span className="text-white/70 text-2xl md:text-3xl font-druk tracking-wider mr-4 py-4 select-none">+91</span>
               <input 
                 type="tel" 
                 required
+                maxLength={10}
+                pattern="[0-9]{10}"
+                title="Please enter a valid 10-digit phone number"
                 value={formData.phone}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full bg-transparent border-b border-white/20 px-0 py-6 text-white text-2xl md:text-3xl font-display font-light uppercase tracking-widest placeholder-zinc-700 outline-none focus:border-[#eb0a1e] transition-colors caret-white"
-                placeholder="ENTER YOUR NUMBER"
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, '');
+                  if (val.length <= 10) {
+                    setFormData({...formData, phone: val});
+                  }
+                }}
+                className="w-full bg-transparent px-0 py-4 text-white text-2xl md:text-3xl font-druk uppercase tracking-wider placeholder-white/60 outline-none caret-white"
+                placeholder="PHONE"
               />
             </div>
 
@@ -135,17 +194,17 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
             <div className="relative">
               <div 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`w-full bg-transparent border-b px-0 py-6 flex justify-between items-center cursor-pointer transition-colors ${
+                className={`w-full bg-transparent border-b px-0 py-4 flex justify-between items-center cursor-pointer transition-colors ${
                   isDropdownOpen ? 'border-[#eb0a1e]' : 'border-white/20 hover:border-white/50'
                 }`}
               >
-                <span className={`text-2xl md:text-3xl font-display font-light uppercase tracking-widest ${formData.model ? 'text-white' : 'text-zinc-700'}`}>
-                  {formData.model || "SELECT A MODEL"}
+                <span className={`text-2xl md:text-3xl font-druk uppercase tracking-wider ${formData.model ? 'text-white' : 'text-white/60'}`}>
+                  {formData.model || (inquiryType === 'SALES' ? "MODEL" : "SERVICE TYPE")}
                 </span>
                 <motion.div 
                   animate={{ rotate: isDropdownOpen ? 180 : 0 }} 
                   transition={{ duration: 0.3 }}
-                  className="text-zinc-500 text-xs"
+                  className="text-white/60 text-xs"
                 >
                   ▼
                 </motion.div>
@@ -160,18 +219,18 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                     transition={{ duration: 0.2 }}
                     className="absolute left-0 right-0 top-[100%] mt-2 bg-[#111] border border-white/10 rounded-sm shadow-2xl z-50 overflow-hidden"
                   >
-                    <div className="max-h-[240px] overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-track]:bg-transparent">
-                      {TOYOTA_MODELS.map(model => (
+                    <div className="max-h-[400px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
+                      {(inquiryType === 'SALES' ? TOYOTA_MODELS : SERVICE_OPTIONS).map(model => (
                         <div
                           key={model}
                           onClick={() => {
                             setFormData({...formData, model});
                             setIsDropdownOpen(false);
                           }}
-                          className={`px-6 py-4 text-sm md:text-base font-display font-light uppercase tracking-widest cursor-pointer transition-colors flex items-center justify-between ${
+                          className={`px-6 py-4 text-lg md:text-xl font-druk uppercase tracking-wider cursor-pointer transition-colors flex items-center justify-between ${
                             formData.model === model 
                               ? 'bg-[#eb0a1e] text-white' 
-                              : 'text-zinc-400 hover:bg-white/5 hover:text-white'
+                              : 'text-white/60 hover:bg-white/10 hover:text-white'
                           }`}
                         >
                           <span>{model}</span>
@@ -194,7 +253,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                 className="w-full bg-white hover:bg-[#eb0a1e] text-black hover:text-white transition-colors duration-500 py-4 flex items-center justify-center space-x-3 group disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === 'submitting' ? (
-                  <Loader2 size={18} className="animate-spin text-zinc-500" />
+                  <Loader2 size={18} className="animate-spin text-white/60" />
                 ) : (
                   <>
                     <span className="text-[11px] font-bold tracking-[0.3em] uppercase">Request Callback</span>

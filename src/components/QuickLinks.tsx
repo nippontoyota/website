@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { PhoneCall, Car, Tag, Smartphone, BookOpen, Repeat, ArrowUpRight } from 'lucide-react';
+import { Car, Tag, BookOpen, Repeat, ArrowUpRight } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
 import Link from 'next/link';
 
@@ -11,16 +11,14 @@ export default function QuickLinks() {
   const links = [
     { label: 'TEST DRIVE', sub: 'Experience Toyota', Icon: Car, highlight: true, isModal: true },
     { label: 'EXCHANGE CAR', sub: 'Value Your Vehicle', Icon: Repeat, highlight: true, isModal: true },
-    { label: 'CONTACT US', sub: 'Get in Touch', Icon: PhoneCall, highlight: false, href: '/contact' },
     { label: 'PRICE LIST', sub: 'Latest Offers', Icon: Tag, highlight: false, isModal: true },
-    { label: 'EBOOK', sub: 'Digital Guide', Icon: Smartphone, highlight: false, isModal: true },
     { label: 'BROCHURE', sub: 'Model Details', Icon: BookOpen, highlight: false, isModal: true },
   ];
 
   return (
     <div className="w-full bg-[#f8f8f8] py-32 md:py-40 border-y border-gray-200">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {links.map((link, index) => (
             <motion.a
               key={index}

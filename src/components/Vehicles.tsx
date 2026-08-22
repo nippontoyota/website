@@ -40,7 +40,7 @@ const cars = [
       { label: "Drivetrain", value: "AWD / Hybrid" },
       { label: "Power", value: "85 kW" }
     ],
-    image: "" 
+    image: "/hyryder.avif" 
   },
   {
     id: "ebella",
@@ -52,7 +52,7 @@ const cars = [
       { label: "Drivetrain", value: "AWD EV" },
       { label: "Charging", value: "Fast Charge" }
     ],
-    image: "" 
+    image: "/ebella.avif" 
   },
   {
     id: "hilux",
@@ -64,7 +64,7 @@ const cars = [
       { label: "Drivetrain", value: "4x4 AT/MT" },
       { label: "Torque", value: "500 Nm" }
     ],
-    image: "" 
+    image: "/hilux.jpeg" 
   },
   {
     id: "fortuner",
@@ -89,6 +89,18 @@ const cars = [
       { label: "Torque", value: "500 Nm" }
     ],
     image: "" 
+  },
+  {
+    id: "vellfire",
+    name: "VELLFIRE",
+    tagline: "Masterpiece of Luxury",
+    price: "₹1.20 Cr*",
+    stats: [
+      { label: "Engine", value: "2.5L Hybrid" },
+      { label: "Drivetrain", value: "E-Four AWD" },
+      { label: "Seating", value: "Executive Lounge" }
+    ],
+    image: "/vellfire.png" 
   },
   {
     id: "camry",
@@ -170,7 +182,7 @@ export default function Vehicles() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 0.04, scale: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] text-center pointer-events-none whitespace-nowrap overflow-hidden z-0"
         >
           <h1 className="text-[18vw] font-druk text-white leading-none tracking-tighter mix-blend-overlay">
@@ -231,7 +243,7 @@ export default function Vehicles() {
                 initial={{ opacity: 0, x: -80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
                 animate={{ opacity: 1, x: 0, scale: 1, filter: "brightness(1) blur(0px)" }}
                 exit={{ opacity: 0, x: 80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
-                transition={{ duration: 2.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className="w-full h-full relative z-20 scale-110 lg:scale-[1.25] origin-bottom"
               >
                 {activeCar.image ? (
@@ -268,7 +280,7 @@ export default function Vehicles() {
                 initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, x: -30, filter: "blur(10px)" }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
                 className="flex flex-col space-y-10 relative"
               >
                 {/* Header & Tagline */}

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat, Caveat, Bebas_Neue } from "next/font/google";
+import { Outfit, Montserrat, Caveat, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -66,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased`}
+      className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans text-gray-800 bg-gray-50">{children}</body>
     </html>

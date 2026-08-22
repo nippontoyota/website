@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-outfit);
   --font-display: var(--font-montserrat);
   --font-signature: var(--font-caveat);
   --font-druk: var(--font-bebas), sans-serif;

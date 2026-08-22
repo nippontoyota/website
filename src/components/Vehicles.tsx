@@ -28,7 +28,7 @@ const cars = [
       { label: "Engine", value: "1.2L K-Series" },
       { label: "Power", value: "66 kW" }
     ],
-    image: "" 
+    image: "/glanza.webp" 
   },
   {
     id: "hyryder",
@@ -64,7 +64,7 @@ const cars = [
       { label: "Drivetrain", value: "4x4 AT/MT" },
       { label: "Torque", value: "500 Nm" }
     ],
-    image: "/hilux.jpeg" 
+    image: "/hilux.png" 
   },
   {
     id: "fortuner",
@@ -76,7 +76,7 @@ const cars = [
       { label: "Drivetrain", value: "4x4 / 4x2" },
       { label: "Power", value: "150 kW" }
     ],
-    image: "" 
+    image: "/fortuner.avif" 
   },
   {
     id: "legender",
@@ -88,7 +88,7 @@ const cars = [
       { label: "Drivetrain", value: "4x4 AT" },
       { label: "Torque", value: "500 Nm" }
     ],
-    image: "" 
+    image: "/legender.avif" 
   },
   {
     id: "vellfire",
@@ -124,7 +124,7 @@ const cars = [
       { label: "Drivetrain", value: "AWD Multi-Terrain" },
       { label: "Power", value: "227 kW" }
     ],
-    image: "" 
+    image: "/land-cruiser.png" 
   }
 ];
 
@@ -156,6 +156,18 @@ export default function Vehicles() {
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
+  };
+
+
+  const handleDragEnd = (e: any, { offset, velocity }: any) => {
+    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+    if (offset.x < -50 || velocity.x < -500) {
+      // Swiped left (next car)
+      if (currentIndex < cars.length - 1) setActiveCar(cars[currentIndex + 1]);
+    } else if (offset.x > 50 || velocity.x > 500) {
+      // Swiped right (prev car)
+      if (currentIndex > 0) setActiveCar(cars[currentIndex - 1]);
+    }
   };
 
   return (
@@ -235,7 +247,7 @@ export default function Vehicles() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
           {/* Center Column: The Hero Car with Reflections and Parallax */}
-          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[450px] xl:h-[600px] lg:h-[500px] flex flex-col items-center justify-center pointer-events-none">
+          <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[500px] xl:h-[600px] flex flex-col items-center justify-center">
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -244,7 +256,11 @@ export default function Vehicles() {
                 animate={{ opacity: 1, x: 0, scale: 1, filter: "brightness(1) blur(0px)" }}
                 exit={{ opacity: 0, x: 80, scale: 0.98, filter: "brightness(0.5) blur(10px)" }}
                 transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-                className="w-full h-full relative z-20 scale-110 lg:scale-[1.25] origin-bottom"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                className="w-full h-full relative z-20 scale-110 lg:scale-[1.25] origin-bottom cursor-grab active:cursor-grabbing"
               >
                 {activeCar.image ? (
                   <>

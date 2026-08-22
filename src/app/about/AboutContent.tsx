@@ -5,9 +5,8 @@ import { Calendar, CreditCard, Shield, Gift, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 
 const principals = [
-  { name: 'MR. M. A. M. BABU MOOPAN', role: 'DEALER PRINCIPAL', image: '/placeholder-headshot.jpg' },
-  { name: 'MR. ATHIF MOOPAN', role: 'DIRECTOR', image: '/placeholder-headshot.jpg' },
-  { name: 'MR. NAEEM SHAHUL', role: 'DIRECTOR', image: '/placeholder-headshot.jpg' },
+  { name: 'MR. M. A. M. BABU MOOPAN', role: 'DEALER PRINCIPAL', image: '/babu-moopan.jpeg' },
+  { name: 'MR. NAEEM SHAHUL', role: 'DIRECTOR', image: '/naeem-shahul.jpg' },
 ];
 
 const moreItems = [
@@ -103,11 +102,11 @@ export default function AboutContent() {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+        <div className="flex flex-wrap justify-center gap-10 md:gap-16">
           {principals.map((person, index) => (
             <motion.div 
               key={index} 
-              className="group cursor-default"
+              className="group cursor-default w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-2rem)] max-w-sm"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -115,12 +114,14 @@ export default function AboutContent() {
             >
               {/* Minimal Image Container */}
               <div className="relative w-full aspect-[4/5] bg-zinc-100 overflow-hidden mb-6">
-                <div className="absolute inset-0 bg-zinc-200 flex items-center justify-center">
-                   {/* In a real scenario, an <Image /> goes here. We use a sleek placeholder */}
-                   <span className="text-zinc-400 font-display text-sm tracking-widest uppercase">Photo</span>
-                </div>
+                <Image 
+                  src={person.image} 
+                  alt={person.name}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
                 {/* Subtle hover reveal */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
               </div>
               
               <div>

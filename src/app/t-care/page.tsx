@@ -175,22 +175,22 @@ export default function TCarePage() {
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-12">
               {tPrograms.map((prog, idx) => (
-                <div key={idx} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
+                <div key={idx} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-50 p-6 rounded-xl transition-all duration-700 ease-out">
                   
                   {/* Logo / Brand Name */}
-                  <div className="text-3xl font-display font-black tracking-tighter transition-colors duration-300 text-[#111] group-hover:text-[#eb0a1e]">
-                     <span className="text-[#eb0a1e] group-hover:text-[#111] transition-colors duration-300">{prog.prefix}</span>{prog.name}
+                  <div className="text-3xl font-display font-black tracking-tighter transition-colors duration-700 ease-out text-[#111] group-hover:text-[#eb0a1e]">
+                     <span className="text-[#eb0a1e]">{prog.prefix}</span>{prog.name}
                   </div>
                   
                   {/* Description */}
-                  <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 mb-6">
+                  <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 mb-6 transition-colors duration-700 ease-out group-hover:text-gray-900">
                     {prog.sub}
                   </h3>
                   
                   {/* Read More Link */}
-                  <div className="mt-auto flex items-center justify-center text-[10px] font-bold text-[#111] uppercase tracking-widest group-hover:text-[#eb0a1e] transition-colors duration-300">
+                  <div className="mt-auto flex items-center justify-center text-[10px] font-bold text-[#111] uppercase tracking-widest group-hover:text-[#eb0a1e] transition-colors duration-700 ease-out">
                     READ MORE
-                    <svg className="w-3 h-3 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-3 h-3 ml-1.5 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-700 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </div>

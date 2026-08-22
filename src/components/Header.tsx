@@ -72,16 +72,16 @@ export default function Header() {
             </Link>
             
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover/service:opacity-100 group-hover/service:pointer-events-auto transition-all duration-300 z-50 transform translate-y-2 group-hover/service:translate-y-0">
-              <div className="bg-white shadow-xl py-2 w-[240px] rounded-b-md border-t-[3px] border-[var(--toyota-red)] flex flex-col items-start font-sans normal-case tracking-normal">
+              <div className="bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 w-[240px] rounded-2xl border border-gray-100 flex flex-col font-sans normal-case tracking-normal">
                 <Link 
                   href="/service" 
-                  className="w-full px-6 py-2.5 text-[15px] font-medium text-gray-800 hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors flex justify-between items-center"
+                  className="w-full px-4 py-3 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center"
                 >
                   Service Corner
                 </Link>
                 <Link 
                   href="/i-connect" 
-                  className="w-full px-6 py-2.5 text-[15px] font-medium text-gray-800 hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors flex justify-between items-center"
+                  className="w-full px-4 py-3 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center"
                 >
                   Toyota i-Connect
                 </Link>
@@ -108,15 +108,15 @@ export default function Header() {
             </div>
             
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover/more:opacity-100 group-hover/more:pointer-events-auto transition-all duration-300 z-50 transform translate-y-2 group-hover/more:translate-y-0">
-              <div className="bg-white shadow-xl py-2 w-[240px] rounded-b-md border-t-[3px] border-[var(--toyota-red)] flex flex-col items-start font-sans normal-case tracking-normal">
+              <div className="bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 w-[240px] rounded-2xl border border-gray-100 flex flex-col font-sans normal-case tracking-normal">
                 {moreDropdownItems.map((item, idx) => (
                   <Link 
                     key={idx} 
                     href={item.href} 
-                    className="w-full px-6 py-2.5 text-[15px] font-medium text-gray-800 hover:text-[var(--toyota-red)] hover:bg-gray-50 transition-colors flex justify-between items-center"
+                    className="w-full px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center group/item"
                   >
                     {item.label}
-                    {item.hasSub && <ChevronRight size={14} className="text-gray-400" />}
+                    {item.hasSub && <ChevronRight size={14} className="text-gray-400 group-hover/item:text-black transition-colors" />}
                   </Link>
                 ))}
               </div>

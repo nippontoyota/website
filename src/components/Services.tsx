@@ -67,7 +67,7 @@ export default function Services() {
             transition={{ delay: 0.2 }}
             className="text-zinc-500 font-display font-light text-base md:text-lg max-w-xl leading-relaxed"
           >
-            Experience the pinnacle of automotive care and connectivity, engineered to Toyota's exacting global standards.
+            Experience the pinnacle of automotive care and connectivity, engineered to Toyota&apos;s exacting global standards.
           </motion.p>
         </div>
         

@@ -26,7 +26,7 @@ export default function LeadForm() {
               Start Your Journey
             </h2>
             <p className="text-zinc-400 font-display font-light text-lg max-w-md leading-relaxed">
-              Connect with our Toyota specialists today. Whether you're looking for a test drive, pricing details, or just expert advice, we're here.
+              Connect with our Toyota specialists today. Whether you&apos;re looking for a test drive, pricing details, or just expert advice, we&apos;re here.
             </p>
           </motion.div>
         </div>

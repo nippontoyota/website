@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyWidgets from '@/components/StickyWidgets';
-import Image from 'next/image';
 
 const tPrograms = [
   { prefix: "T", name: "ASSIST", sub: "ROADSIDE ASSISTANCE" },
@@ -84,9 +84,9 @@ export default function TCarePage() {
               transition={{ delay: 0.2, duration: 1.2, ease: "easeOut" }}
               className="relative w-full"
             >
-              <img 
+              <Image 
                 src="/hyryder.webp" 
-                alt="Toyota Hyryder" 
+                alt="Toyota Hyryder" width={1200} height={800} 
                 className="w-full h-auto drop-shadow-2xl object-contain scale-110 md:scale-125"
               />
             </motion.div>
@@ -100,9 +100,9 @@ export default function TCarePage() {
       content: (
         <div className="flex flex-col md:flex-row h-full w-full max-w-[1400px] mx-auto">
           <div className="w-full h-1/2 md:h-full md:w-1/2 flex justify-center items-center bg-white p-4 md:p-12 relative">
-            <img 
+            <Image 
               src="/hilux.jpeg" 
-              alt="Toyota Hilux" 
+              alt="Toyota Hilux" width={1200} height={800} 
               className="w-full h-full object-contain drop-shadow-xl"
             />
           </div>

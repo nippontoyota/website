@@ -159,7 +159,7 @@ export default function Vehicles() {
   };
 
 
-  const handleDragEnd = (e: any, { offset, velocity }: any) => {
+  const handleDragEnd = (e: unknown, { offset, velocity }: { offset: { x: number; y: number }, velocity: { x: number; y: number } }) => {
     const currentIndex = cars.findIndex(c => c.id === activeCar.id);
     if (offset.x < -30 || velocity.x < -300) {
       // Swiped left (next car)

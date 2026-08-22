@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       throw new Error(data.message || 'Error from Google Script');
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Lead submission error:', error);
     return NextResponse.json(
       { error: 'Failed to submit lead. Please try again later.' },

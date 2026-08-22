@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
@@ -41,12 +41,6 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    if (prefilledModel) {
-      setFormData(prev => ({ ...prev, model: prefilledModel }));
-    }
-  }, [prefilledModel]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
@@ -76,7 +70,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
           setStatus('idle');
         }, 3000);
       }
-    } catch (error) {
+    } catch (e) {
       setStatus('error');
     }
   };

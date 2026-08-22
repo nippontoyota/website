@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { Car, Tag, BookOpen, Repeat, ArrowUpRight } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
-import Link from 'next/link';
 
 export default function QuickLinks() {
   const { openModal } = useLeadStore();

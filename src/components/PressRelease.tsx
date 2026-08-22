@@ -1,99 +1,184 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
+};
 
 export default function PressRelease() {
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-[1200px] mx-auto px-4 relative">
+    <section className="py-24 md:py-32 bg-[#f8f8f8] border-t border-gray-200">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         
         {/* Press Release Header */}
-        <div className="mb-6">
-          <h2 className="font-display text-3xl font-extrabold text-[#111] mb-1 tracking-tight">Press Release</h2>
-          <p className="text-sm text-gray-500 font-medium">Check out latest news</p>
-        </div>
+        <motion.div 
+          className="mb-12 md:mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+        >
+          <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900 mb-4">
+            Press Release
+          </h2>
+          <p className="text-lg text-gray-500 font-display font-medium">
+            Stay updated with our latest announcements and initiatives
+          </p>
+        </motion.div>
 
         {/* Press Release Cards */}
-        <div className="flex flex-col md:flex-row gap-4 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
           {/* Card 1 */}
-          <div className="w-full md:w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
-            <div className="text-center min-w-[70px] pt-1">
-              <div className="text-5xl font-bold text-[#94a3b8] group-hover:text-[var(--toyota-red)] transition-colors leading-none tracking-tighter">14</div>
-              <div className="text-xs font-bold text-[#94a3b8] group-hover:text-gray-500 transition-colors mt-2 uppercase tracking-wide">Aug<br/>2026</div>
+          <motion.a 
+            href="https://www.toyotabharat.com/news/2026/tkm-concludes-environment-month-2026-delivering-measurable-environmental.html"
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 relative overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
+            <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+              <div className="text-left md:text-center min-w-[80px]">
+                <div className="text-5xl md:text-6xl font-bold text-[#eb0a1e] tracking-tighter">18</div>
+                <div className="text-[11px] font-bold text-zinc-500 mt-2 uppercase tracking-[0.2em]">Aug<br/>2026</div>
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
+                  Toyota Kirloskar Motor Concludes Environment Month 2026, Delivering Measurable Environmental Impact
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
+                  Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot;
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-[#111] text-[17px] leading-snug mb-3 group-hover:text-[var(--toyota-red)] transition-colors">Six-Time World Champion M. C. Mary Kom Drives Home the All-New 9th Generation Toyota Hilux in India</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">New Delhi, August 14th, 2026: Six-time World Champion and Olympic medallist Ms. M. C. Mary Kom recently took delivery of the All-New Hilux, marking a special association between the two icons who define strength, resilience and an unwavering spirit t...</p>
+            {/* Subtle Hover Arrow */}
+            <div className="absolute top-8 right-8 opacity-100 translate-y-0 translate-x-0 transition-all duration-500 text-[#eb0a1e]">
+              <ArrowUpRight size={24} strokeWidth={1.5} />
             </div>
-          </div>
+          </motion.a>
 
           {/* Card 2 */}
-          <div className="w-full md:w-1/2 border border-gray-200 bg-white rounded-sm p-6 flex items-start gap-6 hover:border-gray-300 transition-colors cursor-pointer group">
-            <div className="text-center min-w-[70px] pt-1">
-              <div className="text-5xl font-bold text-[#94a3b8] group-hover:text-[var(--toyota-red)] transition-colors leading-none tracking-tighter">18</div>
-              <div className="text-xs font-bold text-[#94a3b8] group-hover:text-gray-500 transition-colors mt-2 uppercase tracking-wide">Aug<br/>2026</div>
-            </div>
-            <div>
-              <h3 className="font-bold text-[#111] text-[17px] leading-snug mb-3 group-hover:text-[var(--toyota-red)] transition-colors">Toyota Kirloskar Motor Concludes Environment Month 2026, Delivering Measurable Environmental Impact Through...</h3>
-              <p className="text-xs text-gray-500 leading-relaxed">Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot; The month-long...</p>
-            </div>
-          </div>
-
-          {/* Arrows */}
-          <motion.div 
-            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
-            whileTap={{ scale: 0.95 }}
+          <motion.a 
+            href="https://www.toyotabharat.com/news/2026/tkm-conducts-groundbreaking-ceremony-for-educational-infrastructure-project.html"
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 relative overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
           >
-            <ChevronLeft size={20} strokeWidth={1.5} />
-          </motion.div>
-          <motion.div 
-            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
-            whileTap={{ scale: 0.95 }}
-          >
-            <ChevronRight size={20} strokeWidth={1.5} />
-          </motion.div>
-        </div>
-
-        <div className="text-right mt-6 mb-20">
-          <span className="text-[13px] font-bold text-[#111] cursor-pointer hover:text-[var(--toyota-red)] transition-colors">View All &gt;</span>
+            <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+              <div className="text-left md:text-center min-w-[80px]">
+                <div className="text-5xl md:text-6xl font-bold text-[#eb0a1e] tracking-tighter">17</div>
+                <div className="text-[11px] font-bold text-zinc-500 mt-2 uppercase tracking-[0.2em]">Aug<br/>2026</div>
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
+                  Toyota Kirloskar Motor Conducts Groundbreaking Ceremony for Educational Infrastructure Project
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
+                  Bengaluru, 17th August 2026: Toyota Kirloskar Motor (TKM) today concluded the groundbreaking ceremony for an educational infrastructure development project at Karnataka Public School, Magadi.
+                </p>
+              </div>
+            </div>
+            {/* Subtle Hover Arrow */}
+            <div className="absolute top-8 right-8 opacity-100 translate-y-0 translate-x-0 transition-all duration-500 text-[#eb0a1e]">
+              <ArrowUpRight size={24} strokeWidth={1.5} />
+            </div>
+          </motion.a>
         </div>
 
         {/* More from Toyota */}
-        <h2 className="font-display text-3xl font-extrabold text-center mb-10 text-[#111] tracking-tight">More from Toyota</h2>
+        <motion.div 
+          className="mb-12 md:mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+        >
+          <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900">
+            More from Toyota
+          </h2>
+        </motion.div>
         
-        <div className="flex flex-col md:flex-row gap-4 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* TOYOTA TRUST */}
-          <div className="w-full md:w-1/3 h-[220px] bg-[#f4f4f4] border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors">
-            <span className="font-bold text-[#9ca3af] tracking-widest text-sm uppercase">TOYOTA TRUST</span>
-          </div>
+          <motion.a 
+            href="#"
+            className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
+            <Image 
+              src="/u-trust-more.jpg" 
+              alt="Toyota Trust" 
+              fill 
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+            />
+          </motion.a>
 
           {/* WHAT'S NEW */}
-          <div className="w-full md:w-1/3 h-[220px] bg-[var(--toyota-red)] flex items-center justify-center cursor-pointer hover:bg-[#d60000] transition-colors">
-            <span className="font-display font-bold text-white text-3xl tracking-wide">WHAT&apos;S NEW?</span>
-          </div>
+          <motion.a 
+            href="#"
+            className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ delay: 0.1 }}
+          >
+            <Image 
+              src="/whats-new-more.jpg" 
+              alt="What's New" 
+              fill 
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+            />
+          </motion.a>
 
-          {/* Toyota Financial Services */}
-          <div className="w-full md:w-1/3 h-[220px] bg-white border border-gray-200 flex flex-col justify-end cursor-pointer hover:border-gray-300 transition-colors">
-            <div className="h-[70px] bg-[var(--toyota-red)] flex flex-col items-center justify-center text-white text-center w-full">
-              <span className="font-bold text-[15px] leading-tight">Toyota Financial Services</span>
-              <span className="font-bold text-[15px] leading-tight">Makes You Happier</span>
-            </div>
-          </div>
-          
-          {/* Arrows */}
-          <motion.div 
-            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -left-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
-            whileTap={{ scale: 0.95 }}
+          {/* FINANCIAL SERVICES */}
+          <motion.a 
+            href="#"
+            className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ delay: 0.2 }}
           >
-            <ChevronLeft size={20} strokeWidth={1.5} />
-          </motion.div>
-          <motion.div 
-            className="hidden md:flex absolute top-1/2 -translate-y-1/2 -right-6 w-9 h-9 border border-gray-200 rounded-full items-center justify-center text-gray-400 bg-white cursor-pointer hover:border-gray-300 hover:text-gray-600 shadow-sm"
-            whileTap={{ scale: 0.95 }}
+            <Image 
+              src="/financial-services-more.jpg" 
+              alt="Toyota Financial Services" 
+              fill 
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+            />
+          </motion.a>
+
+          {/* EVENTS */}
+          <motion.a 
+            href="#"
+            className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ delay: 0.3 }}
           >
-            <ChevronRight size={20} strokeWidth={1.5} />
-          </motion.div>
+            <Image 
+              src="/events-more.jpg" 
+              alt="Events" 
+              fill 
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+            />
+          </motion.a>
         </div>
 
       </div>

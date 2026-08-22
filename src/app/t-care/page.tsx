@@ -39,7 +39,7 @@ export default function TCarePage() {
   };
 
   useEffect(() => {
-    const timer = setInterval(handleNext, 5000);
+    const timer = setInterval(handleNext, 8000);
     return () => clearInterval(timer);
   }, [currentIndex]);
 
@@ -99,13 +99,11 @@ export default function TCarePage() {
       bg: "#ffffff",
       content: (
         <div className="flex flex-col md:flex-row h-full w-full max-w-[1400px] mx-auto">
-          <div className="w-full h-1/2 md:h-full md:w-1/2 relative overflow-hidden">
-            <motion.div 
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 6, ease: "easeOut" }}
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1200")' }}
+          <div className="w-full h-1/2 md:h-full md:w-1/2 flex justify-center items-center bg-white p-4 md:p-12 relative">
+            <img 
+              src="/hilux.jpeg" 
+              alt="Toyota Hilux" 
+              className="w-full h-full object-contain drop-shadow-xl"
             />
           </div>
           <div className="w-full h-1/2 md:h-full md:w-1/2 flex flex-col justify-center px-6 md:px-16 bg-white relative z-10">
@@ -115,7 +113,7 @@ export default function TCarePage() {
                transition={{ duration: 0.8 }}
                className="py-10 md:py-0"
             >
-              <h2 className="text-2xl md:text-5xl font-display font-extrabold text-[#111] leading-tight tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-display font-extrabold text-[#111] leading-tight tracking-tight">
                 Consumers are Free to Avail <br/>
                 <span className="text-[var(--toyota-red)]">INSURANCE SERVICES</span><br/>
                 from Any Insurance Service Provider
@@ -137,7 +135,7 @@ export default function TCarePage() {
       
       <main className="flex-grow flex flex-col">
         {/* Hero Slider Area */}
-        <section className="w-full relative h-[60vh] md:h-[80vh] overflow-hidden bg-gray-50">
+        <section className="w-full relative h-[60vh] md:h-[80vh] overflow-hidden bg-white">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
@@ -173,32 +171,30 @@ export default function TCarePage() {
         </section>
 
         {/* Modern Clean Grid Section */}
-        <section className="w-full bg-[#f3f4f6] py-20 lg:py-28">
+        <section className="w-full bg-white py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
               {tPrograms.map((prog, idx) => (
-                <div key={idx} className="flex flex-col group cursor-pointer">
-                  {/* Top Line */}
-                  <div className="w-full h-[1px] bg-gray-300 group-hover:bg-[var(--toyota-red)] transition-colors duration-500 mb-6"></div>
+                <div key={idx} className="flex flex-col group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
                   
                   {/* Logo / Brand Name */}
-                  <div className="mb-4">
-                     <div className="text-2xl lg:text-3xl font-display font-bold tracking-tighter text-gray-400 group-hover:text-[#111] transition-colors duration-500">
-                        <span className="text-[#111] group-hover:text-[var(--toyota-red)] transition-colors duration-500">{prog.prefix}</span>{prog.name}
-                     </div>
+                  <div className="text-3xl font-display font-black tracking-tighter text-[#111]">
+                     <span className="text-[var(--toyota-red)]">{prog.prefix}</span>{prog.name}
                   </div>
                   
                   {/* Description */}
-                  <h3 className="text-[15px] font-medium text-[#333] mb-6 leading-snug">
+                  <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 mb-6">
                     {prog.sub}
                   </h3>
                   
                   {/* Read More Link */}
-                  <div className="mt-auto pt-2">
-                    <span className="text-xs font-semibold text-gray-500 group-hover:text-[var(--toyota-red)] transition-colors duration-500 uppercase tracking-widest">
-                      Read More
-                    </span>
+                  <div className="mt-auto flex items-center text-[10px] font-bold text-[#111] uppercase tracking-widest group-hover:text-[var(--toyota-red)] transition-colors duration-300">
+                    READ MORE
+                    <svg className="w-3 h-3 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                   </div>
+
                 </div>
               ))}
             </div>

@@ -1,65 +1,68 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { PhoneCall, Car, Tag, Smartphone, BookOpen, Repeat } from 'lucide-react';
+import { PhoneCall, Car, Tag, Smartphone, BookOpen, Repeat, ArrowUpRight } from 'lucide-react';
 
 export default function QuickLinks() {
   const links = [
-    { label: 'CONTACT US', Icon: PhoneCall },
-    { label: 'TEST DRIVE', Icon: Car },
-    { label: 'PRICE LIST', Icon: Tag },
-    { label: 'EBOOK', Icon: Smartphone },
-    { label: 'BROCHURE', Icon: BookOpen },
-    { label: 'EXCHANGE CAR', Icon: Repeat }
+    { label: 'TEST DRIVE', sub: 'Experience Toyota', Icon: Car, highlight: true },
+    { label: 'EXCHANGE CAR', sub: 'Value Your Vehicle', Icon: Repeat, highlight: true },
+    { label: 'CONTACT US', sub: 'Get in Touch', Icon: PhoneCall, highlight: false },
+    { label: 'PRICE LIST', sub: 'Latest Offers', Icon: Tag, highlight: false },
+    { label: 'EBOOK', sub: 'Digital Guide', Icon: Smartphone, highlight: false },
+    { label: 'BROCHURE', sub: 'Model Details', Icon: BookOpen, highlight: false },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } }
-  };
-
   return (
-    <div className="w-full bg-white relative z-10 py-6">
-      <div className="max-w-[1200px] mx-auto px-4">
-        <motion.div 
-          className="flex flex-wrap justify-center gap-3 md:gap-4"
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-        >
+    <div className="w-full bg-[#f8f8f8] py-32 md:py-40 border-y border-gray-200">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
           {links.map((link, index) => (
-            <motion.div 
-              key={index} 
-              variants={itemVariants}
-              className="flex-1 min-w-[140px] max-w-[180px]"
+            <motion.a
+              key={index}
+              href="#"
+              className="group relative flex flex-col justify-between aspect-square p-6 md:p-8 bg-white border border-gray-100 hover:border-transparent shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 cursor-pointer overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.div 
-                className="w-full h-28 flex flex-col items-center justify-center cursor-pointer group"
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <div className="mb-3 text-[var(--toyota-red)] transition-all duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-1">
-                    <link.Icon size={28} strokeWidth={1.5} />
-                  </div>
-                  <span className="font-display text-[10px] font-bold tracking-widest text-gray-400 text-center uppercase transition-colors duration-300 group-hover:text-[#111]">
-                    {link.label}
-                  </span>
+              {/* Highlight Background Shift */}
+              <div 
+                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out
+                ${link.highlight ? 'bg-[#eb0a1e]' : 'bg-zinc-900'}`} 
+              />
+
+              <div className="relative z-10 flex justify-between items-start">
+                <div 
+                  className={`transition-colors duration-500 ease-out
+                  ${link.highlight ? 'text-[#eb0a1e] group-hover:text-white' : 'text-zinc-800 group-hover:text-white'}`}
+                >
+                  <link.Icon size={28} strokeWidth={1.5} />
                 </div>
-              </motion.div>
-            </motion.div>
+                <ArrowUpRight 
+                  size={20} 
+                  strokeWidth={2}
+                  className="opacity-0 translate-y-3 -translate-x-3 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 text-white" 
+                />
+              </div>
+
+              <div className="relative z-10 mt-auto">
+                <h3 
+                  className={`font-display text-[11px] md:text-[13px] font-bold tracking-widest uppercase mb-1.5 transition-colors duration-500 ease-out
+                  ${link.highlight ? 'text-zinc-900 group-hover:text-white' : 'text-zinc-900 group-hover:text-white'}`}
+                >
+                  {link.label}
+                </h3>
+                <p 
+                  className="text-[10px] md:text-[11px] font-medium tracking-wide text-gray-500 group-hover:text-white/70 transition-colors duration-500 ease-out"
+                >
+                  {link.sub}
+                </p>
+              </div>
+            </motion.a>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

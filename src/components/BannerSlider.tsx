@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Mouse } from 'lucide-react';
 
 export default function BannerSlider() {
   return (
@@ -89,21 +88,6 @@ export default function BannerSlider() {
         </motion.div>
       </div>
 
-      {/* Scroll Down */}
-      <motion.div 
-        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center text-white text-[10px] tracking-widest opacity-80 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.8 }}
-        transition={{ duration: 1, delay: 1.5 }}
-      >
-        <motion.div 
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Mouse size={32} strokeWidth={1} className="mb-1" />
-        </motion.div>
-        SCROLL DOWN
-      </motion.div>
     </div>
   );
 }

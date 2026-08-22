@@ -4,6 +4,7 @@
   --font-sans: var(--font-inter);
   --font-display: var(--font-montserrat);
   --font-signature: var(--font-caveat);
+  --font-druk: var(--font-bebas), sans-serif;
 }
 
 :root {

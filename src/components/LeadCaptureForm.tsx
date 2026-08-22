@@ -66,7 +66,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
   };
 
   return (
-    <div className="w-full bg-white/5 backdrop-blur-xl p-8 md:p-12 rounded-sm border border-white/10 relative overflow-hidden">
+    <div className="w-full relative">
       
       {!standalone && (
         <button 
@@ -108,51 +108,39 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
             )}
             
             {/* Name Input */}
-            <div className="flex flex-col space-y-3">
-              <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">
-                Full Name
-              </label>
+            <div className="relative mt-4">
               <input 
                 type="text" 
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full bg-transparent border-b border-white/20 px-0 py-2 text-white placeholder-zinc-700 outline-none focus:border-[#eb0a1e] transition-colors"
-                placeholder="Enter your name"
+                className="w-full bg-transparent border-b border-white/20 px-0 py-6 text-white text-2xl md:text-3xl font-display font-light uppercase tracking-widest placeholder-zinc-700 outline-none focus:border-[#eb0a1e] transition-colors caret-white"
+                placeholder="ENTER YOUR NAME"
               />
             </div>
 
             {/* Phone Input */}
-            <div className="flex flex-col space-y-3">
-              <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">
-                Phone Number
-              </label>
-              <div className="flex items-center border-b border-white/20 focus-within:border-[#eb0a1e] transition-colors">
-                <span className="text-zinc-500 mr-3 pb-2 text-sm">+91</span>
-                <input 
-                  type="tel" 
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full bg-transparent px-0 py-2 text-white placeholder-zinc-700 outline-none"
-                  placeholder="Enter your number"
-                />
-              </div>
+            <div className="relative">
+              <input 
+                type="tel" 
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                className="w-full bg-transparent border-b border-white/20 px-0 py-6 text-white text-2xl md:text-3xl font-display font-light uppercase tracking-widest placeholder-zinc-700 outline-none focus:border-[#eb0a1e] transition-colors caret-white"
+                placeholder="ENTER YOUR NUMBER"
+              />
             </div>
 
             {/* Custom Model Dropdown */}
-            <div className="flex flex-col space-y-3 relative">
-              <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">
-                Interested Model
-              </label>
+            <div className="relative">
               <div 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`w-full bg-transparent border-b px-0 py-2 flex justify-between items-center cursor-pointer transition-colors ${
-                  isDropdownOpen ? 'border-[#eb0a1e] text-white' : 'border-white/20 text-white/50 hover:border-white/50 hover:text-white'
+                className={`w-full bg-transparent border-b px-0 py-6 flex justify-between items-center cursor-pointer transition-colors ${
+                  isDropdownOpen ? 'border-[#eb0a1e]' : 'border-white/20 hover:border-white/50'
                 }`}
               >
-                <span className={`text-sm tracking-wide ${formData.model ? 'text-white' : 'text-zinc-600'}`}>
-                  {formData.model || "Select a model"}
+                <span className={`text-2xl md:text-3xl font-display font-light uppercase tracking-widest ${formData.model ? 'text-white' : 'text-zinc-700'}`}>
+                  {formData.model || "SELECT A MODEL"}
                 </span>
                 <motion.div 
                   animate={{ rotate: isDropdownOpen ? 180 : 0 }} 
@@ -180,7 +168,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                             setFormData({...formData, model});
                             setIsDropdownOpen(false);
                           }}
-                          className={`px-4 py-3 text-xs md:text-sm tracking-wide cursor-pointer transition-colors flex items-center justify-between ${
+                          className={`px-6 py-4 text-sm md:text-base font-display font-light uppercase tracking-widest cursor-pointer transition-colors flex items-center justify-between ${
                             formData.model === model 
                               ? 'bg-[#eb0a1e] text-white' 
                               : 'text-zinc-400 hover:bg-white/5 hover:text-white'

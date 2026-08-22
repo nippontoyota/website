@@ -175,11 +175,11 @@ export default function TCarePage() {
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
               {tPrograms.map((prog, idx) => (
-                <div key={idx} className="flex flex-col group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
+                <div key={idx} className="flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
                   
                   {/* Logo / Brand Name */}
-                  <div className="text-3xl font-display font-black tracking-tighter text-[#111]">
-                     <span className="text-[var(--toyota-red)]">{prog.prefix}</span>{prog.name}
+                  <div className="text-3xl font-display font-black tracking-tighter transition-colors duration-300 text-[#111] group-hover:text-[#eb0a1e]">
+                     <span className="text-[#eb0a1e] group-hover:text-[#111] transition-colors duration-300">{prog.prefix}</span>{prog.name}
                   </div>
                   
                   {/* Description */}
@@ -188,7 +188,7 @@ export default function TCarePage() {
                   </h3>
                   
                   {/* Read More Link */}
-                  <div className="mt-auto flex items-center text-[10px] font-bold text-[#111] uppercase tracking-widest group-hover:text-[var(--toyota-red)] transition-colors duration-300">
+                  <div className="mt-auto flex items-center justify-center text-[10px] font-bold text-[#111] uppercase tracking-widest group-hover:text-[#eb0a1e] transition-colors duration-300">
                     READ MORE
                     <svg className="w-3 h-3 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />

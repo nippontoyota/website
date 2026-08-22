@@ -173,9 +173,9 @@ export default function TCarePage() {
         {/* Modern Clean Grid Section */}
         <section className="w-full bg-white py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-12">
               {tPrograms.map((prog, idx) => (
-                <div key={idx} className="flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
+                <div key={idx} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex flex-col items-center text-center group cursor-pointer border border-transparent hover:border-gray-100 p-6 rounded-xl transition-all duration-300">
                   
                   {/* Logo / Brand Name */}
                   <div className="text-3xl font-display font-black tracking-tighter transition-colors duration-300 text-[#111] group-hover:text-[#eb0a1e]">

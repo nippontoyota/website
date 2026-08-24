@@ -50,7 +50,7 @@ export default function PressRelease() {
                   Toyota Kirloskar Motor Concludes Environment Month 2026, Delivering Measurable Environmental Impact
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
-                  Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot;
+                  Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot;</p>
               </div>
             </div>
             {/* Subtle Hover Arrow */}
@@ -80,7 +80,7 @@ export default function PressRelease() {
                   Toyota Kirloskar Motor Conducts Groundbreaking Ceremony for Educational Infrastructure Project
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
-                  Bengaluru, 17th August 2026: Toyota Kirloskar Motor (TKM) today concluded the groundbreaking ceremony for an educational infrastructure development project at Karnataka Public School, Magadi.
+                  Bengaluru, 17th August 2026: Toyota Kirloskar Motor (TKM) today concluded the groundbreaking ceremony for an educational infrastructure development project at Karnataka Public School, Magadi.</p>
               </div>
             </div>
             {/* Subtle Hover Arrow */}

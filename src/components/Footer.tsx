@@ -67,7 +67,7 @@ export default function Footer() {
               <li><button onClick={() => openModal('', 'EXCHANGE')} className="hover:text-[#eb0a1e] transition-colors">EXCHANGE CAR</button></li>
             </ul>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest">
-              <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">PRICE LIST</Link></li>
+              <li><button onClick={() => useLeadStore.getState().openModal('', 'PRICE_LIST')} className="hover:text-[#eb0a1e] transition-colors text-left uppercase">PRICE LIST</button></li>
               <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">EVENTS</Link></li>
               <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">FEEDBACK</Link></li>
             </ul>

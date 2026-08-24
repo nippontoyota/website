@@ -7,6 +7,7 @@ import { useLeadStore } from '@/store/useLeadStore';
 import TestDrivePipeline from './TestDrivePipeline';
 import ExchangePipeline from './ExchangePipeline';
 import BrochurePipeline from './BrochurePipeline';
+import PriceListPipeline from './PriceListPipeline';
 
 import { cars } from './Vehicles';
 const TOYOTA_MODELS = cars.map(c => c.name);
@@ -58,6 +59,14 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
     return (
       <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
         <BrochurePipeline />
+      </div>
+    );
+  }
+
+  if (intent === 'PRICE_LIST' && !standalone) {
+    return (
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+        <PriceListPipeline />
       </div>
     );
   }

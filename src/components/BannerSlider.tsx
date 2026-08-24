@@ -40,7 +40,7 @@ export default function BannerSlider() {
 
       {/* Main Text */}
       <div className="absolute top-20 md:top-24 left-0 right-0 text-center flex flex-col items-center px-4">
-        <motion.h2 
+{/*         <motion.h2 
           className="font-display text-5xl md:text-7xl font-black text-white drop-shadow-2xl tracking-[0.15em] uppercase flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4"
           initial={{ opacity: 0, scale: 0.95, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -55,7 +55,7 @@ export default function BannerSlider() {
           >
             POWER
           </motion.span> 
-        </motion.h2>
+        </motion.h2> */}
         
         
       </div>

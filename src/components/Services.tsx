@@ -10,7 +10,7 @@ const services = [
     title: "Toyota Q Service", 
     subtitle: "Unmatched Quality & Care", 
     desc: "Experience legendary Toyota reliability. Our master technicians use cutting-edge diagnostics and genuine parts to keep your vehicle performing flawlessly.",
-    image: "/q-service.jpg", 
+    image: "/q-service.png", 
     className: "md:col-span-8 md:row-span-2 min-h-[400px] md:min-h-[600px]" 
   },
   { 
@@ -18,7 +18,7 @@ const services = [
     title: "Toyota i-Connect", 
     subtitle: "Stay Connected", 
     desc: "Control your Toyota from your smartwatch or phone. Seamless connectivity, remote immobilization, and instant diagnostics at your fingertips.",
-    image: "/iconnect.jpg", 
+    image: "/i-connect.png", 
     className: "md:col-span-4 md:row-span-1 min-h-[300px]" 
   },
   { 
@@ -96,46 +96,43 @@ export default function Services() {
                 <Image 
                   src={service.image} 
                   alt={service.title}
-                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-[1.5s] ease-[0.25,1,0.5,1] opacity-70 group-hover:opacity-100" 
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority 
+                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" 
                 />
               </div>
               
               {/* Gradient Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
               
               {/* Overlay Content */}
               <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
-                <div className="transform translate-y-6 group-hover:translate-y-0 transition-transform duration-[0.8s] ease-[0.2,0.9,0.4,1]">
+                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out">
                   
-                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#eb0a1e] mb-3 transform origin-left transition-all duration-700">
-                    {service.subtitle}
-                  </p>
-                  
-                  <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none mb-4 drop-shadow-lg">
+                  <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none mb-4">
                     {service.title}
                   </h3>
                   
                   {/* Hover Reveal Description */}
-                  <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-700">
+                  <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <p className="text-white/80 font-sans font-light text-sm md:text-base leading-relaxed mb-6 max-w-lg">
                       {service.desc}
                     </p>
                   </div>
                   
                   {/* Explore Button */}
-                  <div className="flex items-center space-x-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                  <div className="flex items-center space-x-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <span className="text-[10px] font-bold tracking-[0.25em] uppercase border-b border-white/30 pb-1">
                       Explore {service.title}
                     </span>
-                    <ArrowRight size={14} className="transform -translate-x-4 group-hover:translate-x-0 transition-transform duration-700 delay-100 ease-out" />
+                    <ArrowRight size={14} className="transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300 ease-out" />
                   </div>
 
                 </div>
               </div>
 
               {/* Ambient Hover Border/Glow */}
-              <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 transition-colors duration-700 pointer-events-none" />
+              <div className="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-colors duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </div>

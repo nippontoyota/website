@@ -89,48 +89,36 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.25, 1, 0.5, 1] }}
-              className={`group relative overflow-hidden bg-zinc-900 rounded-sm cursor-pointer ${service.className}`}
+              className={`group flex flex-col overflow-hidden bg-zinc-950 border border-white/10 hover:border-white/30 rounded-sm cursor-pointer transition-colors duration-500 ${service.className}`}
             >
-              {/* Image */}
-              <div className="absolute inset-0 w-full h-full">
+              {/* Image Header */}
+              <div className="relative w-full flex-1 min-h-[250px] md:min-h-[350px] overflow-hidden">
                 <Image 
                   src={service.image} 
                   alt={service.title}
                   fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority 
-                  className="object-cover transition-opacity duration-300" 
+                  className="object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-out" 
                 />
               </div>
               
-              {/* Gradient Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/80 backdrop-blur-[0px] group-hover:backdrop-blur-sm transition-all duration-300" />
-              
-              {/* Overlay Content */}
-              <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
-                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                  
-                  
-                  
-                  {/* Hover Reveal Description */}
-                  <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <p className="text-white/80 font-sans font-light text-sm md:text-base leading-relaxed mb-6 max-w-lg">
-                      {service.desc}
-                    </p>
-                  </div>
-                  
-                  {/* Explore Button */}
-                  <div className="flex items-center space-x-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <span className="text-[10px] font-bold tracking-[0.25em] uppercase border-b border-white/30 pb-1">
-                      Explore {service.title}
-                    </span>
-                    <ArrowRight size={14} className="transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-                  </div>
-
+              {/* Text Footer */}
+              <div className="p-6 md:p-8 flex flex-col shrink-0 bg-zinc-950 border-t border-white/10">
+                <h3 className="font-druk text-2xl md:text-3xl text-white uppercase tracking-tighter leading-none mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-zinc-400 font-sans font-light text-sm md:text-base leading-relaxed mb-6">
+                  {service.desc}
+                </p>
+                
+                {/* Explore Button */}
+                <div className="flex items-center space-x-4 text-white">
+                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase border-b border-white/30 group-hover:border-[#eb0a1e] pb-1 transition-colors duration-300">
+                    Explore {service.title}
+                  </span>
+                  <ArrowRight size={14} className="text-zinc-500 group-hover:text-[#eb0a1e] transform group-hover:translate-x-2 transition-all duration-300 ease-out" />
                 </div>
               </div>
-
-              {/* Ambient Hover Border/Glow */}
-              <div className="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-colors duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </div>

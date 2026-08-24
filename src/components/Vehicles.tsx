@@ -9,156 +9,130 @@ export const cars = [
   {
     id: "glanza",
     name: "GLANZA",
-    tagline: "Go Hatchin'",
-    price: "₹6.86 Lakhs*",
+    highlight: "Premium hatchback, 1.2L DualJet petrol/CNG, 360-degree camera, HUD, touchscreen.",
     stats: [
-      { label: "Efficiency", value: "22.9 km/l" },
-      { label: "Engine", value: "1.2L K-Series" },
-      { label: "Power", value: "66 kW" }
+      { label: "Ex-Showroom (Est.)", value: "₹6.73L – ₹9.99L" },
+      { label: "On-Road Kochi (Est.)", value: "₹8.37L – ₹12.20L" }
     ],
     image: "/glanza.png" 
   },
   {
     id: "taisor",
     name: "URBAN CRUISER TAISOR",
-    tagline: "Make Your Way",
-    price: "₹7.73 Lakhs*",
+    highlight: "Sub-4m crossover, 1.2L NA & 1.0L Turbo petrol, aggressive styling, wireless Android Auto/CarPlay.",
     stats: [
-      { label: "Efficiency", value: "22.8 km/l" },
-      { label: "Engine", value: "1.2L Dual Jet" },
-      { label: "Seating", value: "5 Seats" }
+      { label: "Ex-Showroom (Est.)", value: "₹7.74L – ₹13.04L" },
+      { label: "On-Road Kochi (Est.)", value: "₹9.20L – ₹15.80L" }
     ],
     image: "/taisor.png" 
   },
   {
     id: "rumion",
     name: "RUMION",
-    tagline: "Space for Everyone",
-    price: "₹10.44 Lakhs*",
+    highlight: "7-seater MPV, 1.5L K-Series engine with CNG option, high fuel efficiency, comfortable 3-row seating.",
     stats: [
-      { label: "Engine", value: "1.5L Petrol" },
-      { label: "Power", value: "75 kW" },
-      { label: "Torque", value: "136 Nm" }
+      { label: "Ex-Showroom (Est.)", value: "₹10.44L – ₹13.73L" },
+      { label: "On-Road Kochi (Est.)", value: "₹12.09L – ₹17.67L" }
     ],
     image: "/rumion.png" 
   },
   {
     id: "hyryder",
     name: "URBAN CRUISER HYRYDER",
-    tagline: "It's Hybrid Time",
-    price: "₹11.14 Lakhs*",
+    highlight: "Mid-size SUV, Neo Drive (Mild) & Self-Charging Strong Hybrid (27.97 km/l), AWD option available.",
     stats: [
-      { label: "Efficiency", value: "27.97 km/l" },
-      { label: "Drivetrain", value: "AWD / Hybrid" },
-      { label: "Power", value: "85 kW" }
+      { label: "Ex-Showroom (Est.)", value: "₹11.14L – ₹20.19L" },
+      { label: "On-Road Kochi (Est.)", value: "₹13.50L – ₹24.80L" }
     ],
     image: "/hyryder.png" 
   },
   {
     id: "ebella",
     name: "URBAN CRUISER EBELLA",
-    tagline: "The Electric Future",
-    price: "TBA",
+    highlight: "All-electric EV SUV concept/upcoming release. Detailed specs pending official dealer launch.",
     stats: [
-      { label: "Range", value: "400+ km" },
-      { label: "Drivetrain", value: "AWD EV" },
-      { label: "Charging", value: "Fast Charge" }
+      { label: "Ex-Showroom (Est.)", value: "TBA" },
+      { label: "On-Road Kochi (Est.)", value: "TBA" }
     ],
     image: "/ebella.png" 
   },
   {
     id: "crysta",
     name: "INNOVA CRYSTA",
-    tagline: "Unmatched Elegance",
-    price: "₹19.99 Lakhs*",
+    highlight: "Premium utility MPV, 2.4L Diesel engine, proven durability, ladder-frame chassis, 7/8 seater.",
     stats: [
-      { label: "Engine", value: "2.4L Diesel" },
-      { label: "Power", value: "110 kW" },
-      { label: "Torque", value: "343 Nm" }
+      { label: "Ex-Showroom (Est.)", value: "₹19.99L – ₹26.30L" },
+      { label: "On-Road Kochi (Est.)", value: "₹24.50L – ₹32.80L" }
     ],
     image: "/crysta.png" 
   },
   {
     id: "hycross",
     name: "INNOVA HYCROSS",
-    tagline: "My New Indian",
-    price: "₹19.77 Lakhs*",
+    highlight: "Modern monocoque MPV, 2.0L Petrol & 2.0L Strong Hybrid, Panoramic Sunroof, ADAS, Ottoman seats.",
     stats: [
-      { label: "Engine", value: "2.0L Hybrid" },
-      { label: "Power", value: "137 kW" },
-      { label: "Torque", value: "206 Nm" }
+      { label: "Ex-Showroom (Est.)", value: "₹18.92L – ₹30.68L" },
+      { label: "On-Road Kochi (Est.)", value: "₹22.82L – ₹38.45L" }
     ],
     image: "/hycross.png" 
   },
   {
     id: "hilux",
     name: "HILUX",
-    tagline: "A Richer Life",
-    price: "₹30.40 Lakhs*",
+    highlight: "Heavy-duty pickup truck, 2.8L Diesel engine (500 Nm torque), 4x4 with high/low range, 700mm water wading capacity.",
     stats: [
-      { label: "Engine", value: "2.8L Diesel" },
-      { label: "Drivetrain", value: "4x4 AT/MT" },
-      { label: "Torque", value: "500 Nm" }
+      { label: "Ex-Showroom (Est.)", value: "₹30.40L – ₹37.90L" },
+      { label: "On-Road Kochi (Est.)", value: "₹38.00L – ₹47.50L" }
     ],
     image: "/hilux.png" 
   },
   {
     id: "fortuner",
     name: "FORTUNER",
-    tagline: "Lead With Power",
-    price: "₹33.43 Lakhs*",
+    highlight: "Iconic 7-seater SUV, 2.7L Petrol & 2.8L Diesel, 4x2 / 4x4 options, high resale value.",
     stats: [
-      { label: "Engine", value: "2.8L Diesel" },
-      { label: "Drivetrain", value: "4x4 / 4x2" },
-      { label: "Power", value: "150 kW" }
+      { label: "Ex-Showroom (Est.)", value: "₹33.43L – ₹51.44L" },
+      { label: "On-Road Kochi (Est.)", value: "₹41.50L – ₹63.50L" }
     ],
     image: "/fortuner-v2.png" 
   },
   {
     id: "legender",
     name: "LEGENDER",
-    tagline: "Power Empowers",
-    price: "₹43.66 Lakhs*",
+    highlight: "Sportier Fortuner variant, sharp LED headlamps, dual-tone exterior, wireless charging, sequential turn signals.",
     stats: [
-      { label: "Engine", value: "2.8L Diesel" },
-      { label: "Drivetrain", value: "4x4 AT" },
-      { label: "Torque", value: "500 Nm" }
+      { label: "Ex-Showroom (Est.)", value: "₹43.66L – ₹50.09L" },
+      { label: "On-Road Kochi (Est.)", value: "₹54.65L – ₹62.68L" }
     ],
     image: "/legender.png" 
   },
   {
     id: "camry",
     name: "CAMRY",
-    tagline: "True Luxury",
-    price: "₹46.17 Lakhs*",
+    highlight: "Executive luxury sedan, 2.5L Self-Charging Strong Hybrid, recliner rear seats, 9-speaker JBL audio.",
     stats: [
-      { label: "Efficiency", value: "19.1 km/l" },
-      { label: "Engine", value: "2.5L Hybrid" },
-      { label: "Power", value: "160 kW" }
+      { label: "Ex-Showroom (Est.)", value: "₹46.17L – ₹48.50L" },
+      { label: "On-Road Kochi (Est.)", value: "₹57.20L – ₹60.50L" }
     ],
     image: "/camry.png" 
   },
   {
     id: "vellfire",
     name: "VELLFIRE",
-    tagline: "Masterpiece of Luxury",
-    price: "₹1.20 Cr*",
+    highlight: "Ultra-luxury MPV, VIP lounge seating, Executive Lounge package, 2.5L Strong Hybrid, dual sunroofs.",
     stats: [
-      { label: "Engine", value: "2.5L Hybrid" },
-      { label: "Drivetrain", value: "E-Four AWD" },
-      { label: "Seating", value: "Executive Lounge" }
+      { label: "Ex-Showroom (Est.)", value: "₹1.22 Cr – ₹1.32 Cr" },
+      { label: "On-Road Kochi (Est.)", value: "₹1.52 Cr – ₹1.65 Cr" }
     ],
     image: "/vellfire.png" 
   },
   {
     id: "lc300",
     name: "LAND CRUISER 300",
-    tagline: "The Unstoppable",
-    price: "₹2.10 Cr*",
+    highlight: "Flagship luxury off-road SUV built on GA-F platform. Features a 3.3L Twin-Turbo V6 Diesel engine, Multi-Terrain Select, and E-KDSS.",
     stats: [
-      { label: "Engine", value: "3.3L Twin-Turbo" },
-      { label: "Drivetrain", value: "AWD Multi-Terrain" },
-      { label: "Power", value: "227 kW" }
+      { label: "Ex-Showroom (Est.)", value: "₹2.10 Crore" },
+      { label: "On-Road Kochi (Est.)", value: "₹2.60 Cr – ₹2.70 Cr" }
     ],
     image: "/land-cruiser-300.png" 
   }
@@ -405,44 +379,50 @@ export default function Vehicles() {
               >
                 {/* Header */}
                 <div className="border-b border-white/10 pb-4 relative z-10">
-                  <h2 className="font-druk text-4xl xl:text-5xl text-white tracking-tighter uppercase leading-none drop-shadow-lg">
+                  <h2 className="font-display font-black text-3xl xl:text-4xl text-white tracking-[0.3em] uppercase leading-none drop-shadow-lg">
                     {activeCar.name}
                   </h2>
                 </div>
 
-                {/* Specs Grid */}
-                <div className="space-y-3 relative z-10">
+                {/* Highlight & Features */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="relative z-10"
+                >
+                  <p className="font-sans text-sm md:text-base text-white/80 leading-relaxed font-light mb-6">
+                    {activeCar.highlight}
+                  </p>
+                </motion.div>
+
+                {/* Prices Grid */}
+                <div className="space-y-4 relative z-10 mb-8">
                   {activeCar.stats.map((stat, idx) => (
                     <motion.div 
                       key={idx}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + (idx * 0.1) }}
-                      className="border-b border-white/5 pb-2 flex justify-between items-end hover:border-white/20 transition-colors duration-500"
+                      transition={{ delay: 0.6 + (idx * 0.1) }}
+                      className="border-b border-white/10 pb-3 flex flex-col hover:border-white/30 transition-colors duration-500"
                     >
-                      <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase">
+                      <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase mb-1">
                         {stat.label}
                       </p>
-                      <p className="font-display text-xl font-medium text-white tracking-tight drop-shadow-md">
+                      <p className="font-display text-2xl md:text-3xl font-bold text-white tracking-tighter drop-shadow-md">
                         {stat.value}
                       </p>
                     </motion.div>
                   ))}
                 </div>
 
-                {/* Price & CTA */}
+                {/* CTA */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="pt-2 relative z-10"
+                  className="relative z-10"
                 >
-                  <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase mb-1">
-                    Starting Price
-                  </p>
-                  <p className="font-display font-bold text-3xl text-white tracking-tighter mb-6 drop-shadow-lg">
-                    {activeCar.price}
-                  </p>
                   
                   <button 
                     onClick={() => openModal(activeCar.name, 'TEST_DRIVE')}

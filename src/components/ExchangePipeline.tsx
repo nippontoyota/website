@@ -153,7 +153,7 @@ export default function ExchangePipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col justify-center"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col justify-start md:justify-center pt-4 md:pt-0 pb-12 pr-2"
             >
               <div className="max-w-2xl mx-auto w-full text-center mb-10">
                 <h4 className="font-druk text-4xl text-white uppercase tracking-widest mb-3">Your Current Car</h4>
@@ -294,7 +294,7 @@ export default function ExchangePipeline() {
                           <Image src={car.image} alt={car.name} fill sizes="33vw" className="object-contain transform group-hover:scale-110 transition-transform duration-500" />
                         </div>
                       )}
-                      <span className="font-druk text-xs md:text-sm text-center tracking-widest text-white uppercase mt-auto">
+                      <span className="font-display font-bold text-xs md:text-sm text-center tracking-[0.2em] text-white uppercase mt-auto">
                         {car.name.replace('URBAN CRUISER ', '').replace('INNOVA ', '').replace(' 300', '')}
                       </span>
                     </div>
@@ -314,7 +314,7 @@ export default function ExchangePipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col justify-center"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col justify-start md:justify-center pt-4 md:pt-0 pb-12 pr-2"
             >
               <div className="max-w-2xl mx-auto w-full text-center mb-10">
                 <h4 className="font-druk text-4xl text-white uppercase tracking-widest mb-3">Get Your Valuation</h4>

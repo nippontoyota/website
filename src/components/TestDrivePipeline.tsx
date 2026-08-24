@@ -138,7 +138,7 @@ export default function TestDrivePipeline() {
                         <Image src={car.image} alt={car.name} fill sizes="33vw" className="object-contain" />
                       </div>
                     )}
-                    <span className="font-druk text-sm md:text-base text-center tracking-widest text-white uppercase mt-auto">
+                    <span className="font-display font-bold text-xs md:text-sm text-center tracking-[0.2em] text-white uppercase mt-auto">
                       {car.name.replace('URBAN CRUISER ', '').replace('INNOVA ', '').replace(' 300', '')}
                     </span>
                   </div>
@@ -157,10 +157,10 @@ export default function TestDrivePipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col justify-center"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col justify-start md:justify-center pt-4 md:pt-0 pb-12 pr-2"
             >
               <div className="max-w-4xl mx-auto w-full text-center mb-10">
-                <p className="text-white/60 text-lg md:text-xl font-light">Where would you like to experience the <strong className="text-white font-druk tracking-widest">{formData.car}</strong>?</p>
+                <p className="text-white/60 text-lg md:text-xl font-light">Where would you like to experience the <strong className="text-white font-display font-bold tracking-widest">{formData.car}</strong>?</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto w-full">
                 {LOCATIONS.map((loc) => (
@@ -170,7 +170,7 @@ export default function TestDrivePipeline() {
                       setFormData({ ...formData, location: loc });
                       goToStep(3);
                     }}
-                    className="flex flex-col items-center justify-center p-8 bg-black/40 border border-white/10 hover:border-[#eb0a1e] hover:bg-black/60 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#eb0a1e]/10 transition-all duration-300 rounded-sm group text-center aspect-video relative overflow-hidden"
+                    className="flex flex-col items-center justify-center p-8 bg-black/40 border border-white/10 hover:border-[#eb0a1e] hover:bg-black/60 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#eb0a1e]/10 transition-all duration-300 rounded-sm group text-center py-8 md:py-0 md:aspect-video relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#eb0a1e]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <MapPin className="text-white/30 group-hover:text-[#eb0a1e] transition-colors duration-300 mb-4 transform group-hover:scale-110" size={36} strokeWidth={1.5} />
@@ -192,7 +192,7 @@ export default function TestDrivePipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col justify-center"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col justify-start md:justify-center pt-4 md:pt-0 pb-12 pr-2"
             >
               <form onSubmit={handleSubmit} className="space-y-8 max-w-3xl mx-auto w-full">
                 {/* Name Input */}

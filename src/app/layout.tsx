@@ -68,9 +68,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased`}
+      className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased overflow-x-hidden w-full`}
     >
-      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-[#111]">
+      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-[#111] overflow-x-hidden w-full">
         <GlobalLeadModal />
         {children}
       </body>

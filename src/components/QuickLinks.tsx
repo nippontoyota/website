@@ -25,8 +25,8 @@ export default function QuickLinks() {
           {/* 1. TEST DRIVE */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            
             onClick={() => openModal('', 'TEST_DRIVE')}
             className="lg:col-span-7 group relative bg-zinc-950 text-white overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform duration-500 p-8 md:p-12 flex flex-col justify-between min-h-[400px]"
           >
@@ -65,8 +65,8 @@ export default function QuickLinks() {
             {/* 2. EXCHANGE CAR */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              
               transition={{ delay: 0.1 }}
               onClick={() => openModal('', 'EXCHANGE')}
               className="group relative bg-[#eb0a1e] text-white overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform duration-500 p-8 flex-1 flex flex-col justify-between"
@@ -103,8 +103,8 @@ export default function QuickLinks() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                
                 transition={{ delay: 0.2 }}
                 className="group bg-zinc-100 hover:bg-zinc-950 cursor-pointer p-6 flex flex-col justify-between transition-colors duration-500 block"
               >
@@ -121,8 +121,8 @@ export default function QuickLinks() {
               <motion.button
                 onClick={() => openModal('', 'BROCHURE')}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                
                 transition={{ delay: 0.3 }}
                 className="group bg-zinc-100 text-left hover:bg-zinc-950 cursor-pointer p-6 flex flex-col justify-between transition-colors duration-500 w-full"
               >

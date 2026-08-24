@@ -16,8 +16,8 @@ export default function LeadForm() {
         <div className="w-full lg:w-1/2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            
           >
             
             <h2 className="font-druk text-4xl md:text-6xl text-white tracking-tighter uppercase leading-none mb-4">

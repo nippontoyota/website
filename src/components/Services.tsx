@@ -50,16 +50,16 @@ export default function Services() {
           <div>
             <motion.p 
               initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              
               className="text-[#eb0a1e] font-bold text-[11px] tracking-[0.5em] uppercase mb-4"
             >
               Beyond the Drive
             </motion.p>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              
               transition={{ delay: 0.1 }}
               className="font-druk text-5xl md:text-7xl lg:text-8xl text-zinc-950 tracking-tighter uppercase leading-none"
             >
@@ -69,8 +69,8 @@ export default function Services() {
           
           <motion.div
             initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            
             transition={{ delay: 0.2 }}
             className="md:max-w-sm lg:max-w-md pb-2"
           >
@@ -86,8 +86,8 @@ export default function Services() {
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.25, 1, 0.5, 1] }}
               className={`group flex flex-col overflow-hidden bg-zinc-950 border border-white/10 hover:border-white/30 rounded-sm cursor-pointer transition-colors duration-500 ${service.className}`}
             >

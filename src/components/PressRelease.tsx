@@ -18,16 +18,13 @@ export default function PressRelease() {
         <motion.div 
           className="mb-12 md:mb-16"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          whileInView="visible" viewport={{ once: true }}
+          
           variants={fadeUp}
         >
           <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900 mb-4">
             Press Release
           </h2>
-          <p className="text-lg text-gray-500 font-display font-medium">
-            Stay updated with our latest announcements and initiatives
-          </p>
         </motion.div>
 
         {/* Press Release Cards */}
@@ -39,8 +36,8 @@ export default function PressRelease() {
             rel="noopener noreferrer"
             className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 relative overflow-hidden rounded-sm"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
           >
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
@@ -54,7 +51,6 @@ export default function PressRelease() {
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
                   Bengaluru, 18th August 2026: Toyota Kirloskar Motor (TKM) today announced the successful culmination of Environment Month 2026, organized under the theme &quot;Move Towards Climate Positive Company through Resource Recycling.&quot;
-                </p>
               </div>
             </div>
             {/* Subtle Hover Arrow */}
@@ -70,8 +66,8 @@ export default function PressRelease() {
             rel="noopener noreferrer"
             className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 relative overflow-hidden rounded-sm"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
           >
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
@@ -85,7 +81,6 @@ export default function PressRelease() {
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
                   Bengaluru, 17th August 2026: Toyota Kirloskar Motor (TKM) today concluded the groundbreaking ceremony for an educational infrastructure development project at Karnataka Public School, Magadi.
-                </p>
               </div>
             </div>
             {/* Subtle Hover Arrow */}
@@ -99,8 +94,8 @@ export default function PressRelease() {
         <motion.div 
           className="mb-12 md:mb-16"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          whileInView="visible" viewport={{ once: true }}
+          
           variants={fadeUp}
         >
           <h2 className="text-4xl md:text-5xl font-druk tracking-tight uppercase text-zinc-900">
@@ -114,8 +109,8 @@ export default function PressRelease() {
             href="#"
             className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
           >
             <Image 
@@ -132,8 +127,8 @@ export default function PressRelease() {
             href="#"
             className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
             transition={{ delay: 0.1 }}
           >
@@ -151,8 +146,8 @@ export default function PressRelease() {
             href="#"
             className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
             transition={{ delay: 0.2 }}
           >
@@ -170,8 +165,8 @@ export default function PressRelease() {
             href="#"
             className="group relative h-[220px] bg-white border border-gray-100 overflow-hidden flex cursor-pointer shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-500"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            whileInView="visible" viewport={{ once: true }}
+            
             variants={fadeUp}
             transition={{ delay: 0.3 }}
           >

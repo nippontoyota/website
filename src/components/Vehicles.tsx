@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
-const cars = [
+export const cars = [
   {
     id: "taisor",
     name: "URBAN CRUISER TAISOR",
@@ -112,7 +112,7 @@ const cars = [
       { label: "Engine", value: "2.5L Hybrid" },
       { label: "Power", value: "160 kW" }
     ],
-    image: "" 
+    image: "/camry.avif" 
   },
   {
     id: "lc300",
@@ -275,7 +275,7 @@ export default function Vehicles() {
                     <Image 
                       src={activeCar.image}
                       alt={activeCar.name}
-                      fill
+                      fill sizes="100vw"
                       className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.9)]"
                       draggable={false}
                       priority
@@ -286,7 +286,7 @@ export default function Vehicles() {
                       <Image 
                         src={activeCar.image}
                         alt={`${activeCar.name} Reflection`}
-                        fill
+                        fill sizes="100vw"
                         className="object-contain"
                         draggable={false}
                       />
@@ -358,7 +358,7 @@ export default function Vehicles() {
                   </p>
                   
                   <button 
-                    onClick={() => openModal(activeCar.name)}
+                    onClick={() => openModal(activeCar.name, 'TEST_DRIVE')}
                     className="group/btn relative w-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-zinc-950 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm"
                   >
                     <span className="relative z-10 flex items-center justify-between w-full">

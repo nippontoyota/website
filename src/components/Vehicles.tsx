@@ -172,18 +172,14 @@ export default function Vehicles() {
 
   const handleNext = () => {
     const currentIndex = cars.findIndex(c => c.id === activeCar.id);
-    if (currentIndex < cars.length - 1) {
-      setDirection(1);
-      setActiveCar(cars[currentIndex + 1]);
-    }
+    setDirection(1);
+    setActiveCar(currentIndex < cars.length - 1 ? cars[currentIndex + 1] : cars[0]);
   };
 
   const handlePrev = () => {
     const currentIndex = cars.findIndex(c => c.id === activeCar.id);
-    if (currentIndex > 0) {
-      setDirection(-1);
-      setActiveCar(cars[currentIndex - 1]);
-    }
+    setDirection(-1);
+    setActiveCar(currentIndex > 0 ? cars[currentIndex - 1] : cars[cars.length - 1]);
   };
 
   const handleDragEnd = (e: unknown, { offset, velocity }: { offset: { x: number; y: number }, velocity: { x: number; y: number } }) => {
@@ -305,15 +301,15 @@ export default function Vehicles() {
             <div className="hidden lg:flex absolute inset-y-0 -left-12 -right-12 z-50 items-center justify-between pointer-events-none">
               <button 
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto disabled:opacity-0 disabled:pointer-events-none"
-                disabled={cars.findIndex(c => c.id === activeCar.id) === 0}
+                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto"
+                
               >
                 <ChevronLeft size={24} />
               </button>
               <button 
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto disabled:opacity-0 disabled:pointer-events-none"
-                disabled={cars.findIndex(c => c.id === activeCar.id) === cars.length - 1}
+                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto"
+                
               >
                 <ChevronRight size={24} />
               </button>

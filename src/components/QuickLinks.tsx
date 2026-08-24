@@ -118,15 +118,13 @@ export default function QuickLinks() {
               </motion.a>
 
               {/* 4. BROCHURE */}
-              <motion.a
-                href="https://www.nippon-toyota.com/brochure/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                onClick={() => openModal('', 'BROCHURE')}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="group bg-zinc-100 hover:bg-zinc-950 cursor-pointer p-6 flex flex-col justify-between transition-colors duration-500 block"
+                className="group bg-zinc-100 text-left hover:bg-zinc-950 cursor-pointer p-6 flex flex-col justify-between transition-colors duration-500 w-full"
               >
                 <div className="text-zinc-400 group-hover:text-[#eb0a1e] transition-colors duration-500">
                   <BookOpen size={28} strokeWidth={2} className="group-hover:scale-110 transition-transform duration-500" />
@@ -135,7 +133,7 @@ export default function QuickLinks() {
                   <h4 className="font-druk text-xl md:text-2xl tracking-wider text-zinc-950 group-hover:text-white uppercase mb-1 transition-colors duration-500">Brochure</h4>
                   <p className="text-xs text-zinc-500 group-hover:text-zinc-400 font-medium transition-colors duration-500">Model Details</p>
                 </div>
-              </motion.a>
+              </motion.button>
 
             </div>
           </div>

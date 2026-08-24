@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
 import TestDrivePipeline from './TestDrivePipeline';
 import ExchangePipeline from './ExchangePipeline';
+import BrochurePipeline from './BrochurePipeline';
 
 import { cars } from './Vehicles';
 const TOYOTA_MODELS = cars.map(c => c.name);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -146,6 +146,13 @@ export default function Vehicles() {
   const [direction, setDirection] = useState(1);
   const [hasSwiped, setHasSwiped] = useState(false);
 
+  useEffect(() => {
+    const el = document.getElementById(`car-nav-${activeCar.id}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [activeCar.id]);
+
   // Mouse Parallax Logic
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -272,6 +279,7 @@ export default function Vehicles() {
             {cars.map((car, idx) => (
               <button
                 key={car.id}
+                id={`car-nav-${car.id}`}
                 onClick={() => {
                   const currentIndex = cars.findIndex(c => c.id === activeCar.id);
                   if (idx !== currentIndex) {

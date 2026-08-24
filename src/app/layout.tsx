@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Montserrat, Caveat, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
@@ -24,6 +24,14 @@ const bebas = Bebas_Neue({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "Nippon Toyota | Official Toyota Dealer in Kerala",

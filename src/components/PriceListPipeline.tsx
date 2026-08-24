@@ -254,16 +254,7 @@ export default function PriceListPipeline() {
 
                 </div>
 
-                <div className="mt-12 text-center">
-                  <a
-                    href="https://www.nippon-toyota.com/pricelist/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center bg-[#eb0a1e] hover:bg-white text-white hover:text-[#eb0a1e] transition-colors duration-300 py-3 px-8 rounded-sm font-bold tracking-[0.2em] uppercase text-xs"
-                  >
-                    Download Full PDF Price List
-                  </a>
-                </div>
+
               </div>
             </motion.div>
           )}

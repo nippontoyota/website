@@ -157,54 +157,54 @@ export default function PriceListPipeline() {
                   {/* Petrol Variants */}
                   <div>
                     <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
-                      <span className="text-zinc-800 mr-2 text-3xl">⛽</span> Petrol
+                      Petrol
                     </h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm text-zinc-800">
                         <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
                           <tr>
-                            <th className="px-4 py-3 whitespace-nowrap">Sl. No.</th>
-                            <th className="px-4 py-3">Grade</th>
-                            <th className="px-4 py-3">Summary</th>
-                            <th className="px-4 py-3">Ex-Showroom Price</th>
-                            <th className="px-4 py-3"></th>
+                            <th className="px-2 sm:px-4 py-3 whitespace-nowrap hidden sm:table-cell">Sl. No.</th>
+                            <th className="px-2 sm:px-4 py-3">Grade</th>
+                            <th className="px-2 sm:px-4 py-3 hidden md:table-cell">Summary</th>
+                            <th className="px-2 sm:px-4 py-3">Ex-Showroom Price</th>
+                            <th className="px-2 sm:px-4 py-3"></th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                           <tr className="bg-white">
-                            <td className="px-4 py-4 font-medium">1</td>
-                            <td className="px-4 py-4">E MT</td>
-                            <td className="px-4 py-4 text-zinc-600">Manual</td>
-                            <td className="px-4 py-4 font-medium">₹ 6,73,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">1</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">E MT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 6,73,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
-                            <td className="px-4 py-4 font-medium">2</td>
-                            <td className="px-4 py-4">S MT</td>
-                            <td className="px-4 py-4 text-zinc-600">Manual</td>
-                            <td className="px-4 py-4 font-medium">₹ 7,63,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">2</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">S MT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 7,63,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-white">
-                            <td className="px-4 py-4 font-medium">3</td>
-                            <td className="px-4 py-4">S AMT</td>
-                            <td className="px-4 py-4 text-zinc-600">Automatic</td>
-                            <td className="px-4 py-4 font-medium">₹ 8,28,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">3</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">S AMT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Automatic</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,28,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
-                            <td className="px-4 py-4 font-medium">4</td>
-                            <td className="px-4 py-4">G MT</td>
-                            <td className="px-4 py-4 text-zinc-600">Manual</td>
-                            <td className="px-4 py-4 font-medium">₹ 8,65,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">4</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">G MT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,65,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                         </tbody>
@@ -215,36 +215,36 @@ export default function PriceListPipeline() {
                   {/* CNG / Hybrid Variants */}
                   <div>
                     <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
-                      <span className="text-zinc-800 mr-2 text-3xl">⛽</span> CNG
+                      CNG
                     </h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm text-zinc-800">
                         <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
                           <tr>
-                            <th className="px-4 py-3 whitespace-nowrap">Sl. No.</th>
-                            <th className="px-4 py-3">Grade</th>
-                            <th className="px-4 py-3">Summary</th>
-                            <th className="px-4 py-3">Ex-Showroom Price</th>
-                            <th className="px-4 py-3"></th>
+                            <th className="px-2 sm:px-4 py-3 whitespace-nowrap hidden sm:table-cell">Sl. No.</th>
+                            <th className="px-2 sm:px-4 py-3">Grade</th>
+                            <th className="px-2 sm:px-4 py-3 hidden md:table-cell">Summary</th>
+                            <th className="px-2 sm:px-4 py-3">Ex-Showroom Price</th>
+                            <th className="px-2 sm:px-4 py-3"></th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                           <tr className="bg-white">
-                            <td className="px-4 py-4 font-medium">1</td>
-                            <td className="px-4 py-4">S MT</td>
-                            <td className="px-4 py-4 text-zinc-600">Manual</td>
-                            <td className="px-4 py-4 font-medium">₹ 8,49,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">1</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">S MT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,49,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
-                            <td className="px-4 py-4 font-medium">2</td>
-                            <td className="px-4 py-4">G MT</td>
-                            <td className="px-4 py-4 text-zinc-600">Manual</td>
-                            <td className="px-4 py-4 font-medium">₹ 9,53,000</td>
-                            <td className="px-4 py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">2</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4">G MT</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 9,53,000</td>
+                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                         </tbody>

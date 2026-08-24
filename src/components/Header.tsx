@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Search, ChevronDown, ChevronRight, Menu } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { Search, ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const getLinkClass = (path: string) => {
     const base = "flex items-center transition-colors group";
@@ -133,11 +135,75 @@ export default function Header() {
           </motion.button>
           
           {/* Mobile Menu Toggle */}
-          <button className="lg:hidden p-1 ml-4 text-gray-800 hover:text-[var(--toyota-red)] transition-colors">
-            <Menu size={24} strokeWidth={2.5} />
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-1 ml-4 text-gray-800 hover:text-[var(--toyota-red)] transition-colors relative z-[60]"
+          >
+            {isMobileMenuOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed inset-0 z-50 bg-white h-[100dvh] w-full flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
+          >
+            <nav className="flex flex-col space-y-6 text-lg font-display font-bold text-[#222] tracking-widest">
+              <Link href="/virtual-showroom" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/virtual-showroom')}>
+                VIRTUAL SHOWROOM
+              </Link>
+              <Link href="/service" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/service')}>
+                SERVICE
+              </Link>
+              <Link href="/t-care" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/t-care')}>
+                T-CARE
+              </Link>
+              <Link href="/used-cars" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/used-cars')}>
+                USED CARS
+              </Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/about')}>
+                ABOUT US
+              </Link>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/contact')}>
+                CONTACT US
+              </Link>
+              
+              <div className="pt-6 mt-6 border-t border-gray-100">
+                <span className="text-gray-400 text-xs tracking-[0.2em]">MORE OPTIONS</span>
+                <div className="flex flex-col space-y-4 mt-4 font-sans font-medium text-base tracking-normal">
+                  {moreDropdownItems.map((item, idx) => (
+                    <Link 
+                      key={idx} 
+                      href={item.href} 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-gray-700 hover:text-[var(--toyota-red)] transition-colors flex items-center justify-between"
+                    >
+                      {item.label}
+                      <ChevronRight size={16} className="text-gray-300" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </nav>
+            
+            <div className="mt-auto pt-8">
+              <button 
+                className="w-full flex justify-center items-center py-4 bg-gray-50 text-[var(--toyota-red)] font-bold tracking-widest text-sm rounded-xl"
+              >
+                <Search size={18} strokeWidth={2.5} className="mr-2" />
+                SEARCH
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </motion.header>
   );
 }

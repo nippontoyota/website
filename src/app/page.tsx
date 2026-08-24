@@ -6,7 +6,6 @@ import Services from '@/components/Services';
 import PressRelease from '@/components/PressRelease';
 import LeadForm from '@/components/LeadForm';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

@@ -47,7 +47,7 @@ export default function ContactContent() {
         <Image 
           src="/nippon-towers.jpg" 
           alt="Nippon Toyota Locations" 
-          fill
+          fill sizes="100vw"
           className="object-cover opacity-60 object-center mix-blend-overlay"
           priority
         />

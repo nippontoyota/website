@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 import ServiceModal from '@/components/ServiceModal';
 
 type Tile = {
@@ -133,7 +132,7 @@ export default function QServicePage() {
                     <Image
                       src={tile.image}
                       alt={tile.title}
-                      fill
+                      fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#8a0000]/90 via-[#c40000]/50 to-[#c40000]/30" />
@@ -142,7 +141,7 @@ export default function QServicePage() {
 
                 {tile.logo && (
                   <div className="absolute top-5 left-5 w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-md">
-                    <Image src={tile.logo} alt="" width={26} height={26} className="object-contain" />
+                    <Image src={tile.logo} alt="" width={26} height={26} className="object-contain w-auto h-auto" />
                   </div>
                 )}
 
@@ -180,7 +179,6 @@ export default function QServicePage() {
       </main>
 
       <Footer />
-      <StickyWidgets />
       <ServiceModal infoKey={activeKey} onClose={() => setActiveKey(null)} />
     </div>
   );

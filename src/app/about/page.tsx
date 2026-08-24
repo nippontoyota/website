@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 import AboutContent from './AboutContent';
 
 export const metadata = {
@@ -16,7 +15,6 @@ export default function AboutPage() {
         <AboutContent />
       </main>
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

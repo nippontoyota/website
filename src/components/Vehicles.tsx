@@ -2,22 +2,10 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
 export const cars = [
-  {
-    id: "taisor",
-    name: "URBAN CRUISER TAISOR",
-    tagline: "Make Your Way",
-    price: "₹7.73 Lakhs*",
-    stats: [
-      { label: "Efficiency", value: "22.8 km/l" },
-      { label: "Engine", value: "1.2L Dual Jet" },
-      { label: "Seating", value: "5 Seats" }
-    ],
-    image: "/taisor.webp" 
-  },
   {
     id: "glanza",
     name: "GLANZA",
@@ -28,7 +16,31 @@ export const cars = [
       { label: "Engine", value: "1.2L K-Series" },
       { label: "Power", value: "66 kW" }
     ],
-    image: "/glanza.webp" 
+    image: "/glanza.png" 
+  },
+  {
+    id: "taisor",
+    name: "URBAN CRUISER TAISOR",
+    tagline: "Make Your Way",
+    price: "₹7.73 Lakhs*",
+    stats: [
+      { label: "Efficiency", value: "22.8 km/l" },
+      { label: "Engine", value: "1.2L Dual Jet" },
+      { label: "Seating", value: "5 Seats" }
+    ],
+    image: "/taisor.png" 
+  },
+  {
+    id: "rumion",
+    name: "RUMION",
+    tagline: "Space for Everyone",
+    price: "₹10.44 Lakhs*",
+    stats: [
+      { label: "Engine", value: "1.5L Petrol" },
+      { label: "Power", value: "75 kW" },
+      { label: "Torque", value: "136 Nm" }
+    ],
+    image: "/rumion.png" 
   },
   {
     id: "hyryder",
@@ -40,7 +52,7 @@ export const cars = [
       { label: "Drivetrain", value: "AWD / Hybrid" },
       { label: "Power", value: "85 kW" }
     ],
-    image: "/hyryder.avif" 
+    image: "/hyryder.png" 
   },
   {
     id: "ebella",
@@ -52,7 +64,31 @@ export const cars = [
       { label: "Drivetrain", value: "AWD EV" },
       { label: "Charging", value: "Fast Charge" }
     ],
-    image: "/ebella.avif" 
+    image: "/ebella.png" 
+  },
+  {
+    id: "crysta",
+    name: "INNOVA CRYSTA",
+    tagline: "Unmatched Elegance",
+    price: "₹19.99 Lakhs*",
+    stats: [
+      { label: "Engine", value: "2.4L Diesel" },
+      { label: "Power", value: "110 kW" },
+      { label: "Torque", value: "343 Nm" }
+    ],
+    image: "/crysta.png" 
+  },
+  {
+    id: "hycross",
+    name: "INNOVA HYCROSS",
+    tagline: "My New Indian",
+    price: "₹19.77 Lakhs*",
+    stats: [
+      { label: "Engine", value: "2.0L Hybrid" },
+      { label: "Power", value: "137 kW" },
+      { label: "Torque", value: "206 Nm" }
+    ],
+    image: "/hycross.png" 
   },
   {
     id: "hilux",
@@ -76,7 +112,7 @@ export const cars = [
       { label: "Drivetrain", value: "4x4 / 4x2" },
       { label: "Power", value: "150 kW" }
     ],
-    image: "/fortuner.avif" 
+    image: "/fortuner-v2.png" 
   },
   {
     id: "legender",
@@ -88,7 +124,19 @@ export const cars = [
       { label: "Drivetrain", value: "4x4 AT" },
       { label: "Torque", value: "500 Nm" }
     ],
-    image: "/legender.avif" 
+    image: "/legender.png" 
+  },
+  {
+    id: "camry",
+    name: "CAMRY",
+    tagline: "True Luxury",
+    price: "₹46.17 Lakhs*",
+    stats: [
+      { label: "Efficiency", value: "19.1 km/l" },
+      { label: "Engine", value: "2.5L Hybrid" },
+      { label: "Power", value: "160 kW" }
+    ],
+    image: "/camry.png" 
   },
   {
     id: "vellfire",
@@ -103,18 +151,6 @@ export const cars = [
     image: "/vellfire.png" 
   },
   {
-    id: "camry",
-    name: "CAMRY",
-    tagline: "True Luxury",
-    price: "₹46.17 Lakhs*",
-    stats: [
-      { label: "Efficiency", value: "19.1 km/l" },
-      { label: "Engine", value: "2.5L Hybrid" },
-      { label: "Power", value: "160 kW" }
-    ],
-    image: "/camry.avif" 
-  },
-  {
     id: "lc300",
     name: "LAND CRUISER 300",
     tagline: "The Unstoppable",
@@ -124,7 +160,7 @@ export const cars = [
       { label: "Drivetrain", value: "AWD Multi-Terrain" },
       { label: "Power", value: "227 kW" }
     ],
-    image: "/land-cruiser.png" 
+    image: "/land-cruiser-300.png" 
   }
 ];
 
@@ -133,6 +169,7 @@ import { useLeadStore } from '@/store/useLeadStore';
 export default function Vehicles() {
   const { openModal } = useLeadStore();
   const [activeCar, setActiveCar] = useState(cars[0]);
+  const [direction, setDirection] = useState(1);
 
   // Mouse Parallax Logic
   const mouseX = useMotionValue(0);
@@ -158,16 +195,46 @@ export default function Vehicles() {
     mouseY.set(0);
   };
 
+  const handleNext = () => {
+    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+    if (currentIndex < cars.length - 1) {
+      setDirection(1);
+      setActiveCar(cars[currentIndex + 1]);
+    }
+  };
+
+  const handlePrev = () => {
+    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+    if (currentIndex > 0) {
+      setDirection(-1);
+      setActiveCar(cars[currentIndex - 1]);
+    }
+  };
 
   const handleDragEnd = (e: unknown, { offset, velocity }: { offset: { x: number; y: number }, velocity: { x: number; y: number } }) => {
-    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
     if (offset.x < -30 || velocity.x < -300) {
-      // Swiped left (next car)
-      if (currentIndex < cars.length - 1) setActiveCar(cars[currentIndex + 1]);
+      handleNext();
     } else if (offset.x > 30 || velocity.x > 300) {
-      // Swiped right (prev car)
-      if (currentIndex > 0) setActiveCar(cars[currentIndex - 1]);
+      handlePrev();
     }
+  };
+
+  const carVariants = {
+    enter: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? 150 : -150,
+      scale: 0.95
+    }),
+    center: {
+      opacity: 1,
+      x: 0,
+      scale: 1
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? -150 : 150,
+      scale: 0.95
+    })
   };
 
   return (
@@ -220,21 +287,28 @@ export default function Vehicles() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full">
         
         {/* Sleek Horizontal Model Nav */}
-        <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-16 gap-6 pb-8 relative">
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="shrink-0 xl:mr-6 text-center xl:text-left mb-6 xl:mb-0 w-full xl:w-auto">
-            <h2 className="text-xl md:text-2xl font-display font-thin tracking-[0.3em] uppercase text-white/90 hover:text-white transition-colors duration-1000 ease-out cursor-default">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between mb-16 gap-6 pb-6 relative border-b border-white/20">
+          <div className="shrink-0 xl:mr-8 text-center xl:text-left w-full xl:w-auto">
+            <h2 className="text-xl md:text-2xl font-display font-bold tracking-[0.3em] uppercase text-white hover:text-white transition-colors duration-1000 ease-out cursor-default py-2">
               Select Model
             </h2>
           </div>
 
-          <div className="flex overflow-x-auto gap-8 md:gap-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full snap-x pb-4 [mask-image:linear-gradient(to_right,black_90%,transparent_100%)]">
-            {cars.map((car) => (
+          <div 
+            className="flex overflow-x-auto gap-8 md:gap-12 [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 hover:[&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent w-full relative z-50 pointer-events-auto items-center pb-4 pt-2"
+          >
+            {cars.map((car, idx) => (
               <button
                 key={car.id}
-                onClick={() => setActiveCar(car)}
-                className={`shrink-0 text-[10px] md:text-[11px] font-bold tracking-[0.25em] uppercase transition-all duration-700 relative snap-start ${
-                  activeCar.id === car.id ? 'text-white' : 'text-zinc-600 hover:text-white/70'
+                onClick={() => {
+                  const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+                  if (idx !== currentIndex) {
+                    setDirection(idx > currentIndex ? 1 : -1);
+                    setActiveCar(car);
+                  }
+                }}
+                className={`shrink-0 text-[10px] md:text-[11px] font-bold tracking-[0.25em] uppercase transition-all duration-700 relative hover:text-white py-2 ${
+                  activeCar.id === car.id ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-zinc-500'
                 }`}
               >
                 {car.name}
@@ -251,21 +325,41 @@ export default function Vehicles() {
           {/* Center Column: The Hero Car with Reflections and Parallax */}
           <div className="lg:col-span-8 relative h-[250px] sm:h-[350px] lg:h-[500px] xl:h-[600px] flex flex-col items-center justify-center group">
             
+            {/* Desktop Navigation Arrows */}
+            <div className="hidden lg:flex absolute inset-y-0 -left-12 -right-12 z-50 items-center justify-between pointer-events-none">
+              <button 
+                onClick={handlePrev}
+                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto disabled:opacity-0 disabled:pointer-events-none"
+                disabled={cars.findIndex(c => c.id === activeCar.id) === 0}
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={handleNext}
+                className="w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-white hover:border-[#eb0a1e] hover:bg-[#eb0a1e]/10 transition-all pointer-events-auto disabled:opacity-0 disabled:pointer-events-none"
+                disabled={cars.findIndex(c => c.id === activeCar.id) === cars.length - 1}
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
             {/* Gesture Overlay: explicitly handles drag events independent of the crossfading images */}
             <motion.div 
               className="absolute inset-0 z-40 cursor-grab active:cursor-grabbing touch-pan-y"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.1}
+              dragElastic={0.8}
               onDragEnd={handleDragEnd}
             />
             
-            <AnimatePresence custom={activeCar.id}>
+            <AnimatePresence custom={direction}>
               <motion.div
                 key={activeCar.id + "-img"}
-                initial={{ opacity: 0, x: 100, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -100, scale: 0.9 }}
+                custom={direction}
+                variants={carVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute inset-0 w-full h-full z-20 scale-110 lg:scale-[1.25] origin-bottom"
               >
@@ -286,6 +380,7 @@ export default function Vehicles() {
                       <Image 
                         src={activeCar.image}
                         alt={`${activeCar.name} Reflection`}
+                        priority
                         fill sizes="100vw"
                         className="object-contain"
                         draggable={false}
@@ -298,7 +393,7 @@ export default function Vehicles() {
           </div>
 
           {/* Right Column: High-End HUD */}
-          <div className="lg:col-span-4 z-30">
+          <div className="lg:col-span-3 lg:col-start-10 z-30 lg:-mt-16 xl:-mt-24">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCar.id + "-stats"}
@@ -306,37 +401,29 @@ export default function Vehicles() {
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, x: -30, filter: "blur(10px)" }}
                 transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-                className="flex flex-col space-y-10 relative"
+                className="flex flex-col space-y-6 relative"
               >
-                {/* Header & Tagline */}
-                <div className="border-b border-white/10 pb-6 relative z-10">
-                  <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-[#eb0a1e] font-bold text-[10px] tracking-[0.4em] uppercase mb-2 drop-shadow-[0_0_8px_rgba(235,10,30,0.4)]"
-                  >
-                    {activeCar.tagline}
-                  </motion.p>
-                  <h2 className="font-druk text-5xl xl:text-6xl text-white tracking-tighter uppercase leading-none drop-shadow-lg">
+                {/* Header */}
+                <div className="border-b border-white/10 pb-4 relative z-10">
+                  <h2 className="font-druk text-4xl xl:text-5xl text-white tracking-tighter uppercase leading-none drop-shadow-lg">
                     {activeCar.name}
                   </h2>
                 </div>
 
                 {/* Specs Grid */}
-                <div className="space-y-6 relative z-10">
+                <div className="space-y-3 relative z-10">
                   {activeCar.stats.map((stat, idx) => (
                     <motion.div 
                       key={idx}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5 + (idx * 0.1) }}
-                      className="border-b border-white/5 pb-3 flex justify-between items-end hover:border-white/20 transition-colors duration-500"
+                      className="border-b border-white/5 pb-2 flex justify-between items-end hover:border-white/20 transition-colors duration-500"
                     >
                       <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase">
                         {stat.label}
                       </p>
-                      <p className="font-display text-2xl font-medium text-white tracking-tight drop-shadow-md">
+                      <p className="font-display text-xl font-medium text-white tracking-tight drop-shadow-md">
                         {stat.value}
                       </p>
                     </motion.div>
@@ -348,12 +435,12 @@ export default function Vehicles() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="pt-4 relative z-10"
+                  className="pt-2 relative z-10"
                 >
-                  <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase mb-2">
+                  <p className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 uppercase mb-1">
                     Starting Price
                   </p>
-                  <p className="font-display font-bold text-4xl text-white tracking-tighter mb-8 drop-shadow-lg">
+                  <p className="font-display font-bold text-3xl text-white tracking-tighter mb-6 drop-shadow-lg">
                     {activeCar.price}
                   </p>
                   

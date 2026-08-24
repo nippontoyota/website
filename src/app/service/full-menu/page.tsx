@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 import ServiceModal from '@/components/ServiceModal';
 
 const COLORS = {
@@ -110,7 +109,7 @@ export default function QServiceFullMenuPage() {
               >
                 {tile.logo && (
                   <div className="absolute top-5 left-5 w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-md">
-                    <Image src={tile.logo} alt="" width={26} height={26} className="object-contain" />
+                    <Image src={tile.logo} alt="" width={26} height={26} className="object-contain w-auto h-auto" />
                   </div>
                 )}
                 {tile.badge && (
@@ -151,7 +150,6 @@ export default function QServiceFullMenuPage() {
       </main>
 
       <Footer />
-      <StickyWidgets />
       <ServiceModal infoKey={activeKey} onClose={() => setActiveKey(null)} />
     </div>
   );

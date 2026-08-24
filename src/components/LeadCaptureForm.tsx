@@ -5,21 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
 import TestDrivePipeline from './TestDrivePipeline';
+import ExchangePipeline from './ExchangePipeline';
 
-const TOYOTA_MODELS = [
-  "URBAN CRUISER TAISOR",
-  "GLANZA",
-  "URBAN CRUISER HYRYDER",
-  "INNOVA CRYSTA",
-  "INNOVA HYCROSS",
-  "HILUX",
-  "FORTUNER",
-  "LEGENDER",
-  "CAMRY",
-  "VELLFIRE",
-  "LAND CRUISER 300",
-  "NOT SURE YET"
-];
+import { cars } from './Vehicles';
+const TOYOTA_MODELS = cars.map(c => c.name);
 
 const SERVICE_OPTIONS = [
   "GENERAL SERVICE",
@@ -42,10 +31,24 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  if (intent === 'TEST_DRIVE') {
+  if (intent === 'TEST_DRIVE' && !standalone) {
     return (
-      <div className="w-full bg-[#111] p-8 md:p-12 relative overflow-hidden rounded-sm border border-white/10 shadow-2xl h-[600px]">
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+        <button onClick={closeModal} className="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-colors z-[100]">
+          <X size={32} strokeWidth={1} />
+        </button>
         <TestDrivePipeline />
+      </div>
+    );
+  }
+
+  if (intent === 'EXCHANGE' && !standalone) {
+    return (
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+        <button onClick={closeModal} className="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-colors z-[100]">
+          <X size={32} strokeWidth={1} />
+        </button>
+        <ExchangePipeline />
       </div>
     );
   }
@@ -57,9 +60,13 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
 
     try {
       const payload = {
+        leadType: inquiryType,
         name: formData.name,
         phone: formData.phone,
-        model: inquiryType === 'SERVICE' ? `[SERVICE] ${formData.model}` : formData.model
+        targetCar: formData.model || '-',
+        location: '-',
+        currentCar: '-',
+        extraInfo: '-'
       };
 
       const res = await fetch('/api/lead', {
@@ -80,7 +87,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
           setStatus('idle');
         }, 3000);
       }
-    } catch (e) {
+    } catch {
       setStatus('error');
     }
   };

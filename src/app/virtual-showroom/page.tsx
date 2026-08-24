@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 
 export const metadata = {
   title: 'Virtual Showroom | Nippon Toyota',
@@ -34,7 +33,6 @@ export default function VirtualShowroomPage() {
         </div>
       </main>
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

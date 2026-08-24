@@ -143,7 +143,7 @@ function ModalDialog({ entry, onClose }: { entry: ServiceInfo; onClose: () => vo
                     <Image
                       src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
                       alt="Video thumbnail"
-                      fill
+                      fill sizes="100vw"
                       className="object-cover opacity-90 group-hover/thumb:opacity-70 transition-opacity"
                       unoptimized
                     />
@@ -173,7 +173,7 @@ function ModalDialog({ entry, onClose }: { entry: ServiceInfo; onClose: () => vo
                     <Image
                       src={src}
                       alt="Gallery image"
-                      fill
+                      fill sizes="100vw"
                       className="object-cover group-hover/thumb:scale-105 transition-transform duration-300"
                     />
                   </button>
@@ -217,7 +217,7 @@ function ModalDialog({ entry, onClose }: { entry: ServiceInfo; onClose: () => vo
         {activeImage && (
           <Lightbox onClose={() => setActiveImage(null)}>
             <div className="relative w-full max-h-[80vh] aspect-[4/3]">
-              <Image src={activeImage} alt="" fill className="object-contain" />
+              <Image src={activeImage} alt="" fill sizes="100vw" className="object-contain" />
             </div>
           </Lightbox>
         )}

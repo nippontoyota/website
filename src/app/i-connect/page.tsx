@@ -6,7 +6,6 @@ import { Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 import { useLeadStore } from '@/store/useLeadStore';
 
 const connectFeatures = [
@@ -141,7 +140,7 @@ export default function IConnectPage() {
                     <Image
                       src={f.image}
                       alt={f.title}
-                      fill
+                      fill sizes="100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
@@ -189,7 +188,7 @@ export default function IConnectPage() {
                     <Image
                       src={c.image}
                       alt={c.title}
-                      fill
+                      fill sizes="100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -209,13 +208,13 @@ export default function IConnectPage() {
               className="flex flex-wrap gap-4 mt-10"
             >
               <button
-                onClick={() => openModal('Toyota i-Connect Brochure')}
+                onClick={() => openModal('Toyota i-Connect Brochure', 'BROCHURE')}
                 className="bg-[var(--toyota-red)] hover:bg-[#c80000] transition-colors text-white px-8 py-3 text-sm font-bold tracking-widest text-center"
               >
                 DOWNLOAD BROCHURE
               </button>
               <button
-                onClick={() => openModal('Toyota i-Connect EV Brochure')}
+                onClick={() => openModal('Toyota i-Connect EV Brochure', 'BROCHURE')}
                 className="border border-[var(--toyota-red)] text-[var(--toyota-red)] hover:bg-[var(--toyota-red)] hover:text-white transition-colors px-8 py-3 text-sm font-bold tracking-widest text-center"
               >
                 BEV BROCHURE
@@ -286,7 +285,6 @@ export default function IConnectPage() {
       </main>
 
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

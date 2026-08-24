@@ -53,8 +53,8 @@ export default function Footer() {
             </ul>
             <h4 className="font-display text-[11px] font-bold mb-6 tracking-widest text-zinc-400">ONLINE REQUEST</h4>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest">
-              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">TEST DRIVE</button></li>
-              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">BROCHURE</button></li>
+              <li><button onClick={() => openModal('', 'TEST_DRIVE')} className="hover:text-[#eb0a1e] transition-colors">TEST DRIVE</button></li>
+              <li><button onClick={() => openModal('', 'BROCHURE')} className="hover:text-[#eb0a1e] transition-colors">BROCHURE</button></li>
             </ul>
           </div>
 
@@ -63,8 +63,8 @@ export default function Footer() {
             <h4 className="font-display text-[11px] font-bold mb-6 tracking-widest text-zinc-400">U-TRUST</h4>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest mb-10">
               <li><Link href="/used-cars" className="hover:text-[#eb0a1e] transition-colors">BUY NOW</Link></li>
-              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">SELL CAR</button></li>
-              <li><button onClick={() => openModal()} className="hover:text-[#eb0a1e] transition-colors">EXCHANGE CAR</button></li>
+              <li><button onClick={() => openModal('', 'EXCHANGE')} className="hover:text-[#eb0a1e] transition-colors">SELL CAR</button></li>
+              <li><button onClick={() => openModal('', 'EXCHANGE')} className="hover:text-[#eb0a1e] transition-colors">EXCHANGE CAR</button></li>
             </ul>
             <ul className="space-y-4 text-[11px] text-gray-300 font-bold tracking-widest">
               <li><Link href="#" className="hover:text-[#eb0a1e] transition-colors">PRICE LIST</Link></li>

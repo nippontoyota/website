@@ -86,9 +86,8 @@ export default function Services() {
               <div className="absolute inset-0 w-full h-full">
                 <Image 
                   src={service.image} 
-                  alt={service.title} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  alt={service.title}
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
                   className="object-cover transform group-hover:scale-110 transition-transform duration-[1.5s] ease-[0.25,1,0.5,1] opacity-70 group-hover:opacity-100" 
                 />
               </div>

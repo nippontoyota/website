@@ -121,7 +121,7 @@ export default function PressRelease() {
             <Image 
               src="/u-trust-more.jpg" 
               alt="Toyota Trust" 
-              fill 
+              fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
             />
           </motion.a>
@@ -139,7 +139,7 @@ export default function PressRelease() {
             <Image 
               src="/whats-new-more.jpg" 
               alt="What's New" 
-              fill 
+              fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
             />
           </motion.a>
@@ -157,7 +157,7 @@ export default function PressRelease() {
             <Image 
               src="/financial-services-more.jpg" 
               alt="Toyota Financial Services" 
-              fill 
+              fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
             />
           </motion.a>
@@ -175,7 +175,7 @@ export default function PressRelease() {
             <Image 
               src="/events-more.jpg" 
               alt="Events" 
-              fill 
+              fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
             />
           </motion.a>

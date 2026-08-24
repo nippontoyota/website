@@ -5,7 +5,6 @@ import { MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 
 const locations = [
   {
@@ -46,7 +45,7 @@ export default function UsedCarsPage() {
           <Image
             src="/used-cars/banner.jpg"
             alt="Used Cars"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-center"
           />
@@ -93,7 +92,7 @@ export default function UsedCarsPage() {
                     <Image
                       src={loc.image}
                       alt={`Nippon Toyota ${loc.city} Showroom`}
-                      fill
+                      fill sizes="100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -117,7 +116,6 @@ export default function UsedCarsPage() {
       </main>
 
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

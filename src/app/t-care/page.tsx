@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import StickyWidgets from '@/components/StickyWidgets';
 
 const tPrograms = [
   { prefix: "T", name: "ASSIST", sub: "ROADSIDE ASSISTANCE" },
@@ -41,6 +40,7 @@ export default function TCarePage() {
   useEffect(() => {
     const timer = setInterval(handleNext, 8000);
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   const variants = {
@@ -210,7 +210,6 @@ export default function TCarePage() {
       </main>
 
       <Footer />
-      <StickyWidgets />
     </div>
   );
 }

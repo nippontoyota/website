@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LeadCaptureForm from './LeadCaptureForm';
 
 export default function GlobalLeadModal() {
-  const { isOpen, closeModal } = useLeadStore();
+  const { isOpen, closeModal, intent } = useLeadStore();
 
   return (
     <AnimatePresence>
@@ -24,7 +24,7 @@ export default function GlobalLeadModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg z-10"
+            className={`relative w-full z-10 ${intent === 'TEST_DRIVE' ? 'max-w-[1400px]' : 'max-w-lg'}`}
           >
             <LeadCaptureForm />
           </motion.div>

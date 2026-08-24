@@ -144,6 +144,7 @@ export default function Vehicles() {
   const { openModal } = useLeadStore();
   const [activeCar, setActiveCar] = useState(cars[0]);
   const [direction, setDirection] = useState(1);
+  const [hasSwiped, setHasSwiped] = useState(false);
 
   // Mouse Parallax Logic
   const mouseX = useMotionValue(0);
@@ -186,6 +187,7 @@ export default function Vehicles() {
   };
 
   const handleDragEnd = (e: unknown, { offset, velocity }: { offset: { x: number; y: number }, velocity: { x: number; y: number } }) => {
+    setHasSwiped(true);
     if (offset.x < -30 || velocity.x < -300) {
       handleNext();
     } else if (offset.x > 30 || velocity.x > 300) {
@@ -269,7 +271,7 @@ export default function Vehicles() {
           </div>
 
           <div 
-            className="flex overflow-x-auto gap-8 md:gap-12 [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 hover:[&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent w-full relative z-50 pointer-events-auto items-center pb-4 pt-2"
+            className="flex overflow-x-auto gap-8 md:gap-12 [&::-webkit-scrollbar]:hidden w-full relative z-50 pointer-events-auto items-center pb-4 pt-2"
           >
             {cars.map((car, idx) => (
               <button
@@ -326,19 +328,21 @@ export default function Vehicles() {
               onDragEnd={handleDragEnd}
             >
               {/* Mobile Swipe Indicator */}
-              <motion.div 
-                className="lg:hidden text-white/50 bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 pointer-events-none mb-12 flex items-center justify-center"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.5 }}
-              >
-                <motion.div
-                  animate={{ x: [-4, 4, -4] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              {!hasSwiped && (
+                <motion.div 
+                  className="lg:hidden text-white/50 pointer-events-none mb-12 flex items-center justify-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1, duration: 0.5 }}
                 >
-                  <span className="text-[10px] tracking-[0.2em] uppercase font-bold">&larr; Swipe &rarr;</span>
+                  <motion.div
+                    animate={{ x: [-4, 4, -4] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  >
+                    <span className="text-[10px] tracking-[0.3em] uppercase font-bold drop-shadow-md">&larr; Swipe &rarr;</span>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
+              )}
             </motion.div>
             
             <AnimatePresence custom={direction}>

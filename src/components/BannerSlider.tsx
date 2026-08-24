@@ -1,8 +1,18 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 export default function BannerSlider() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      // Force muted and play programmatically for strict mobile browsers (iOS/Safari)
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(e => console.log('Autoplay blocked:', e));
+    }
+  }, []);
   return (
     <div className="w-full relative h-[600px] lg:h-[700px] overflow-hidden bg-[#889fb3]">
       {/* Background Video */}
@@ -13,6 +23,7 @@ export default function BannerSlider() {
         transition={{ duration: 1.5, ease: "easeOut" }}
       >
         <video 
+          ref={videoRef}
           autoPlay 
           loop 
           muted 
@@ -46,48 +57,9 @@ export default function BannerSlider() {
           </motion.span> 
         </motion.h2>
         
-        <motion.p
-          className="text-white font-display text-xs md:text-sm font-bold tracking-[0.4em] drop-shadow-lg mt-6 uppercase opacity-90"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          Dominating <span className="text-[var(--toyota-red)] mx-1">•</span> All-Terrain <span className="text-[var(--toyota-red)] mx-1">•</span> Powered In Style
-        </motion.p>
-      </div>
-
-      {/* Bottom Content Container */}
-      <div className="absolute bottom-8 md:bottom-10 left-0 w-full px-4 md:px-10 flex flex-col md:flex-row justify-between items-start md:items-end pointer-events-none z-10">
         
-        {/* Bottom Text - Left */}
-        <motion.div 
-          className="text-white font-display pointer-events-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="flex items-baseline drop-shadow-lg">
-            <span className="text-4xl md:text-6xl font-extrabold">70</span>
-            <span className="text-sm md:text-xl font-bold ml-1">+ YEARS OF</span>
-          </div>
-          <div className="text-xl md:text-3xl font-extrabold tracking-widest mt-[-5px] drop-shadow-lg">LEGACY</div>
-          <div className="text-[8px] mt-2 opacity-80 max-w-[200px] leading-tight drop-shadow-sm font-sans hidden md:block">
-            *T&C apply. Digitally created visual. Picture of vehicle was not taken while driving.
-          </div>
-        </motion.div>
-
-        {/* Bottom Text - Right */}
-        <motion.div 
-          className="text-white font-display text-left md:text-right mt-4 md:mt-0 pointer-events-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-        >
-          <div className="text-xs md:text-sm tracking-widest drop-shadow-md">ALL NEW</div>
-          <div className="text-2xl md:text-3xl font-extrabold tracking-widest drop-shadow-md">FORTUNER</div>
-        </motion.div>
       </div>
 
-    </div>
+      </div>
   );
 }

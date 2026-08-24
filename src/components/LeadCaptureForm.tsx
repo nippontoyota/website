@@ -54,6 +54,14 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
     );
   }
 
+  if (intent === 'BROCHURE' && !standalone) {
+    return (
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+        <BrochurePipeline />
+      </div>
+    );
+  }
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

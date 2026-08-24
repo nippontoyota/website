@@ -91,11 +91,11 @@ export default function PriceListPipeline() {
                       setDirection(1);
                       setStep(2);
                     }}
-                    className="group relative aspect-[4/3] bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden cursor-pointer hover:bg-[#eb0a1e]/10 hover:border-[#eb0a1e]/50 transition-all duration-300 flex flex-col items-center justify-center p-2 rounded-sm"
+                    className="group relative aspect-[4/3] bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden cursor-pointer hover:border-[#eb0a1e]/50 transition-all duration-300 flex flex-col items-center justify-center p-2 rounded-sm"
                   >
                     {car.image && (
                       <div className="relative w-full h-[70%] mb-2">
-                        <Image src={car.image} alt={car.name} fill sizes="25vw" className="object-contain transform group-hover:scale-110 transition-transform duration-500" />
+                        <Image src={car.image} alt={car.name} fill sizes="25vw" className="object-contain" />
                       </div>
                     )}
                     <span className="font-display font-bold text-xs md:text-sm text-center tracking-[0.2em] text-white uppercase mt-auto">

@@ -117,7 +117,7 @@ export default function BrochurePipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col items-center justify-start md:justify-center pt-8 pb-12"
             >
               <div className="max-w-xl mx-auto w-full text-center px-4">
                 

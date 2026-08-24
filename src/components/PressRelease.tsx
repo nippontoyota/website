@@ -11,7 +11,7 @@ const fadeUp = {
 
 export default function PressRelease() {
   return (
-    <section className="py-24 md:py-32 bg-white border-t border-gray-200">
+    <section className="py-24 md:py-32 bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         
         {/* Press Release Header */}

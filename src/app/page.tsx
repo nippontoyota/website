@@ -17,7 +17,7 @@ export default function Home() {
         <QuickLinks />
         <Vehicles />
         <Services />
-        <PressRelease />
+        {/* <PressRelease /> */}
         <LeadForm />
       </main>
 

@@ -319,12 +319,27 @@ export default function Vehicles() {
 
             {/* Gesture Overlay: explicitly handles drag events independent of the crossfading images */}
             <motion.div 
-              className="absolute inset-0 z-40 cursor-grab active:cursor-grabbing touch-pan-y"
+              className="absolute inset-0 z-40 cursor-grab active:cursor-grabbing touch-pan-y flex items-end justify-center pb-8"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.8}
               onDragEnd={handleDragEnd}
-            />
+            >
+              {/* Mobile Swipe Indicator */}
+              <motion.div 
+                className="lg:hidden text-white/50 bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10 pointer-events-none mb-12 flex items-center justify-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+              >
+                <motion.div
+                  animate={{ x: [-4, 4, -4] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                >
+                  <span className="text-[10px] tracking-[0.2em] uppercase font-bold">&larr; Swipe &rarr;</span>
+                </motion.div>
+              </motion.div>
+            </motion.div>
             
             <AnimatePresence custom={direction}>
               <motion.div

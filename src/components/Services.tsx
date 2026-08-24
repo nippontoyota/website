@@ -9,28 +9,32 @@ const services = [
     id: 1, 
     title: "Toyota Q Service", 
     subtitle: "Unmatched Quality & Care", 
+    desc: "Experience legendary Toyota reliability. Our master technicians use cutting-edge diagnostics and genuine parts to keep your vehicle performing flawlessly.",
     image: "/q-service.jpg", 
     className: "md:col-span-8 md:row-span-2 min-h-[400px] md:min-h-[600px]" 
   },
   { 
     id: 2, 
-    title: "Driving School", 
-    subtitle: "Master the Road", 
-    image: "/driving-school.jpg", 
-    className: "md:col-span-4 md:row-span-1 min-h-[300px]" 
-  },
-  { 
-    id: 3, 
-    title: "Toyota iConnect", 
+    title: "Toyota i-Connect", 
     subtitle: "Stay Connected", 
+    desc: "Control your Toyota from your smartwatch or phone. Seamless connectivity, remote immobilization, and instant diagnostics at your fingertips.",
     image: "/iconnect.jpg", 
     className: "md:col-span-4 md:row-span-1 min-h-[300px]" 
   },
   { 
+    id: 3, 
+    title: "Driving School", 
+    subtitle: "Master the Road", 
+    desc: "World-class simulator training, comprehensive defensive driving curriculums, and expert instruction.",
+    image: "/driving-school.jpg", 
+    className: "md:col-span-4 md:row-span-1 min-h-[300px]" 
+  },
+  { 
     id: 4, 
-    title: "What's New", 
-    subtitle: "Latest Announcements", 
-    image: "/whats-new.jpg", 
+    title: "T-Care Solutions", 
+    subtitle: "Complete Peace of Mind", 
+    desc: "Comprehensive warranty extensions, tailored maintenance packages, and 24/7 roadside assistance across India.",
+    image: "/t-care.webp", 
     className: "md:col-span-12 md:row-span-1 min-h-[350px] md:min-h-[400px]" 
   }
 ];
@@ -42,33 +46,38 @@ export default function Services() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Cinematic Section Header */}
-        <div className="mb-16">
-          <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[#eb0a1e] font-bold text-[10px] tracking-[0.4em] uppercase mb-4"
-          >
-            Beyond the Drive
-          </motion.p>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-druk text-5xl md:text-7xl text-zinc-950 tracking-tighter uppercase leading-none mb-6"
-          >
-            Premium Services
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
+          <div>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[#eb0a1e] font-bold text-[11px] tracking-[0.5em] uppercase mb-4"
+            >
+              Beyond the Drive
+            </motion.p>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-druk text-5xl md:text-7xl lg:text-8xl text-zinc-950 tracking-tighter uppercase leading-none"
+            >
+              Premium<br className="hidden md:block" /> Services
+            </motion.h2>
+          </div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-zinc-500 font-display font-light text-base md:text-lg max-w-xl leading-relaxed"
+            className="md:max-w-sm lg:max-w-md pb-2"
           >
-            Experience the pinnacle of automotive care and connectivity, engineered to Toyota&apos;s exacting global standards.
-          </motion.p>
+            <p className="text-zinc-600 font-display font-medium text-base md:text-lg leading-relaxed border-l-2 border-[#eb0a1e] pl-6">
+              Experience the pinnacle of automotive care, unmatched connectivity, and exclusive ownership benefits engineered to Toyota&apos;s exacting global standards.
+            </p>
+          </motion.div>
         </div>
         
         {/* High-End Bento Grid */}
@@ -103,14 +112,21 @@ export default function Services() {
                     {service.subtitle}
                   </p>
                   
-                  <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none mb-6 drop-shadow-lg">
+                  <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none mb-4 drop-shadow-lg">
                     {service.title}
                   </h3>
                   
-                  {/* Hover Reveal Button */}
+                  {/* Hover Reveal Description */}
+                  <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-700">
+                    <p className="text-white/80 font-sans font-light text-sm md:text-base leading-relaxed mb-6 max-w-lg">
+                      {service.desc}
+                    </p>
+                  </div>
+                  
+                  {/* Explore Button */}
                   <div className="flex items-center space-x-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
                     <span className="text-[10px] font-bold tracking-[0.25em] uppercase border-b border-white/30 pb-1">
-                      Explore Service
+                      Explore {service.title}
                     </span>
                     <ArrowRight size={14} className="transform -translate-x-4 group-hover:translate-x-0 transition-transform duration-700 delay-100 ease-out" />
                   </div>

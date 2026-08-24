@@ -152,42 +152,60 @@ export default function PriceListPipeline() {
                 </div>
                 
                 {/* Tables Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 bg-white p-6 md:p-10 rounded-sm shadow-xl">
                   
                   {/* Petrol Variants */}
                   <div>
-                    <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-4 flex items-center">
-                      <span className="text-[#eb0a1e] mr-2">⛽</span> Petrol
+                    <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
+                      <span className="text-zinc-800 mr-2 text-3xl">⛽</span> Petrol
                     </h3>
                     <div className="overflow-x-auto">
-                      <table className="w-full text-left text-sm text-white/80">
-                        <thead className="bg-zinc-900 text-white font-bold uppercase text-[10px] tracking-widest">
+                      <table className="w-full text-left text-sm text-zinc-800">
+                        <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
                           <tr>
-                            <th className="px-4 py-3 rounded-tl-sm">Grade</th>
+                            <th className="px-4 py-3 whitespace-nowrap">Sl. No.</th>
+                            <th className="px-4 py-3">Grade</th>
                             <th className="px-4 py-3">Summary</th>
-                            <th className="px-4 py-3 text-right rounded-tr-sm">Price (Est.)</th>
+                            <th className="px-4 py-3">Ex-Showroom Price</th>
+                            <th className="px-4 py-3"></th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-white/5 bg-black/20">
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">G MT</td>
-                            <td className="px-4 py-4 text-white/60">Manual</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 8,65,000</td>
+                        <tbody className="divide-y divide-gray-200">
+                          <tr className="bg-white">
+                            <td className="px-4 py-4 font-medium">1</td>
+                            <td className="px-4 py-4">E MT</td>
+                            <td className="px-4 py-4 text-zinc-600">Manual</td>
+                            <td className="px-4 py-4 font-medium">₹ 6,73,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">G AMT</td>
-                            <td className="px-4 py-4 text-white/60">Automatic</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,25,000</td>
+                          <tr className="bg-gray-50">
+                            <td className="px-4 py-4 font-medium">2</td>
+                            <td className="px-4 py-4">S MT</td>
+                            <td className="px-4 py-4 text-zinc-600">Manual</td>
+                            <td className="px-4 py-4 font-medium">₹ 7,63,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">V MT</td>
-                            <td className="px-4 py-4 text-white/60">Manual</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,48,000</td>
+                          <tr className="bg-white">
+                            <td className="px-4 py-4 font-medium">3</td>
+                            <td className="px-4 py-4">S AMT</td>
+                            <td className="px-4 py-4 text-zinc-600">Automatic</td>
+                            <td className="px-4 py-4 font-medium">₹ 8,28,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">V AMT</td>
-                            <td className="px-4 py-4 text-white/60">Automatic</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,99,000</td>
+                          <tr className="bg-gray-50">
+                            <td className="px-4 py-4 font-medium">4</td>
+                            <td className="px-4 py-4">G MT</td>
+                            <td className="px-4 py-4 text-zinc-600">Manual</td>
+                            <td className="px-4 py-4 font-medium">₹ 8,65,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -196,28 +214,38 @@ export default function PriceListPipeline() {
 
                   {/* CNG / Hybrid Variants */}
                   <div>
-                    <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-4 flex items-center">
-                      <span className="text-green-500 mr-2">🌱</span> Hybrid / CNG
+                    <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
+                      <span className="text-zinc-800 mr-2 text-3xl">⛽</span> CNG
                     </h3>
                     <div className="overflow-x-auto">
-                      <table className="w-full text-left text-sm text-white/80">
-                        <thead className="bg-zinc-900 text-white font-bold uppercase text-[10px] tracking-widest">
+                      <table className="w-full text-left text-sm text-zinc-800">
+                        <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
                           <tr>
-                            <th className="px-4 py-3 rounded-tl-sm">Grade</th>
+                            <th className="px-4 py-3 whitespace-nowrap">Sl. No.</th>
+                            <th className="px-4 py-3">Grade</th>
                             <th className="px-4 py-3">Summary</th>
-                            <th className="px-4 py-3 text-right rounded-tr-sm">Price (Est.)</th>
+                            <th className="px-4 py-3">Ex-Showroom Price</th>
+                            <th className="px-4 py-3"></th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-white/5 bg-black/20">
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">S MT</td>
-                            <td className="px-4 py-4 text-white/60">Manual</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 8,49,000</td>
+                        <tbody className="divide-y divide-gray-200">
+                          <tr className="bg-white">
+                            <td className="px-4 py-4 font-medium">1</td>
+                            <td className="px-4 py-4">S MT</td>
+                            <td className="px-4 py-4 text-zinc-600">Manual</td>
+                            <td className="px-4 py-4 font-medium">₹ 8,49,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
-                          <tr className="hover:bg-white/5 transition-colors">
-                            <td className="px-4 py-4 font-bold text-white">G MT</td>
-                            <td className="px-4 py-4 text-white/60">Manual</td>
-                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,53,000</td>
+                          <tr className="bg-gray-50">
+                            <td className="px-4 py-4 font-medium">2</td>
+                            <td className="px-4 py-4">G MT</td>
+                            <td className="px-4 py-4 text-zinc-600">Manual</td>
+                            <td className="px-4 py-4 font-medium">₹ 9,53,000</td>
+                            <td className="px-4 py-4 text-right">
+                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[10px] px-3 py-1.5 transition-colors">Check Your EMI</button>
+                            </td>
                           </tr>
                         </tbody>
                       </table>

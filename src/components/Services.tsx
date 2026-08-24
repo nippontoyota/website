@@ -98,20 +98,18 @@ export default function Services() {
                   alt={service.title}
                   fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority 
-                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" 
+                  className="object-cover transition-opacity duration-300" 
                 />
               </div>
               
               {/* Gradient Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/80 backdrop-blur-[0px] group-hover:backdrop-blur-sm transition-all duration-300" />
               
               {/* Overlay Content */}
               <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out">
                   
-                  <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none mb-4">
-                    {service.title}
-                  </h3>
+                  
                   
                   {/* Hover Reveal Description */}
                   <div className="overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-300">

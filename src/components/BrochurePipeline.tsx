@@ -30,7 +30,7 @@ export default function BrochurePipeline() {
   };
 
   return (
-    <div className="h-full bg-zinc-950 flex flex-col relative text-white">
+    <div className="h-full bg-transparent flex flex-col relative text-white">
       {/* Top Nav */}
       <div className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-center z-50">
         <div className="w-12">

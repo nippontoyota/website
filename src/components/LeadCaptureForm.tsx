@@ -35,7 +35,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
 
   if (intent === 'TEST_DRIVE' && !standalone) {
     return (
-      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-full flex flex-col">
         <button onClick={closeModal} className="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-colors z-[100]">
           <X size={32} strokeWidth={1} />
         </button>
@@ -46,7 +46,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
 
   if (intent === 'EXCHANGE' && !standalone) {
     return (
-      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-full flex flex-col">
         <button onClick={closeModal} className="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-colors z-[100]">
           <X size={32} strokeWidth={1} />
         </button>
@@ -57,7 +57,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
 
   if (intent === 'BROCHURE' && !standalone) {
     return (
-      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-full flex flex-col">
         <BrochurePipeline />
       </div>
     );
@@ -65,7 +65,7 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
 
   if (intent === 'PRICE_LIST' && !standalone) {
     return (
-      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-[90dvh] md:h-auto md:min-h-[700px] flex flex-col">
+      <div className="w-full bg-[#050505] backdrop-blur-2xl p-6 md:p-8 relative overflow-hidden rounded-none border border-white/10 shadow-2xl h-full flex flex-col">
         <PriceListPipeline />
       </div>
     );

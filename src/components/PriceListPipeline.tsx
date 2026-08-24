@@ -107,7 +107,7 @@ export default function PriceListPipeline() {
             </motion.div>
           )}
 
-          {/* STEP 2: DOWNLOAD */}
+          {/* STEP 2: PRICE TABLES */}
           {step === 2 && selectedCar && (
             <motion.div
               key="step2"
@@ -117,46 +117,125 @@ export default function PriceListPipeline() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col items-center justify-start md:justify-center pt-8 pb-12"
+              className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-track]:bg-transparent flex flex-col pt-4 pb-12 px-2 md:px-8"
             >
-              <div className="max-w-xl mx-auto w-full text-center px-4">
-                
-                <div className="relative w-full max-w-md aspect-[2/1] mx-auto mb-8">
-                  <Image 
-                    src={selectedCar.image} 
-                    alt={selectedCar.name} 
-                    fill 
-                    className="object-contain drop-shadow-2xl" 
-                  />
+              <div className="w-full max-w-5xl mx-auto">
+                <div className="flex flex-col md:flex-row items-center justify-between mb-8 pb-6 border-b border-white/10">
+                  <div className="flex items-center space-x-6">
+                    <div className="relative w-32 h-16 md:w-48 md:h-24">
+                      <Image 
+                        src={selectedCar.image} 
+                        alt={selectedCar.name} 
+                        fill 
+                        className="object-contain" 
+                      />
+                    </div>
+                    <div>
+                      <h2 className="font-druk text-3xl md:text-4xl text-white uppercase tracking-wider">
+                        {selectedCar.name}
+                      </h2>
+                      <p className="text-white/50 text-sm font-medium tracking-widest uppercase">
+                        Ex-Showroom Estimates
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <button 
+                    onClick={() => {
+                      setDirection(-1);
+                      setStep(1);
+                    }}
+                    className="hidden md:block text-xs tracking-widest uppercase text-white/40 hover:text-white transition-colors border border-white/20 px-4 py-2 rounded-sm hover:border-white/50"
+                  >
+                    Change Model
+                  </button>
                 </div>
                 
-                <h2 className="font-druk text-4xl md:text-5xl text-white uppercase tracking-tighter mb-4">
-                  {selectedCar.name}
-                </h2>
-                
-                <p className="text-white/60 mb-10 max-w-md mx-auto">
-                  Download the official price list to explore detailed specifications, features, and variants.
-                </p>
+                {/* Tables Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                  
+                  {/* Petrol Variants */}
+                  <div>
+                    <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-4 flex items-center">
+                      <span className="text-[#eb0a1e] mr-2">⛽</span> Petrol
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-sm text-white/80">
+                        <thead className="bg-zinc-900 text-white font-bold uppercase text-[10px] tracking-widest">
+                          <tr>
+                            <th className="px-4 py-3 rounded-tl-sm">Grade</th>
+                            <th className="px-4 py-3">Summary</th>
+                            <th className="px-4 py-3 text-right rounded-tr-sm">Price (Est.)</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5 bg-black/20">
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">G MT</td>
+                            <td className="px-4 py-4 text-white/60">Manual</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 8,65,000</td>
+                          </tr>
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">G AMT</td>
+                            <td className="px-4 py-4 text-white/60">Automatic</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,25,000</td>
+                          </tr>
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">V MT</td>
+                            <td className="px-4 py-4 text-white/60">Manual</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,48,000</td>
+                          </tr>
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">V AMT</td>
+                            <td className="px-4 py-4 text-white/60">Automatic</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,99,000</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                <a
-                  href={`https://www.nippon-toyota.com/pricelist/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center w-full max-w-sm bg-white hover:bg-[#eb0a1e] text-black hover:text-white transition-colors duration-500 py-5 px-8 rounded-sm mx-auto"
-                >
-                  <Download size={20} className="mr-4" />
-                  <span className="font-bold tracking-[0.2em] uppercase text-sm">Download Price List</span>
-                </a>
+                  {/* CNG / Hybrid Variants */}
+                  <div>
+                    <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-4 flex items-center">
+                      <span className="text-green-500 mr-2">🌱</span> Hybrid / CNG
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-sm text-white/80">
+                        <thead className="bg-zinc-900 text-white font-bold uppercase text-[10px] tracking-widest">
+                          <tr>
+                            <th className="px-4 py-3 rounded-tl-sm">Grade</th>
+                            <th className="px-4 py-3">Summary</th>
+                            <th className="px-4 py-3 text-right rounded-tr-sm">Price (Est.)</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5 bg-black/20">
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">S MT</td>
+                            <td className="px-4 py-4 text-white/60">Manual</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 8,49,000</td>
+                          </tr>
+                          <tr className="hover:bg-white/5 transition-colors">
+                            <td className="px-4 py-4 font-bold text-white">G MT</td>
+                            <td className="px-4 py-4 text-white/60">Manual</td>
+                            <td className="px-4 py-4 text-right font-display tracking-wider">₹ 9,53,000</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                <button 
-                  onClick={() => {
-                    setDirection(-1);
-                    setStep(1);
-                  }}
-                  className="block mx-auto mt-6 text-xs tracking-widest uppercase text-white/40 hover:text-white transition-colors"
-                >
-                  Choose Another Model
-                </button>
+                </div>
+
+                <div className="mt-12 text-center">
+                  <a
+                    href="https://www.nippon-toyota.com/pricelist/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center bg-[#eb0a1e] hover:bg-white text-white hover:text-[#eb0a1e] transition-colors duration-300 py-3 px-8 rounded-sm font-bold tracking-[0.2em] uppercase text-xs"
+                  >
+                    Download Full PDF Price List
+                  </a>
+                </div>
               </div>
             </motion.div>
           )}

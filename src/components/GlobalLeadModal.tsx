@@ -24,7 +24,7 @@ export default function GlobalLeadModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className={`relative w-full z-10 ${['TEST_DRIVE', 'EXCHANGE', 'BROCHURE', 'PRICE_LIST'].includes(intent) ? 'max-w-[1400px] h-[90dvh] md:h-auto' : 'max-w-lg'}`}
+            className={`relative w-full z-10 ${['TEST_DRIVE', 'EXCHANGE', 'BROCHURE', 'PRICE_LIST'].includes(intent) ? 'max-w-[1400px] h-[90dvh] md:h-[90dvh]' : 'max-w-lg'}`}
           >
             <LeadCaptureForm />
           </motion.div>

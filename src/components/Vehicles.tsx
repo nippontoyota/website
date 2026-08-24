@@ -229,7 +229,7 @@ export default function Vehicles() {
       />
 
       {/* Parallax Background Typography */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={activeCar.id + "-bg"}
           initial={{ opacity: 0, scale: 0.95 }}
@@ -368,7 +368,7 @@ export default function Vehicles() {
 
           {/* Right Column: High-End HUD */}
           <div className="lg:col-span-3 lg:col-start-10 z-30 lg:-mt-16 xl:-mt-24">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               <motion.div
                 key={activeCar.id + "-stats"}
                 initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}

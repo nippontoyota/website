@@ -26,7 +26,7 @@ const services = [
     title: "Driving School", 
     subtitle: "Master the Road", 
     desc: "World-class simulator training, comprehensive defensive driving curriculums, and expert instruction.",
-    image: "/driving-school.jpg", 
+    image: "/driving-school.png", 
     className: "md:col-span-4 md:row-span-1 min-h-[300px]" 
   },
   { 
@@ -34,7 +34,7 @@ const services = [
     title: "T-Care Solutions", 
     subtitle: "Complete Peace of Mind", 
     desc: "Comprehensive warranty extensions, tailored maintenance packages, and 24/7 roadside assistance across India.",
-    image: "/t-care.webp", 
+    image: "/t-care.png", 
     className: "md:col-span-12 md:row-span-1 min-h-[350px] md:min-h-[400px]" 
   }
 ];

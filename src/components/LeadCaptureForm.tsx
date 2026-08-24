@@ -230,6 +230,12 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                 </motion.div>
               </div>
 
+              {isDropdownOpen && (
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setIsDropdownOpen(false)} 
+                />
+              )}
               <AnimatePresence>
                 {isDropdownOpen && (
                   <motion.div
@@ -237,9 +243,9 @@ export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadC
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute left-0 right-0 top-[100%] mt-2 bg-[#111] border border-white/10 rounded-sm shadow-2xl z-50 overflow-hidden"
+                    className="absolute left-0 right-0 bottom-[100%] mb-2 bg-[#111] border border-white/10 rounded-sm shadow-2xl z-50 overflow-hidden"
                   >
-                    <div className="max-h-[400px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
+                    <div className="max-h-[280px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
                       {(inquiryType === 'SALES' ? TOYOTA_MODELS : SERVICE_OPTIONS).map(model => (
                         <div
                           key={model}

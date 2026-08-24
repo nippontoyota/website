@@ -5,7 +5,7 @@ import LeadCaptureForm from './LeadCaptureForm';
 
 export default function LeadForm() {
   return (
-    <section className="bg-[#050505] py-24 md:py-32 relative border-t border-white/10" id="lead-form">
+    <section className="bg-[#050505] py-16 md:py-24 relative border-t border-white/10" id="lead-form">
       
       {/* Background accents */}
       <div className="absolute top-0 right-0 w-[40%] h-full bg-[radial-gradient(circle_at_right,rgba(235,10,30,0.05),transparent_70%)] pointer-events-none mix-blend-screen" />
@@ -19,14 +19,12 @@ export default function LeadForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-[#eb0a1e] font-bold text-[10px] tracking-[0.4em] uppercase mb-4">
-              Register Interest
-            </p>
-            <h2 className="font-druk text-5xl md:text-7xl text-white tracking-tighter uppercase leading-none mb-6">
-              Start Your Journey
+            
+            <h2 className="font-druk text-4xl md:text-6xl text-white tracking-tighter uppercase leading-none mb-4">
+              Get in Touch
             </h2>
-            <p className="text-zinc-400 font-display font-light text-lg max-w-md leading-relaxed">
-              Connect with our Toyota specialists today. Whether you&apos;re looking for a test drive, pricing details, or just expert advice, we&apos;re here.
+            <p className="text-zinc-400 font-display font-light text-sm md:text-base max-w-sm leading-relaxed">
+              Connect with our Toyota specialists for test drives, pricing, or expert advice.
             </p>
           </motion.div>
         </div>

@@ -34,19 +34,13 @@ export default function Header() {
   return (
     <motion.header 
       className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      
     >
       <div className="flex justify-between items-center px-6 py-4 mx-auto w-full">
         {/* Left: Logo */}
         <div className="flex items-center">
           <Link href="/">
-            <motion.div 
-              className="flex items-center"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <div className="flex items-center">
               <Image 
                 src="/nippon-toyota.png" 
                 alt="Toyota Logo" 
@@ -56,7 +50,8 @@ export default function Header() {
                 style={{ width: "auto" }}
                 priority
               />
-            </motion.div>
+              <span className="ml-3 font-display font-black text-lg tracking-tight text-black">NIPPON TOYOTA</span>
+            </div>
           </Link>
         </div>
 

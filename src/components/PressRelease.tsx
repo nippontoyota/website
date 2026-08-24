@@ -119,7 +119,7 @@ export default function PressRelease() {
             variants={fadeUp}
           >
             <Image 
-              src="/u-trust-more.jpg" 
+              src="/u-trust.png" 
               alt="Toyota Trust" 
               fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
@@ -155,7 +155,7 @@ export default function PressRelease() {
             transition={{ delay: 0.2 }}
           >
             <Image 
-              src="/financial-services-more.jpg" 
+              src="/toyota-financial.png" 
               alt="Toyota Financial Services" 
               fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" 
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 

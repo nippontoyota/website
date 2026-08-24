@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
+import TestDrivePipeline from './TestDrivePipeline';
 
 const TOYOTA_MODELS = [
   "URBAN CRUISER TAISOR",
@@ -35,11 +36,20 @@ interface LeadCaptureFormProps {
 }
 
 export default function LeadCaptureForm({ onSuccess, standalone = false }: LeadCaptureFormProps) {
-  const { prefilledModel, closeModal } = useLeadStore();
-  const [inquiryType, setInquiryType] = useState<'SALES' | 'SERVICE'>('SALES');
+  const { prefilledModel, closeModal, intent } = useLeadStore();
+  const [inquiryType, setInquiryType] = useState<'SALES' | 'SERVICE'>(intent === 'SERVICE' ? 'SERVICE' : 'SALES');
   const [formData, setFormData] = useState({ name: '', phone: '', model: prefilledModel || '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  if (intent === 'TEST_DRIVE') {
+    return (
+      <div className="w-full bg-[#111] p-8 md:p-12 relative overflow-hidden rounded-sm border border-white/10 shadow-2xl h-[600px]">
+        <TestDrivePipeline />
+      </div>
+    );
+  }
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

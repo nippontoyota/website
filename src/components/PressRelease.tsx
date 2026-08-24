@@ -11,7 +11,7 @@ const fadeUp = {
 
 export default function PressRelease() {
   return (
-    <section className="py-24 md:py-32 bg-[#f8f8f8] border-t border-gray-200">
+    <section className="py-24 md:py-32 bg-white border-t border-gray-200">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         
         {/* Press Release Header */}
@@ -37,7 +37,7 @@ export default function PressRelease() {
             href="https://www.toyotabharat.com/news/2026/tkm-concludes-environment-month-2026-delivering-measurable-environmental.html"
             target="_blank" 
             rel="noopener noreferrer"
-            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 relative overflow-hidden"
+            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 relative overflow-hidden rounded-sm"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -49,7 +49,7 @@ export default function PressRelease() {
                 <div className="text-[11px] font-bold text-zinc-500 mt-2 uppercase tracking-[0.2em]">Aug<br/>2026</div>
               </div>
               <div>
-                <h3 className="font-display font-bold text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
+                <h3 className="font-display font-bold text-zinc-900 group-hover:text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
                   Toyota Kirloskar Motor Concludes Environment Month 2026, Delivering Measurable Environmental Impact
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
@@ -58,7 +58,7 @@ export default function PressRelease() {
               </div>
             </div>
             {/* Subtle Hover Arrow */}
-            <div className="absolute top-8 right-8 opacity-100 translate-y-0 translate-x-0 transition-all duration-500 text-[#eb0a1e]">
+            <div className="absolute top-8 right-8 text-zinc-300 group-hover:text-[#eb0a1e] transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
               <ArrowUpRight size={24} strokeWidth={1.5} />
             </div>
           </motion.a>
@@ -68,7 +68,7 @@ export default function PressRelease() {
             href="https://www.toyotabharat.com/news/2026/tkm-conducts-groundbreaking-ceremony-for-educational-infrastructure-project.html"
             target="_blank" 
             rel="noopener noreferrer"
-            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)] transition-all duration-500 relative overflow-hidden"
+            className="group block bg-white border border-gray-100 p-8 md:p-12 shadow-sm hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 relative overflow-hidden rounded-sm"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -80,7 +80,7 @@ export default function PressRelease() {
                 <div className="text-[11px] font-bold text-zinc-500 mt-2 uppercase tracking-[0.2em]">Aug<br/>2026</div>
               </div>
               <div>
-                <h3 className="font-display font-bold text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
+                <h3 className="font-display font-bold text-zinc-900 group-hover:text-[#eb0a1e] text-xl leading-tight mb-4 transition-colors duration-500">
                   Toyota Kirloskar Motor Conducts Groundbreaking Ceremony for Educational Infrastructure Project
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed font-light line-clamp-3">
@@ -89,7 +89,7 @@ export default function PressRelease() {
               </div>
             </div>
             {/* Subtle Hover Arrow */}
-            <div className="absolute top-8 right-8 opacity-100 translate-y-0 translate-x-0 transition-all duration-500 text-[#eb0a1e]">
+            <div className="absolute top-8 right-8 text-zinc-300 group-hover:text-[#eb0a1e] transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
               <ArrowUpRight size={24} strokeWidth={1.5} />
             </div>
           </motion.a>

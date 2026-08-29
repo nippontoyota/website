@@ -148,8 +148,11 @@ export default function Vehicles() {
 
   useEffect(() => {
     const el = document.getElementById(`car-nav-${activeCar.id}`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    const container = el?.parentElement;
+    if (el && container) {
+      // offsetLeft is relative to the offsetParent (the container since it has 'relative')
+      const scrollLeft = el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2;
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     }
   }, [activeCar.id]);
 
@@ -358,7 +361,7 @@ export default function Vehicles() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 w-full h-full z-20 scale-110 lg:scale-[1.25] origin-bottom"
+                className="absolute inset-0 w-full h-full z-20 scale-105 lg:scale-[1.18] origin-bottom"
               >
                 {activeCar.image ? (
                   <>

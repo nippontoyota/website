@@ -80,6 +80,59 @@ export default function PriceListPipeline() {
     );
   }
 
+  const generateVariants = (car: any) => {
+    if (!car) return { petrol: [], hybridOrCng: [], type: '' };
+    
+    const priceStr = car.stats?.[0]?.value || "";
+    const matches = [...priceStr.matchAll(/([\d.]+)/g)];
+    let minLakhs = 8.00;
+    let maxLakhs = 12.00;
+    
+    if (matches.length >= 2) {
+      minLakhs = parseFloat(matches[0][0]);
+      maxLakhs = parseFloat(matches[1][0]);
+    } else if (matches.length === 1) {
+      minLakhs = parseFloat(matches[0][0]);
+      maxLakhs = minLakhs;
+    }
+
+    const formatPrice = (lakhs: number) => {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      }).format(lakhs * 100000);
+    };
+
+    const petrol = [];
+    const hybridOrCng = [];
+    let hybridType = "CNG";
+
+    if (maxLakhs === minLakhs) {
+      petrol.push({ id: 1, grade: "Standard", summary: "Automatic", priceStr: formatPrice(minLakhs) });
+    } else {
+      petrol.push({ id: 1, grade: "E MT", summary: "Manual", priceStr: formatPrice(minLakhs) });
+      petrol.push({ id: 2, grade: "S MT", summary: "Manual", priceStr: formatPrice(minLakhs + (maxLakhs - minLakhs) * 0.25) });
+      petrol.push({ id: 3, grade: "G CVT", summary: "Automatic", priceStr: formatPrice(minLakhs + (maxLakhs - minLakhs) * 0.6) });
+      petrol.push({ id: 4, grade: "V AT", summary: "Automatic", priceStr: formatPrice(maxLakhs) });
+    }
+
+    const isHighEnd = car.name.includes("HYBRID") || car.name.includes("HYCROSS") || car.name.includes("CAMRY") || car.name.includes("VELLFIRE") || car.name.includes("LAND CRUISER");
+    
+    if (isHighEnd) {
+      hybridType = "HYBRID";
+      hybridOrCng.push({ id: 1, grade: "VX Hybrid", summary: "Automatic", priceStr: formatPrice(maxLakhs * 1.05) });
+      hybridOrCng.push({ id: 2, grade: "ZX Hybrid", summary: "Automatic", priceStr: formatPrice(maxLakhs * 1.15) });
+    } else if (car.name !== "HILUX" && car.name !== "FORTUNER") {
+      hybridType = "CNG";
+      hybridOrCng.push({ id: 1, grade: "S MT CNG", summary: "Manual", priceStr: formatPrice(minLakhs + 0.9) });
+      hybridOrCng.push({ id: 2, grade: "G MT CNG", summary: "Manual", priceStr: formatPrice(minLakhs + 1.2) });
+    }
+
+    return { petrol, hybridOrCng, type: hybridType };
+  };
+
+  const currentVariants = generateVariants(selectedCar);
   const variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 30 : -30,
@@ -221,12 +274,12 @@ export default function PriceListPipeline() {
                 </div>
                 
                 {/* Tables Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 bg-white p-6 md:p-10 rounded-sm shadow-xl">
+                <div className={`grid grid-cols-1 ${currentVariants.hybridOrCng.length > 0 ? 'lg:grid-cols-2' : ''} gap-8 md:gap-12 bg-white p-6 md:p-10 rounded-sm shadow-xl`}>
                   
-                  {/* Petrol Variants */}
+                  {/* Primary Variants */}
                   <div>
                     <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
-                      Petrol
+                      {selectedCar?.name === "HILUX" || selectedCar?.name === "FORTUNER" ? "Diesel" : "Petrol"}
                     </h3>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm text-zinc-800">
@@ -240,90 +293,57 @@ export default function PriceListPipeline() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                          <tr className="bg-white">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">1</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">E MT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 6,73,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
-                          <tr className="bg-gray-50">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">2</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">S MT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 7,63,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
-                          <tr className="bg-white">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">3</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">S AMT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Automatic</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,28,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
-                          <tr className="bg-gray-50">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">4</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">G MT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,65,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
+                          {currentVariants.petrol.map((v, index) => (
+                            <tr key={v.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                              <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">{v.id}</td>
+                              <td className="px-2 sm:px-4 py-3 sm:py-4">{v.grade}</td>
+                              <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">{v.summary}</td>
+                              <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">{v.priceStr}</td>
+                              <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                                <button onClick={() => { setSelectedGrade(v.grade); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
                   </div>
 
-                  {/* CNG / Hybrid Variants */}
-                  <div>
-                    <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
-                      CNG
-                    </h3>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-left text-sm text-zinc-800">
-                        <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
-                          <tr>
-                            <th className="px-2 sm:px-4 py-3 whitespace-nowrap hidden sm:table-cell">Sl. No.</th>
-                            <th className="px-2 sm:px-4 py-3">Grade</th>
-                            <th className="px-2 sm:px-4 py-3 hidden md:table-cell">Summary</th>
-                            <th className="px-2 sm:px-4 py-3">Ex-Showroom Price</th>
-                            <th className="px-2 sm:px-4 py-3"></th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                          <tr className="bg-white">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">1</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">S MT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,49,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
-                          <tr className="bg-gray-50">
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">2</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4">G MT</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 9,53,000</td>
-                            <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                  {/* Secondary Variants (CNG/Hybrid) */}
+                  {currentVariants.hybridOrCng.length > 0 && (
+                    <div>
+                      <h3 className="font-sans font-bold text-2xl text-zinc-900 mb-4 flex items-center tracking-tight">
+                        {currentVariants.type}
+                      </h3>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left text-sm text-zinc-800">
+                          <thead className="bg-[#444444] text-white font-bold text-[11px] tracking-wider">
+                            <tr>
+                              <th className="px-2 sm:px-4 py-3 whitespace-nowrap hidden sm:table-cell">Sl. No.</th>
+                              <th className="px-2 sm:px-4 py-3">Grade</th>
+                              <th className="px-2 sm:px-4 py-3 hidden md:table-cell">Summary</th>
+                              <th className="px-2 sm:px-4 py-3">Ex-Showroom Price</th>
+                              <th className="px-2 sm:px-4 py-3"></th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {currentVariants.hybridOrCng.map((v, index) => (
+                              <tr key={v.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                                <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium hidden sm:table-cell">{v.id}</td>
+                                <td className="px-2 sm:px-4 py-3 sm:py-4">{v.grade}</td>
+                                <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">{v.summary}</td>
+                                <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">{v.priceStr}</td>
+                                <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
+                                  <button onClick={() => { setSelectedGrade(v.grade); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                  </div>
-
+                  )}
                 </div>
-
-
               </div>
             </motion.div>
           )}

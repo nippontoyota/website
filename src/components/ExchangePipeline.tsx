@@ -15,6 +15,28 @@ const LOCATIONS = [
   "Ayyanthole, Thrissur"
 ];
 
+const BRANDS = [
+  "Maruti Suzuki", "Hyundai", "Tata", "Mahindra", "Toyota", "Kia", "Honda", 
+  "Volkswagen", "Skoda", "MG", "Renault", "Nissan", "Jeep", "Other"
+];
+
+const MODELS: Record<string, string[]> = {
+  "Maruti Suzuki": ["Swift", "Baleno", "WagonR", "Alto", "Dzire", "Brezza", "Ertiga", "Fronx", "Grand Vitara", "Other"],
+  "Hyundai": ["Creta", "Venue", "i20", "Grand i10 Nios", "Verna", "Aura", "Tucson", "Alcazar", "Other"],
+  "Tata": ["Nexon", "Punch", "Tiago", "Harrier", "Altroz", "Safari", "Tigor", "Other"],
+  "Mahindra": ["Scorpio", "XUV700", "Thar", "XUV300", "Bolero", "XUV400", "Other"],
+  "Toyota": ["Innova Crysta", "Innova Hycross", "Fortuner", "Glanza", "Urban Cruiser Hyryder", "Hilux", "Other"],
+  "Kia": ["Seltos", "Sonet", "Carens", "Other"],
+  "Honda": ["City", "Amaze", "Elevate", "Other"],
+  "Volkswagen": ["Virtus", "Taigun", "Polo", "Vento", "Other"],
+  "Skoda": ["Slavia", "Kushaq", "Octavia", "Superb", "Other"],
+  "MG": ["Hector", "Astor", "Gloster", "Comet EV", "Other"],
+  "Renault": ["Kiger", "Triber", "Kwid", "Other"],
+  "Nissan": ["Magnite", "Kicks", "Other"],
+  "Jeep": ["Compass", "Meridian", "Other"],
+  "Other": ["Other"]
+};
+
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 2010 + 1 }, (_, i) => currentYear - i);
 
@@ -23,6 +45,8 @@ export default function ExchangePipeline() {
   const [direction, setDirection] = useState(1);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [isYearDropdownOpen, setIsYearDropdownOpen] = useState(false);
+  const [isMakeDropdownOpen, setIsMakeDropdownOpen] = useState(false);
+  const [isModelDropdownOpen, setIsModelDropdownOpen] = useState(false);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -162,30 +186,105 @@ export default function ExchangePipeline() {
               
               <form onSubmit={handleStep1Submit} className="space-y-6 max-w-xl mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Make Input */}
+                  {/* Make Select */}
                   <div className="relative">
                     <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2 font-bold">Make / Brand</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={formData.currentMake}
-                      onChange={(e) => setFormData({...formData, currentMake: e.target.value})}
-                      className="w-full bg-white/5 border border-white/20 px-4 py-4 text-white text-lg font-display uppercase placeholder-white/20 outline-none focus:border-[#eb0a1e] focus:bg-white/10 transition-colors"
-                      placeholder="E.g. Hyundai"
-                    />
+                    <input type="text" className="hidden" required value={formData.currentMake} onChange={() => {}} />
+                    <div className="relative">
+                      <div 
+                        onClick={() => { setIsMakeDropdownOpen(!isMakeDropdownOpen); setIsModelDropdownOpen(false); setIsYearDropdownOpen(false); }}
+                        className={`w-full bg-white/5 border px-4 py-4 flex justify-between items-center cursor-pointer transition-colors ${
+                          isMakeDropdownOpen ? 'border-[#eb0a1e]' : 'border-white/20 hover:border-white/50'
+                        }`}
+                      >
+                        <span className={`text-lg font-display uppercase ${formData.currentMake ? 'text-white' : 'text-white/40'}`}>
+                          {formData.currentMake || "Select Make"}
+                        </span>
+                        <motion.div animate={{ rotate: isMakeDropdownOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="text-white/40 text-xs">▼</motion.div>
+                      </div>
+                      <AnimatePresence>
+                        {isMakeDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute left-0 right-0 top-[100%] mt-1 bg-[#111] border border-white/20 rounded-sm shadow-2xl z-50 overflow-hidden"
+                          >
+                            <div className="max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
+                              {BRANDS.map(brand => (
+                                <div
+                                  key={brand}
+                                  onClick={() => {
+                                    setFormData({...formData, currentMake: brand, currentModel: ''});
+                                    setIsMakeDropdownOpen(false);
+                                  }}
+                                  className={`px-4 py-3 cursor-pointer transition-colors text-sm font-bold uppercase tracking-wider ${
+                                    formData.currentMake === brand ? 'bg-[#eb0a1e] text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'
+                                  }`}
+                                >
+                                  {brand}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
 
-                  {/* Model Input */}
+                  {/* Model Select */}
                   <div className="relative">
                     <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2 font-bold">Model</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={formData.currentModel}
-                      onChange={(e) => setFormData({...formData, currentModel: e.target.value})}
-                      className="w-full bg-white/5 border border-white/20 px-4 py-4 text-white text-lg font-display uppercase placeholder-white/20 outline-none focus:border-[#eb0a1e] focus:bg-white/10 transition-colors"
-                      placeholder="E.g. Creta"
-                    />
+                    <input type="text" className="hidden" required value={formData.currentModel} onChange={() => {}} />
+                    <div className="relative">
+                      <div 
+                        onClick={() => { 
+                          if(formData.currentMake) {
+                            setIsModelDropdownOpen(!isModelDropdownOpen); 
+                            setIsMakeDropdownOpen(false); 
+                            setIsYearDropdownOpen(false);
+                          }
+                        }}
+                        className={`w-full bg-white/5 border px-4 py-4 flex justify-between items-center transition-colors ${
+                          !formData.currentMake ? 'opacity-50 cursor-not-allowed border-white/10' : 
+                          isModelDropdownOpen ? 'border-[#eb0a1e] cursor-pointer' : 'border-white/20 hover:border-white/50 cursor-pointer'
+                        }`}
+                      >
+                        <span className={`text-lg font-display uppercase ${formData.currentModel ? 'text-white' : 'text-white/40'}`}>
+                          {formData.currentModel || (formData.currentMake ? "Select Model" : "Select Make First")}
+                        </span>
+                        <motion.div animate={{ rotate: isModelDropdownOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="text-white/40 text-xs">▼</motion.div>
+                      </div>
+                      <AnimatePresence>
+                        {isModelDropdownOpen && formData.currentMake && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute left-0 right-0 top-[100%] mt-1 bg-[#111] border border-white/20 rounded-sm shadow-2xl z-50 overflow-hidden"
+                          >
+                            <div className="max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
+                              {(MODELS[formData.currentMake] || ["Other"]).map(model => (
+                                <div
+                                  key={model}
+                                  onClick={() => {
+                                    setFormData({...formData, currentModel: model});
+                                    setIsModelDropdownOpen(false);
+                                  }}
+                                  className={`px-4 py-3 cursor-pointer transition-colors text-sm font-bold uppercase tracking-wider ${
+                                    formData.currentModel === model ? 'bg-[#eb0a1e] text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'
+                                  }`}
+                                >
+                                  {model}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
 
@@ -195,7 +294,7 @@ export default function ExchangePipeline() {
                   <input type="text" className="hidden" required value={formData.currentYear} onChange={() => {}} />
                   <div className="relative">
                     <div 
-                      onClick={() => setIsYearDropdownOpen(!isYearDropdownOpen)}
+                      onClick={() => { setIsYearDropdownOpen(!isYearDropdownOpen); setIsMakeDropdownOpen(false); setIsModelDropdownOpen(false); }}
                       className={`w-full bg-white/5 border px-4 py-4 flex justify-between items-center cursor-pointer transition-colors ${
                         isYearDropdownOpen ? 'border-[#eb0a1e]' : 'border-white/20 hover:border-white/50'
                       }`}

@@ -1,15 +1,55 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronLeft, X, Download } from 'lucide-react';
+import { ChevronLeft, X, Download, ArrowRight } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
+import { Loader2 } from 'lucide-react';
 import { cars } from './Vehicles';
+
+const LOCATIONS = [
+  "Nettoor, Kochi",
+  "Nippon Towers, Ernakulam",
+  "Kazhakootam, Trivandrum",
+  "Enchakkal, Trivandrum",
+  "Nattakom, Kottayam",
+  "Ayyanthole, Thrissur"
+];
 
 export default function PriceListPipeline() {
   const { closeModal } = useLeadStore();
   const [step, setStep] = useState(1);
   const [selectedCar, setSelectedCar] = useState<any>(null);
   const [direction, setDirection] = useState(1);
+  const [selectedGrade, setSelectedGrade] = useState('');
+  const [formData, setFormData] = useState({ name: '', phone: '', location: '' });
+  const [status, setStatus] = useState('idle');
+  const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
+  
+  const handleEmiSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.location || !formData.name || !formData.phone) return;
+    setStatus('submitting');
+    
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          leadType: 'EMI_CHECK',
+          name: formData.name,
+          phone: formData.phone,
+          targetCar: `${selectedCar?.name} (${selectedGrade})`,
+          location: formData.location
+        })
+      });
+      if (!res.ok) throw new Error('Submission failed');
+      setStatus('success');
+      setTimeout(() => closeModal(), 2000);
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
+  };
 
   const variants = {
     enter: (direction: number) => ({
@@ -177,7 +217,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 6,73,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
@@ -186,7 +226,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 7,63,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-white">
@@ -195,7 +235,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Automatic</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,28,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
@@ -204,7 +244,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,65,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                         </tbody>
@@ -235,7 +275,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 8,49,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                           <tr className="bg-gray-50">
@@ -244,7 +284,7 @@ export default function PriceListPipeline() {
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-zinc-600 hidden md:table-cell">Manual</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 font-medium">₹ 9,53,000</td>
                             <td className="px-2 sm:px-4 py-3 sm:py-4 text-right">
-                              <button className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
+                              <button onClick={() => { setSelectedGrade('Unknown'); setDirection(1); setStep(3); }} className="bg-[#666666] hover:bg-[#eb0a1e] text-white text-[9px] sm:text-[10px] px-2 sm:px-3 py-1.5 transition-colors whitespace-nowrap">Check EMI</button>
                             </td>
                           </tr>
                         </tbody>
@@ -260,6 +300,134 @@ export default function PriceListPipeline() {
           )}
 
         </AnimatePresence>
+          {/* Step 3: EMI Lead Form */}
+          <AnimatePresence mode="wait" custom={direction}>
+            {step === 3 && (
+              <motion.div
+                key="step3"
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col justify-start pt-8 pb-12 px-2"
+              >
+                <div className="max-w-2xl mx-auto w-full text-center mb-10">
+                  <h4 className="font-druk text-4xl text-white uppercase tracking-widest mb-3">Check EMI</h4>
+                  <p className="text-white/60 font-light">
+                    Get custom EMI offers for {selectedCar?.name} ({selectedGrade}).
+                  </p>
+                </div>
+
+                <form onSubmit={handleEmiSubmit} className="space-y-6 max-w-xl mx-auto w-full">
+                  <div className="relative">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2 font-bold">Preferred Location</label>
+                    <input type="text" className="hidden" required value={formData.location} onChange={() => {}} />
+                    <div className="relative">
+                      <div 
+                        onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
+                        className={`w-full bg-white/5 border px-4 py-4 flex justify-between items-center cursor-pointer transition-colors ${
+                          isLocationDropdownOpen ? 'border-[#eb0a1e]' : 'border-white/20 hover:border-white/50'
+                        }`}
+                      >
+                        <span className={`text-lg font-display uppercase ${formData.location ? 'text-white' : 'text-white/40'}`}>
+                          {formData.location || "Select Dealership"}
+                        </span>
+                        <motion.div animate={{ rotate: isLocationDropdownOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="text-white/40 text-xs">▼</motion.div>
+                      </div>
+
+                      <AnimatePresence>
+                        {isLocationDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute left-0 right-0 top-[100%] mt-1 bg-[#111] border border-white/20 rounded-sm shadow-2xl z-50 overflow-hidden"
+                          >
+                            <div className="max-h-[250px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/40 [&::-webkit-scrollbar-track]:bg-transparent">
+                              {LOCATIONS.map(loc => (
+                                <div
+                                  key={loc}
+                                  onClick={() => {
+                                    setFormData({...formData, location: loc});
+                                    setIsLocationDropdownOpen(false);
+                                  }}
+                                  className={`px-4 py-3 cursor-pointer transition-colors text-sm font-bold uppercase tracking-wider ${
+                                    formData.location === loc ? 'bg-[#eb0a1e] text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'
+                                  }`}
+                                >
+                                  {loc}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2 font-bold">Your Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="w-full bg-white/5 border border-white/20 px-4 py-4 text-white text-lg font-display uppercase placeholder-white/20 outline-none focus:border-[#eb0a1e] focus:bg-white/10 transition-colors"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2 font-bold">Phone Number</label>
+                    <div className="flex">
+                      <div className="bg-white/5 border border-white/20 border-r-0 px-4 py-4 flex items-center justify-center">
+                        <span className="text-white/60 font-display text-lg">+91</span>
+                      </div>
+                      <input 
+                        type="tel" 
+                        required
+                        pattern="[0-9]{10}"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '').slice(0, 10)})}
+                        className="w-full bg-white/5 border border-white/20 px-4 py-4 text-white text-lg font-display uppercase placeholder-white/20 outline-none focus:border-[#eb0a1e] focus:bg-white/10 transition-colors"
+                        placeholder="10-digit mobile number"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <button 
+                      type="button"
+                      onClick={() => { setDirection(-1); setStep(2); }}
+                      className="text-white/40 hover:text-white uppercase tracking-widest text-xs font-bold transition-colors w-full md:w-auto py-4 md:py-0"
+                    >
+                      &larr; Back to Price List
+                    </button>
+                    
+                    <button 
+                      type="submit"
+                      disabled={status !== 'idle'}
+                      className="w-full md:w-auto bg-[#eb0a1e] hover:bg-white text-white hover:text-[#eb0a1e] transition-colors duration-300 py-4 px-12 rounded-sm font-bold tracking-[0.2em] uppercase text-xs disabled:opacity-50 flex items-center justify-center group"
+                    >
+                      {status === 'submitting' ? (
+                        <><Loader2 size={16} className="animate-spin mr-2" /> Processing...</>
+                      ) : status === 'success' ? (
+                        "Request Sent!"
+                      ) : status === 'error' ? (
+                        "Error - Try Again"
+                      ) : (
+                        <><span className="mr-2">Get EMI Offers</span> <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
       </div>
     </div>
   );

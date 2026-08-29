@@ -125,7 +125,7 @@ export default function BrochurePipeline() {
                   <Image 
                     src={selectedCar.image} 
                     alt={selectedCar.name} 
-                    fill 
+                    fill sizes="50vw"
                     className="object-contain drop-shadow-2xl" 
                   />
                 </div>

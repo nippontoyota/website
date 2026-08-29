@@ -166,7 +166,7 @@ export default function PriceListPipeline() {
                       <Image 
                         src={selectedCar.image} 
                         alt={selectedCar.name} 
-                        fill 
+                        fill sizes="25vw"
                         className="object-contain" 
                       />
                     </div>

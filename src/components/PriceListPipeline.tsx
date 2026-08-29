@@ -44,12 +44,41 @@ export default function PriceListPipeline() {
       });
       if (!res.ok) throw new Error('Submission failed');
       setStatus('success');
-      setTimeout(() => closeModal(), 2000);
+      // No auto close, user can read the success message
     } catch (error) {
       console.error(error);
       setStatus('error');
     }
   };
+
+  if (status === 'success') {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center text-center p-8 h-full bg-[#111]">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", bounce: 0.5 }}
+          className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mb-8 mx-auto"
+        >
+          <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </motion.div>
+        <h3 className="font-druk text-3xl md:text-5xl text-white uppercase tracking-wider mb-4">Request Sent!</h3>
+        <p className="text-white/70 max-w-md mx-auto font-light text-lg mb-12">
+          Our team will contact you shortly with the best EMI offers for the <strong className="text-white">{selectedCar?.name}</strong>.
+        </p>
+        <button 
+          onClick={closeModal}
+          className="bg-[#eb0a1e] hover:bg-white text-white hover:text-[#eb0a1e] transition-colors duration-300 py-4 px-12 rounded-sm font-bold tracking-[0.2em] uppercase text-xs"
+        >
+          Close
+        </button>
+      </div>
+    );
+  }
 
   const variants = {
     enter: (direction: number) => ({

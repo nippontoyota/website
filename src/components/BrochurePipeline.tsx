@@ -140,7 +140,7 @@ export default function BrochurePipeline() {
                 </p>
 
                 <a
-                  href={`https://www.nippontoyota.net/brochure/`}
+                  href={`https://www.nippontoyota.co.in/brochure/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center w-full max-w-sm bg-white hover:bg-[#eb0a1e] text-black hover:text-white transition-colors duration-500 py-5 px-8 rounded-sm mx-auto"

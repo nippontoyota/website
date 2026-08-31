@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Search, ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ theme = "light", className = "" }: { theme?: "light" | "transparent", className?: string }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const getLinkClass = (path: string) => {
-    const base = "flex items-center transition-colors group";
+    const base = `flex items-center transition-colors group ${theme === "transparent" ? "text-white/80" : ""}`;
     const isActive = pathname === path;
     return `${base} ${isActive ? 'text-[var(--toyota-red)]' : 'hover:text-[var(--toyota-red)]'}`;
   };
@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <motion.header 
-      className="w-full bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-100"
+      className={`w-full z-50 transition-colors duration-300 ${theme === "transparent" ? "absolute top-0 bg-gradient-to-b from-black/80 to-transparent border-b border-white/10" : "sticky top-0 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100"} ${className}`}
       
     >
       <div className="flex justify-between items-center px-6 py-4 mx-auto w-full">
@@ -46,17 +46,17 @@ export default function Header() {
                 alt="Toyota Logo" 
                 width={200} 
                 height={40} 
-                className="object-contain h-8 w-auto"
+                className={`object-contain h-8 w-auto ${theme === "transparent" ? "brightness-0 invert" : ""}`}
                 style={{ width: "auto" }}
                 priority
               />
-              <span className="ml-3 font-display font-black text-lg tracking-tight text-black">NIPPON TOYOTA</span>
+              <span className={`ml-3 font-display font-black text-lg tracking-tight ${theme === "transparent" ? "text-white" : "text-black"}`}>NIPPON TOYOTA</span>
             </div>
           </Link>
         </div>
 
         {/* Middle: Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] font-display font-bold text-[#222] tracking-widest">
+        <nav className={`hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] font-display font-bold ${theme === "transparent" ? "text-white/80" : "text-[#222]"} tracking-widest`}>
           <Link href="/virtual-showroom" className={getLinkClass('/virtual-showroom')}>
             VIRTUAL SHOWROOM
           </Link>

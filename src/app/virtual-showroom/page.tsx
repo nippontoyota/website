@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import PannellumViewer from '@/components/PannellumViewer';
 import showroomData from '../../../public/showroom-data.json';
-import Link from 'next/link';
-import { ArrowLeft, ChevronRight, Info, Menu, X } from 'lucide-react';
+
+import Header from '@/components/Header';
+import { ChevronRight, Info, X } from 'lucide-react';
 
 type ShowroomCar = {
   id: string;
@@ -62,7 +63,7 @@ function cleanDisplayText(value: string) {
 export default function VirtualShowroom() {
   const [entered, setEntered] = useState(false);
   const [activeCar, setActiveCar] = useState<ShowroomCar | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
 
   const viewerConfig = useMemo(() => ({
     default: {
@@ -201,54 +202,9 @@ export default function VirtualShowroom() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-36 bg-gradient-to-b from-black/75 via-black/25 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-48 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
 
-      <header className="absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-black/25 backdrop-blur-md">
-        <div className="mx-auto flex h-[68px] max-w-[1560px] items-center justify-between px-4 sm:px-7">
-          <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-            <Link href="/" className="showroom-control flex shrink-0 items-center gap-2 rounded-md px-1 py-1" aria-label="Back to Nippon Toyota home">
-              <Image src="/nippon-toyota.png" alt="Nippon Toyota" width={140} height={32} className="h-7 w-auto object-contain brightness-0 invert" priority />
-              <span className="hidden border-l border-white/25 pl-4 text-[10px] font-bold uppercase tracking-[0.24em] text-white/75 sm:block">Nippon Toyota</span>
-            </Link>
-            <span className="hidden h-5 w-px bg-white/20 md:block" />
-            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.2em] text-white/65 md:block">Virtual showroom</span>
-          </div>
+      <Header theme="transparent" />
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Showroom navigation">
-            <Link href="/" className="showroom-control text-[10px] font-bold uppercase tracking-[0.18em] text-white/75 hover:text-white">Home</Link>
-            <Link href="/service" className="showroom-control text-[10px] font-bold uppercase tracking-[0.18em] text-white/75 hover:text-white">Services</Link>
-            <Link href="/about" className="showroom-control text-[10px] font-bold uppercase tracking-[0.18em] text-white/75 hover:text-white">About</Link>
-            <Link href="/contact" className="showroom-control rounded-full border border-white/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white hover:bg-white/10">Contact</Link>
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/" className="showroom-control hidden items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white/80 hover:border-white hover:bg-white/10 sm:flex">
-              <ArrowLeft size={13} /> Exit showroom
-            </Link>
-            <button type="button" onClick={() => setMobileMenuOpen((open) => !open)} className="showroom-control flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/20 text-white hover:bg-white/10 lg:hidden" aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen}>
-              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {mobileMenuOpen && (
-        <nav className="absolute inset-x-3 top-[80px] z-40 rounded-2xl border border-white/15 bg-[#101010]/95 p-4 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile showroom navigation">
-          <div className="flex flex-col gap-1">
-            {[
-              ['Home', '/'],
-              ['Services', '/service'],
-              ['About', '/about'],
-              ['Contact', '/contact'],
-            ].map(([label, href]) => (
-              <Link key={href} href={href} onClick={() => setMobileMenuOpen(false)} className="showroom-control rounded-xl px-4 py-3 text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white">
-                {label}
-              </Link>
-            ))}
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="showroom-control mt-2 flex items-center gap-2 border-t border-white/10 px-4 pt-4 text-sm font-semibold text-white/80 hover:text-white">
-              <ArrowLeft size={15} /> Exit showroom
-            </Link>
-          </div>
-        </nav>
-      )}
+      
 
       {entered && (
         <PannellumViewer config={viewerConfig} id="panorama" className="h-full w-full" />

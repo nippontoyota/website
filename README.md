@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nippon Toyota - Enterprise Customer Portal
 
-## Getting Started
+![Nippon Toyota](public/nippon-toyota.png)
 
-First, run the development server:
+This repository contains the source code for the official Nippon Toyota Enterprise Customer Portal, providing a seamless digital showroom experience, service booking, intelligent vehicle exploration, and a 360° virtual showroom.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **360° Virtual Showroom:** Immersive, high-performance 3D panorama views for Toyota's entire fleet powered by Pannellum.
+- **Dynamic Price Lists:** Context-aware, real-time vehicle variant and pricing tables.
+- **Intelligent Pipelines:** End-to-end user flows for Test Drives, E-Brochures, Vehicle Exchange, and Finance with smart dropdowns.
+- **Enterprise UI/UX:** Built with a strict, pixel-perfect layout using Tailwind CSS, Framer Motion, and Next.js App Router for zero-jank scrolling and native app-like mobile experiences.
+- **High Performance:** Edge-proxied media routing and highly optimized asset delivery.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** [Next.js](https://nextjs.org/) (App Router, React 18)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **3D Viewer:** [Pannellum](https://pannellum.org/)
 
-## Learn More
+## 💻 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository:**
+   \`\`\`bash
+   git clone https://github.com/nippontoyota/website.git
+   cd website
+   \`\`\`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Run the development server:**
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## 🏗 Architecture & Guidelines
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Strict Mode:** The application runs in Strict Mode. All components must be free of implicit \`any\` typings and unused imports.
+- **Routing:** Handled via Next.js App Router. The `src/middleware.ts` handles highly specific proxy rewrites for the 3D Virtual Showroom.
+- **Performance:** All images must use \`next/image\` with strictly defined \`sizes\` and \`priority\` attributes for LCP elements. Layout shifts are mitigated through strict fixed-height containers.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔒 Security & Deployment
+
+This application is deployed directly to **Vercel** with full SSL, Global CDN, and Edge Network proxying. Any pushes to the \`main\` branch will trigger a production deployment.
+
+*Confidential and Proprietary. © Nippon Toyota.*

@@ -217,7 +217,15 @@ export default function VirtualShowroom() {
             alt="Toyota Virtual Showroom"
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover hidden sm:block"
+            priority
+          />
+          <Image
+            src="/assets/toyota-360/images/one3d-entrance-static-mobile.jpg"
+            alt="Toyota Virtual Showroom Mobile"
+            fill
+            sizes="100vw"
+            className="object-cover block sm:hidden"
             priority
           />
           <div className="absolute inset-0 bg-black/20" />

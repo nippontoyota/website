@@ -382,7 +382,7 @@ export function shouldUseLivePageProxy(request: NextRequest) {
   
   // Only proxy the specific routes needed for the virtual showroom
   if (liveVehicleRoutePattern.test(request.nextUrl.pathname)) return true;
-  if (liveVirtualShowroomRoutePattern.test(request.nextUrl.pathname)) return true;
+  // if (liveVirtualShowroomRoutePattern.test(request.nextUrl.pathname)) return true;
 
   // Everything else runs entirely locally in our Next.js app!
   return false;

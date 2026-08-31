@@ -18,9 +18,7 @@ export async function proxy(request: NextRequest) {
     return liveVehicleExperienceResponse(request);
   }
 
-  if (request.method === 'GET' && request.headers.get('accept')?.includes('text/html') && isLiveVirtualShowroomRequest(request)) {
-    return liveVirtualShowroomResponse(request);
-  }
+  
 
   return NextResponse.rewrite(livePathForRequest(request));
 }

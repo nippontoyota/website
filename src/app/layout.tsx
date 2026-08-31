@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nippon Toyota | Official Toyota Dealer",
     description: "Welcome to Nippon Toyota. Explore the latest Toyota cars, book a test drive, and get the best deals on your next vehicle.",
-    url: "https://www.nippontoyota.co.in",
+    url: "https://www.nippontoyota.net",
     siteName: "Nippon Toyota",
     images: [
       {

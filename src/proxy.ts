@@ -9,7 +9,7 @@ import {
   shouldUseLivePageProxy,
 } from '@/lib/livePageProxy';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   if (!shouldUseLivePageProxy(request)) {
     return NextResponse.next();
   }

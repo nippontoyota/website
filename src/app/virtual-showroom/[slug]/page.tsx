@@ -33,11 +33,11 @@ export default function CarDetailPage() {
   const { openModal } = useLeadStore();
   const [activeTab, setActiveTab] = useState("Overview");
   const [selectedColor, setSelectedColor] = useState(() => {
-    const index = car?.colors.findIndex((item: any) => item.id === searchParams.get('colour')) ?? -1;
+    const index = car?.colors.findIndex((item: unknown) => item.id === searchParams.get('colour')) ?? -1;
     return index >= 0 ? index : 0;
   });
   const [selectedVariant, setSelectedVariant] = useState(() => {
-    const index = car?.variants.findIndex((item: any) => item.id === searchParams.get('variant')) ?? -1;
+    const index = car?.variants.findIndex((item: unknown) => item.id === searchParams.get('variant')) ?? -1;
     return index >= 0 ? index : 0;
   });
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
@@ -136,7 +136,7 @@ export default function CarDetailPage() {
                 exit={{ opacity: 0, y: 8 }}
                 className="mt-2 bg-black/70 backdrop-blur-md rounded-xl border border-white/15 p-3 flex flex-wrap gap-2.5 max-w-[220px]"
               >
-                {car.colors.map((color: any, idx: number) => (
+                {car.colors.map((color: unknown, idx: number) => (
                   <button
                     key={color.id}
                     onClick={() => { setSelectedColor(idx); setShowTip(false); }}
@@ -260,7 +260,7 @@ export default function CarDetailPage() {
                   <h2 className="font-display font-black text-white text-2xl md:text-3xl mb-2">{car.fullName}</h2>
                   <p className="text-zinc-400 text-sm leading-relaxed mb-8">{car.tagline}</p>
                   <div className="grid grid-cols-2 gap-3">
-                    {car.specs.slice(0, 4).map((spec: any) => (
+                    {car.specs.slice(0, 4).map((spec: unknown) => (
                       <div key={spec.label} className="bg-white/[0.04] rounded-xl p-4 border border-white/[0.06]">
                         <p className="text-[9px] text-zinc-600 font-bold tracking-[0.2em] uppercase mb-1">{spec.label}</p>
                         <p className="text-white font-display font-bold text-base">{spec.value}</p>
@@ -271,7 +271,7 @@ export default function CarDetailPage() {
                 <div>
                   <h3 className="font-display font-black text-white text-lg mb-4 uppercase tracking-wide">Key Highlights</h3>
                   <div className="space-y-3">
-                    {car.features[0]?.items.map((item: any) => (
+                    {car.features[0]?.items.map((item: unknown) => (
                       <div key={item} className="flex items-start gap-3">
                         <CheckCircle2 size={14} className="text-[#eb0a1e] mt-0.5 shrink-0" />
                         <p className="text-zinc-300 text-sm">{item}</p>
@@ -298,7 +298,7 @@ export default function CarDetailPage() {
               <div>
                 <h2 className="font-display font-black text-white text-2xl mb-8">Choose Your Variant</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {car.variants.map((v: any, idx: number) => (
+                  {car.variants.map((v: unknown, idx: number) => (
                     <button
                       key={v.id}
                       onClick={() => setSelectedVariant(idx)}
@@ -352,7 +352,7 @@ export default function CarDetailPage() {
                 <p className="text-zinc-500 text-sm mb-8">Select a colour to preview</p>
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 items-start">
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {car.colors.map((color: any, idx: number) => (
+                    {car.colors.map((color: unknown, idx: number) => (
                       <button
                         key={color.id}
                         onClick={() => setSelectedColor(idx)}
@@ -415,7 +415,7 @@ export default function CarDetailPage() {
               <div>
                 <h2 className="font-display font-black text-white text-2xl mb-8">Features and Equipment</h2>
                 <div className="space-y-3">
-                  {car.features.map((feat: any) => (
+                  {car.features.map((feat: unknown) => (
                     <div key={feat.category} className="border border-white/[0.08] rounded-xl overflow-hidden">
                       <button
                         onClick={() => setExpandedFeature(expandedFeature === feat.category ? null : feat.category)}
@@ -437,7 +437,7 @@ export default function CarDetailPage() {
                             className="overflow-hidden"
                           >
                             <div className="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 border-t border-white/[0.06]">
-                              {feat.items.map((item: any) => (
+                              {feat.items.map((item: unknown) => (
                                 <div key={item} className="flex items-start gap-2.5 pt-3">
                                   <CheckCircle2 size={14} className="text-[#eb0a1e] mt-0.5 shrink-0" />
                                   <p className="text-zinc-300 text-sm">{item}</p>
@@ -458,7 +458,7 @@ export default function CarDetailPage() {
               <div>
                 <h2 className="font-display font-black text-white text-2xl mb-8">Technical Specifications</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {car.specs.map((spec: any) => (
+                  {car.specs.map((spec: unknown) => (
                     <div
                       key={spec.label}
                       className="flex items-center justify-between p-4 rounded-xl border border-white/[0.08] bg-white/[0.03] hover:border-white/20 transition-colors"

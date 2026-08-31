@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronLeft, X, Download, ArrowRight } from 'lucide-react';
+import { ChevronLeft, X, ArrowRight } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
 import { Loader2 } from 'lucide-react';
 import { cars } from './Vehicles';
@@ -80,7 +80,7 @@ export default function PriceListPipeline() {
     );
   }
 
-  const generateVariants = (car: any) => {
+  const generateVariants = (car: unknown) => {
     if (!car) return { petrol: [], hybridOrCng: [], type: '' };
     
     const priceStr = car.stats?.[0]?.value || "";

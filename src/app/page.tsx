@@ -3,7 +3,7 @@ import BannerSlider from '@/components/BannerSlider';
 import QuickLinks from '@/components/QuickLinks';
 import Vehicles from '@/components/Vehicles';
 import Services from '@/components/Services';
-import PressRelease from '@/components/PressRelease';
+// import PressRelease from '@/components/PressRelease';
 import LeadForm from '@/components/LeadForm';
 import Footer from '@/components/Footer';
 

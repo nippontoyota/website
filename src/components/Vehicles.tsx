@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+
 import Image from 'next/image';
 
 export const cars = [
@@ -451,6 +452,15 @@ export default function Vehicles() {
                   className="relative z-10"
                 >
                   
+                  <Link 
+                    href={`/virtual-showroom/`}
+                    className="group/btn relative w-full overflow-hidden bg-[#ed1b2f] border border-[#ed1b2f] text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-[#c90013] hover:shadow-[0_0_40px_rgba(237,27,47,0.4)] rounded-sm text-center mb-4 block"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      360° Showroom <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </span>
+                  </Link>
+
                   <button 
                     onClick={() => openModal(activeCar.name, 'TEST_DRIVE')}
                     className="group/btn relative w-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-zinc-950 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm"

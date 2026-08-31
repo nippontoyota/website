@@ -5,8 +5,8 @@ const liveOrigin = 'https://www.nippon-toyota.com';
 
 const liveVehicleRoutePattern = /^\/virtual-showroom\/(?:glanza|urbancruisertaisor|urbancruiserhyryder|urbancruiserebella|innovacrysta|innova|hilux|fortuner|legender|camry|vellfire|lc300|rumion)\.html$/i;
 const liveVirtualShowroomRoutePattern = /^\/virtual-showroom\/?$/i;
-const localVehicleDetailRoutePattern = /^\/virtual-showroom\/(?:glanza|urban-cruiser-taisor|urban-cruiser-hyryder|urban-cruiser-ebella|innova-crysta|innova-hycross|hilux|fortuner|legender|camry|vellfire|land-cruiser-300|rumion)$/i;
-const localVehicleLegacyRoutePattern = /^\/virtual-showroom\/(?:glanza|urbancruiser|urbancruisertaisor|urbancruiserhyryder|urbancruiserebella|innovacrysta|innova|hilux|fortuner|legender|camry|vellfire|lc300|rumion)\.html$/i;
+// const localVehicleDetailRoutePattern = /^\/virtual-showroom\/(?:glanza|urban-cruiser-taisor|urban-cruiser-hyryder|urban-cruiser-ebella|innova-crysta|innova-hycross|hilux|fortuner|legender|camry|vellfire|land-cruiser-300|rumion)$/i;
+// const localVehicleLegacyRoutePattern = /^\/virtual-showroom\/(?:glanza|urbancruiser|urbancruisertaisor|urbancruiserhyryder|urbancruiserebella|innovacrysta|innova|hilux|fortuner|legender|camry|vellfire|lc300|rumion)\.html$/i;
 
 const virtualShowroomViewportPatch = `
 <style id="nippon-virtual-showroom-viewport-patch">

@@ -379,18 +379,11 @@ export function liveVirtualShowroomResponse(request: NextRequest) {
 
 export function shouldUseLivePageProxy(request: NextRequest) {
   if (process.env.NIPPON_LIVE_PAGE_PROXY === 'false') return false;
-  if (request.nextUrl.pathname === '/') return false;
+  
+  // Only proxy the specific routes needed for the virtual showroom
+  if (liveVehicleRoutePattern.test(request.nextUrl.pathname)) return true;
+  if (liveVirtualShowroomRoutePattern.test(request.nextUrl.pathname)) return true;
 
-  // Vehicle pages stay local so their embedded One3D runtime loads from Nippon's
-  // original origin. Proxying that runtime breaks its relative asset requests.
-  if (localVehicleDetailRoutePattern.test(request.nextUrl.pathname) || localVehicleLegacyRoutePattern.test(request.nextUrl.pathname)) {
-    return false;
-  }
-
-  // Keep the homepage's local media available while the customer pages use the live site.
-  if (/^\/[^/]+\.(?:avif|jpeg|jpg|mp4|png|svg|webp)$/i.test(request.nextUrl.pathname)) {
-    return false;
-  }
-
-  return true;
+  // Everything else runs entirely locally in our Next.js app!
+  return false;
 }

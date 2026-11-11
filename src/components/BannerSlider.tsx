@@ -10,6 +10,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useLeadStore, LeadIntent } from '@/store/useLeadStore';
 
@@ -119,7 +121,8 @@ function subscribe(callback: () => void) {
 function getCardWidthSnapshot() {
   if (typeof window === 'undefined') return 640;
   const w = window.innerWidth;
-  if (w < 640) return Math.min(w - 56, 360);
+  if (w < 480) return Math.max(270, Math.min(Math.round(w * 0.82), 340));
+  if (w < 640) return Math.min(Math.round(w * 0.82), 420);
   if (w < 1024) return 540;
   if (w < 1440) return 620;
   return 680;
@@ -135,13 +138,20 @@ export default function BannerSlider() {
   const [actionCards, setActionCards] = useState<QuickAction[]>(QUICK_ACTIONS);
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const isDraggingRef = useRef(false);
+  const dragDistanceRef = useRef(0);
+  const touchResumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const cardWidth = useSyncExternalStore(subscribe, getCardWidthSnapshot, getCardWidthServerSnapshot);
   const { openModal, isOpen: isLeadModalOpen } = useLeadStore();
 
-  const gap = 24;
+  const isMobile = cardWidth < 480;
+  const gap = isMobile ? 14 : 24;
   const AUTOPLAY_DURATION = 5500; // 5.5s autoplay per card
 
-  const isPaused = isHovered || isDragging || isLeadModalOpen;
+  const isPaused = isHovered || isDragging || isLeadModalOpen || isTouched;
 
   // Sync with live marketing campaign configuration
   useEffect(() => {
@@ -194,6 +204,15 @@ export default function BannerSlider() {
     }
   }, []);
 
+  // Cleanup touch resume timer on unmount
+  useEffect(() => {
+    return () => {
+      if (touchResumeTimeoutRef.current) {
+        clearTimeout(touchResumeTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handlePrev = useCallback(() => {
     setCurrentIndex(prev => (prev === 0 ? actionCards.length - 1 : prev - 1));
   }, [actionCards.length]);
@@ -201,6 +220,24 @@ export default function BannerSlider() {
   const handleNext = useCallback(() => {
     setCurrentIndex(prev => (prev === actionCards.length - 1 ? 0 : prev + 1));
   }, [actionCards.length]);
+
+  // Touch handlers to pause autoplay during touch gestures and allow reading
+  const handleTouchStart = () => {
+    setIsTouched(true);
+    if (touchResumeTimeoutRef.current) {
+      clearTimeout(touchResumeTimeoutRef.current);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchResumeTimeoutRef.current) {
+      clearTimeout(touchResumeTimeoutRef.current);
+    }
+    // Resume autoplay 7 seconds after touch interaction ends
+    touchResumeTimeoutRef.current = setTimeout(() => {
+      setIsTouched(false);
+    }, 7000);
+  };
 
   // Smooth Autoplay interval with clean reset on slide change / interaction
   useEffect(() => {
@@ -225,12 +262,15 @@ export default function BannerSlider() {
 
   return (
     <div
-      className="w-full relative min-h-[780px] lg:min-h-[880px] xl:h-[95dvh] overflow-hidden bg-black flex flex-col justify-end"
+      className="w-full relative min-h-[660px] sm:min-h-[740px] md:min-h-[780px] lg:min-h-[880px] xl:h-[95dvh] overflow-hidden bg-black flex flex-col justify-end touch-pan-y"
+      style={{ touchAction: 'pan-y' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Background Video */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <video 
           ref={videoRef}
           autoPlay 
@@ -248,37 +288,57 @@ export default function BannerSlider() {
       </div>
 
       {/* Center-Stage Carousel Container */}
-      <div className="relative z-10 w-full overflow-hidden pb-8 sm:pb-12">
+      <div 
+        className="relative z-10 w-full overflow-hidden pb-8 sm:pb-12 touch-pan-y"
+        style={{ touchAction: 'pan-y' }}
+      >
         {/* Center-Stage Carousel Track */}
-        <div className="relative w-full overflow-visible py-4">
-          <div className="relative w-full" style={{ height: 'auto' }}>
+        <div 
+          className="relative w-full overflow-visible py-4 touch-pan-y"
+          style={{ touchAction: 'pan-y' }}
+        >
+          <div className="relative w-full" style={{ height: 'auto', touchAction: 'pan-y' }}>
             <motion.div
-              className="flex items-center"
+              className="flex items-center touch-pan-y"
               style={{
                 position: 'relative',
                 left: '50%',
                 gap: `${gap}px`,
                 cursor: isDragging ? 'grabbing' : 'grab',
+                touchAction: 'pan-y',
               }}
               animate={{
                 x: -(currentIndex * (cardWidth + gap) + cardWidth / 2),
               }}
               transition={{
                 type: 'spring',
-                stiffness: 260,
-                damping: 28,
-                mass: 0.85,
+                stiffness: 320,
+                damping: 32,
+                mass: 0.5,
               }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragStart={() => setIsDragging(true)}
+              dragElastic={0.7}
+              onDragStart={() => {
+                setIsDragging(true);
+                isDraggingRef.current = true;
+                dragDistanceRef.current = 0;
+              }}
+              onDrag={(_, info) => {
+                dragDistanceRef.current += Math.abs(info.delta.x);
+              }}
               onDragEnd={(_, info) => {
                 setIsDragging(false);
-                const swipeThreshold = 50;
-                if (info.offset.x < -swipeThreshold || info.velocity.x < -300) {
+                setTimeout(() => {
+                  isDraggingRef.current = false;
+                  dragDistanceRef.current = 0;
+                }, 120);
+
+                const swipeThreshold = 25;
+                const velocityThreshold = 180;
+                if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
                   handleNext();
-                } else if (info.offset.x > swipeThreshold || info.velocity.x > 300) {
+                } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
                   handlePrev();
                 }
               }}
@@ -290,7 +350,11 @@ export default function BannerSlider() {
                 return (
                   <motion.div
                     key={action.id}
-                    onClick={() => {
+                    onClick={(e) => {
+                      if (isDraggingRef.current || dragDistanceRef.current > 6) {
+                        e.stopPropagation();
+                        return;
+                      }
                       if (isActive) {
                         openModal('', action.intent);
                       } else {
@@ -299,20 +363,21 @@ export default function BannerSlider() {
                     }}
                     animate={{
                       scale: isActive ? 1 : 0.93,
-                      opacity: isActive ? 1 : 0.42,
+                      opacity: isActive ? 1 : 0.45,
                     }}
                     transition={{
-                      duration: 0.4,
+                      duration: 0.35,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className={`relative shrink-0 rounded-none border transition-all duration-500 ease-[0.25,1,0.5,1] overflow-hidden p-4 sm:p-6 md:p-8 flex flex-col justify-between ${
+                    className={`relative shrink-0 rounded-none border transition-all duration-500 ease-[0.25,1,0.5,1] overflow-hidden p-4 sm:p-6 md:p-8 flex flex-col justify-between touch-pan-y select-none ${
                       isActive
                         ? 'border-white/20 bg-gradient-to-b from-white/[0.06] via-black/90 to-black/95 backdrop-blur-2xl shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(235,10,30,0.08),inset_0_1px_0_0_rgba(255,255,255,0.18)] z-20 cursor-pointer'
                         : 'border-white/10 bg-black/60 backdrop-blur-md shadow-lg z-10 cursor-pointer hover:opacity-75 hover:border-white/20'
                     }`}
                     style={{
                       width: `${cardWidth}px`,
-                      minHeight: '340px',
+                      minHeight: isMobile ? '320px' : '340px',
+                      touchAction: 'pan-y',
                     }}
                   >
                     {/* Ambient Interior Depth Glow */}
@@ -324,28 +389,28 @@ export default function BannerSlider() {
 
                     {/* Card Header */}
                     <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-between mb-3 sm:mb-4">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
                           {/* Architectural Squircle Badge */}
                           <div
-                            className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${
+                            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0 ${
                               isActive
                                 ? 'border border-white/25 bg-white/[0.08] text-white shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
                                 : 'border border-white/10 bg-white/[0.03] text-white/70'
                             }`}
                           >
-                            <Icon size={22} strokeWidth={1.6} />
+                            <Icon size={isMobile ? 18 : 22} strokeWidth={1.6} />
                           </div>
-                          <div>
-                            <div className="flex items-center gap-2">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5 sm:gap-2">
                               {isActive && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#eb0a1e] animate-pulse" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#eb0a1e] animate-pulse shrink-0" />
                               )}
-                              <span className="font-display text-[9px] font-bold tracking-[0.25em] text-[#eb0a1e] uppercase block">
+                              <span className="font-display text-[9px] font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#eb0a1e] uppercase truncate block">
                                 {action.tag}
                               </span>
                             </div>
-                            <span className="font-display text-[9px] font-medium tracking-[0.15em] text-white/50 uppercase">
+                            <span className="font-display text-[8.5px] sm:text-[9px] font-medium tracking-[0.15em] text-white/50 uppercase truncate block">
                               {action.subTag}
                             </span>
                           </div>
@@ -360,25 +425,25 @@ export default function BannerSlider() {
                       </div>
 
                       {/* Card Title */}
-                      <h3 className="font-druk text-3xl sm:text-4xl text-white uppercase tracking-wider mb-2 leading-tight">
+                      <h3 className="font-druk text-2xl sm:text-3xl md:text-4xl text-white uppercase tracking-wider mb-2 leading-tight">
                         {action.title}
                       </h3>
 
                       {/* Card Description */}
-                      <p className="font-sans text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-5">
+                      <p className="font-sans text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-3 sm:mb-5 line-clamp-2 sm:line-clamp-none">
                         {action.description}
                       </p>
 
                       {/* Action Pills Section */}
-                      <div className="mb-4">
-                        <span className="font-display text-[8px] font-bold tracking-[0.25em] text-white/40 uppercase block mb-2">
+                      <div className="mb-3 sm:mb-4">
+                        <span className="font-display text-[8px] font-bold tracking-[0.25em] text-white/40 uppercase block mb-1.5 sm:mb-2">
                           {action.pillsTitle}
                         </span>
                         <div className="flex flex-wrap gap-1.5">
                           {action.pills.map((pill, pIdx) => (
                             <span
                               key={pIdx}
-                              className="px-2.5 py-1 text-[10px] font-display font-semibold tracking-wider uppercase bg-white/[0.03] border border-white/10 text-white/80"
+                              className="px-2 sm:px-2.5 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-display font-semibold tracking-wider uppercase bg-white/[0.03] border border-white/10 text-white/80"
                             >
                               {pill.label}
                             </span>
@@ -388,9 +453,9 @@ export default function BannerSlider() {
                     </div>
 
                     {/* Card Footer */}
-                    <div className="relative z-10 pt-4 border-t border-white/10 mt-auto">
+                    <div className="relative z-10 pt-3 sm:pt-4 border-t border-white/10 mt-auto">
                       {/* Perks */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4 text-[10px] font-display font-medium tracking-wider text-white/60 uppercase">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-3 sm:mb-4 text-[10px] font-display font-medium tracking-wider text-white/60 uppercase">
                         {action.perks.map((perk, kIdx) => (
                           <div key={kIdx} className="flex items-center gap-1.5 truncate">
                             <CheckCircle2 size={12} className="text-[#eb0a1e] shrink-0" />
@@ -400,7 +465,7 @@ export default function BannerSlider() {
                       </div>
 
                       {/* CTA Button */}
-                      <div className="flex items-center justify-between pt-2 text-[11px] font-display font-bold tracking-[0.2em] uppercase text-white group-hover:text-[#eb0a1e] transition-colors">
+                      <div className="flex items-center justify-between pt-1 sm:pt-2 text-[11px] font-display font-bold tracking-[0.2em] uppercase text-white group-hover:text-[#eb0a1e] transition-colors">
                         <span className="flex items-center gap-2">
                           {action.cta}
                           <ArrowRight size={16} className="text-[#eb0a1e]" />
@@ -417,58 +482,81 @@ export default function BannerSlider() {
           </div>
         </div>
 
-        {/* Bottom Pagination Circles with Circular Countdown Progress Ring */}
-        <div className="flex justify-center items-center gap-3.5 mt-6">
-          {actionCards.map((action, dotIdx) => {
-            const isActive = currentIndex === dotIdx;
-            return (
-              <button
-                key={dotIdx}
-                onClick={() => setCurrentIndex(dotIdx)}
-                className="group relative flex items-center justify-center w-8 h-8 p-0 focus:outline-none transition-transform"
-                aria-label={`Go to slide ${dotIdx + 1}: ${action.title}`}
-              >
-                {isActive ? (
-                  <div className="relative w-7 h-7 flex items-center justify-center">
-                    {/* SVG Circular Countdown Ring */}
-                    <svg className="w-7 h-7 -rotate-90 origin-center" viewBox="0 0 28 28">
-                      {/* Outer Dim Track Circle */}
-                      <circle
-                        cx="14"
-                        cy="14"
-                        r="11"
-                        fill="none"
-                        stroke="rgba(255, 255, 255, 0.15)"
-                        strokeWidth="1.5"
-                      />
-                      {/* Active Smooth Animated Progress Circle */}
-                      <motion.circle
-                        key={`circle-progress-${currentIndex}-${isPaused}`}
-                        cx="14"
-                        cy="14"
-                        r="11"
-                        fill="none"
-                        stroke="#eb0a1e"
-                        strokeWidth="2"
-                        strokeDasharray={69.12}
-                        strokeLinecap="round"
-                        initial={{ strokeDashoffset: 69.12 }}
-                        animate={{ strokeDashoffset: isPaused ? undefined : 0 }}
-                        transition={{
-                          duration: isPaused ? 0 : AUTOPLAY_DURATION / 1000,
-                          ease: 'linear',
-                        }}
-                      />
-                    </svg>
-                    {/* Center Active Dot */}
-                    <div className="absolute w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)]" />
-                  </div>
-                ) : (
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/25 group-hover:bg-white/70 group-hover:scale-125 transition-all duration-300" />
-                )}
-              </button>
-            );
-          })}
+        {/* Bottom Pagination Circles with Circular Countdown Progress Ring & Touch Prev/Next Buttons */}
+        <div className="flex justify-center items-center gap-3 sm:gap-4 mt-6">
+          {/* Prev Touch Button */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            className="w-8 h-8 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.12] active:scale-95 flex items-center justify-center text-white/80 hover:text-white transition-all backdrop-blur-md focus:outline-none"
+            aria-label="Previous card"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          <div className="flex items-center gap-2.5 sm:gap-3.5">
+            {actionCards.map((action, dotIdx) => {
+              const isActive = currentIndex === dotIdx;
+              return (
+                <button
+                  key={dotIdx}
+                  type="button"
+                  onClick={() => setCurrentIndex(dotIdx)}
+                  className="group relative flex items-center justify-center w-8 h-8 p-0 focus:outline-none transition-transform"
+                  aria-label={`Go to slide ${dotIdx + 1}: ${action.title}`}
+                >
+                  {isActive ? (
+                    <div className="relative w-7 h-7 flex items-center justify-center">
+                      {/* SVG Circular Countdown Ring */}
+                      <svg className="w-7 h-7 -rotate-90 origin-center" viewBox="0 0 28 28">
+                        {/* Outer Dim Track Circle */}
+                        <circle
+                          cx="14"
+                          cy="14"
+                          r="11"
+                          fill="none"
+                          stroke="rgba(255, 255, 255, 0.15)"
+                          strokeWidth="1.5"
+                        />
+                        {/* Active Smooth Animated Progress Circle */}
+                        <motion.circle
+                          key={`circle-progress-${currentIndex}-${isPaused}`}
+                          cx="14"
+                          cy="14"
+                          r="11"
+                          fill="none"
+                          stroke="#eb0a1e"
+                          strokeWidth="2"
+                          strokeDasharray={69.12}
+                          strokeLinecap="round"
+                          initial={{ strokeDashoffset: 69.12 }}
+                          animate={{ strokeDashoffset: isPaused ? undefined : 0 }}
+                          transition={{
+                            duration: isPaused ? 0 : AUTOPLAY_DURATION / 1000,
+                            ease: 'linear',
+                          }}
+                        />
+                      </svg>
+                      {/* Center Active Dot */}
+                      <div className="absolute w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)]" />
+                    </div>
+                  ) : (
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/25 group-hover:bg-white/70 group-hover:scale-125 transition-all duration-300" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Next Touch Button */}
+          <button
+            type="button"
+            onClick={handleNext}
+            className="w-8 h-8 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.12] active:scale-95 flex items-center justify-center text-white/80 hover:text-white transition-all backdrop-blur-md focus:outline-none"
+            aria-label="Next card"
+          >
+            <ChevronRight size={16} />
+          </button>
         </div>
       </div>
     </div>

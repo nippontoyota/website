@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import BannerSlider from '@/components/BannerSlider';
-import QuickLinks from '@/components/QuickLinks';
 import Vehicles from '@/components/Vehicles';
 import Services from '@/components/Services';
 // import PressRelease from '@/components/PressRelease';
@@ -14,7 +13,6 @@ export default function Home() {
       
       <main className="flex-grow">
         <BannerSlider />
-        <QuickLinks />
         <Vehicles />
         <Services />
         {/* <PressRelease /> */}

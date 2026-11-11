@@ -13,7 +13,6 @@ const tPrograms = [
   { prefix: "T", name: "SMILE", sub: "PREPAID MAINTENANCE" },
   { prefix: "T", name: "DELIVER", sub: "EXPRESS DELIVERY" },
   { prefix: "T", name: "GLOSS", sub: "CAR DETAILING" },
-  { prefix: "T", name: "WEB", sub: "BOOK ONLINE" },
   { prefix: "T", name: "CHOICE", sub: "PARTS OF YOUR CHOICE" },
   { prefix: "T", name: "INSPECT", sub: "TRUSTED VEHICLE INSPECTION" },
   { prefix: "T", name: "SAATH", sub: "PARTS AT CONVENIENCE" },

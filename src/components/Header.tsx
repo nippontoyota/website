@@ -4,17 +4,55 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { Search, ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronDown, ChevronRight, Menu, X, Car } from 'lucide-react';
+import { useLeadStore } from '@/store/useLeadStore';
 
-export default function Header({ theme = "light", className = "" }: { theme?: "light" | "transparent", className?: string }) {
+interface HeaderProps {
+  className?: string;
+}
+
+export default function Header({ className = "" }: HeaderProps) {
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState<{
+    enabled: boolean;
+    text: string;
+    badge?: string;
+    link?: string;
+  } | null>(null);
+  const { openModal } = useLeadStore();
+
+  const isHome = pathname === '/';
+
+  // Sync with live marketing campaign announcement
+  useEffect(() => {
+    fetch('/api/public/store')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.campaigns?.announcementBar) {
+          setAnnouncement(data.campaigns.announcementBar);
+        }
+      })
+      .catch((err) => console.log('Announcement sync error:', err));
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const getLinkClass = (path: string) => {
-    const base = `flex items-center transition-colors group ${theme === "transparent" ? "text-white/80" : ""}`;
     const isActive = pathname === path;
-    return `${base} ${isActive ? 'text-[var(--toyota-red)]' : 'hover:text-[var(--toyota-red)]'}`;
+    return `flex items-center text-[11px] font-display font-bold tracking-[0.2em] uppercase transition-colors py-2 ${
+      isActive ? 'text-[#eb0a1e]' : 'text-white/80 hover:text-white'
+    }`;
   };
 
   const moreDropdownItems = [
@@ -32,56 +70,80 @@ export default function Header({ theme = "light", className = "" }: { theme?: "l
   ];
 
   return (
-    <motion.header 
-      className={`w-full z-50 transition-colors duration-300 ${theme === "transparent" ? "absolute top-0 bg-gradient-to-b from-black/80 to-transparent border-b border-white/10" : "sticky top-0 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100"} ${className}`}
-      
+    <header
+      className={`w-full z-50 transition-all duration-300 ${
+        isHome
+          ? `fixed top-0 left-0 right-0 ${
+              isScrolled
+                ? 'bg-[#050505]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)] py-3 sm:py-3.5'
+                : 'bg-transparent py-4 sm:py-5'
+            }`
+          : 'sticky top-0 bg-[#050505]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.85)] py-3.5 sm:py-4'
+      } ${className}`}
     >
-      <div className="flex justify-between items-center px-6 py-4 mx-auto w-full">
-        {/* Left: Logo */}
-        <div className="flex items-center">
-          <Link href="/">
-            <div className="flex items-center">
-              <Image 
-                src="/nippon-toyota.png" 
-                alt="Toyota Logo" 
-                width={200} 
-                height={40} 
-                className={`object-contain h-8 w-auto ${theme === "transparent" ? "brightness-0 invert" : ""}`}
-                style={{ width: "auto" }}
-                priority
-              />
-              <span className={`ml-3 font-display font-black text-lg tracking-tight ${theme === "transparent" ? "text-white" : "text-black"}`}>NIPPON TOYOTA</span>
-            </div>
-          </Link>
+      {announcement?.enabled && (
+        <div className="w-full bg-[#eb0a1e] text-white py-1 px-4 mb-2 text-center text-[10px] font-display font-medium tracking-wider flex items-center justify-center gap-2 shadow-sm">
+          {announcement.badge && (
+            <span className="px-1.5 py-0.5 bg-black/30 font-bold uppercase text-[8px] tracking-widest">
+              {announcement.badge}
+            </span>
+          )}
+          <span>{announcement.text}</span>
+          {announcement.link && (
+            <Link href={announcement.link} className="underline font-bold ml-1 hover:text-white/80">
+              Details →
+            </Link>
+          )}
         </div>
+      )}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex justify-between items-center w-full">
+        {/* Left: Brand Logo */}
+        <Link href="/" className="group flex items-center gap-3">
+          <Image
+            src="/nippon-toyota.png"
+            alt="Toyota Logo"
+            width={180}
+            height={36}
+            className="object-contain h-7 sm:h-8 w-auto brightness-0 invert opacity-95 group-hover:opacity-100 transition-opacity"
+            style={{ width: "auto" }}
+            priority
+          />
+          <span className="font-display font-black text-base sm:text-lg tracking-tight text-white group-hover:text-white transition-colors">
+            NIPPON TOYOTA
+          </span>
+        </Link>
 
-        {/* Middle: Navigation */}
-        <nav className={`hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] font-display font-bold ${theme === "transparent" ? "text-white/80" : "text-[#222]"} tracking-widest`}>
-          <Link href="/virtual-showroom" className={getLinkClass('/virtual-showroom')}>
-            VIRTUAL SHOWROOM
-          </Link>
+        {/* Center: Navigation Links */}
+        <nav className="hidden lg:flex items-center space-x-7 xl:space-x-9">
+          {/* Service Dropdown */}
           <div className="relative group/service py-2">
             <Link href="/service" className={getLinkClass('/service')}>
-              SERVICE <ChevronDown size={14} strokeWidth={2.5} className="ml-1 text-gray-500 group-hover/service:text-[var(--toyota-red)] transition-transform duration-300 group-hover/service:-rotate-180" />
+              SERVICE
+              <ChevronDown
+                size={13}
+                strokeWidth={2.5}
+                className="ml-1 text-white/50 group-hover/service:text-[#eb0a1e] transition-transform duration-300 group-hover/service:-rotate-180"
+              />
             </Link>
-            
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover/service:opacity-100 group-hover/service:pointer-events-auto transition-all duration-300 z-50 transform translate-y-2 group-hover/service:translate-y-0">
-              <div className="bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 w-[240px] rounded-2xl border border-gray-100 flex flex-col font-sans normal-case tracking-normal">
-                <Link 
-                  href="/service" 
-                  className="w-full px-4 py-3 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center"
+
+            <div className="absolute top-full left-0 pt-2 opacity-0 pointer-events-none group-hover/service:opacity-100 group-hover/service:pointer-events-auto transition-all duration-200 z-50 transform translate-y-1 group-hover/service:translate-y-0">
+              <div className="bg-[#0c0c0c]/98 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.85)] p-2 w-[220px] border border-white/15 flex flex-col font-sans">
+                <Link
+                  href="/service"
+                  className="w-full px-4 py-2.5 text-xs font-display font-semibold tracking-wider uppercase text-white/80 hover:text-white hover:bg-white/10 transition-all flex justify-between items-center"
                 >
                   Service Corner
                 </Link>
-                <Link 
-                  href="/i-connect" 
-                  className="w-full px-4 py-3 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center"
+                <Link
+                  href="/i-connect"
+                  className="w-full px-4 py-2.5 text-xs font-display font-semibold tracking-wider uppercase text-white/80 hover:text-white hover:bg-white/10 transition-all flex justify-between items-center"
                 >
                   Toyota i-Connect
                 </Link>
               </div>
             </div>
           </div>
+
           <Link href="/t-care" className={getLinkClass('/t-care')}>
             T-CARE
           </Link>
@@ -94,23 +156,30 @@ export default function Header({ theme = "light", className = "" }: { theme?: "l
           <Link href="/contact" className={getLinkClass('/contact')}>
             CONTACT US
           </Link>
-          
-          {/* MORE Dropdown */}
+
+          {/* More Dropdown */}
           <div className="relative group/more py-2">
             <div className={`cursor-pointer ${getLinkClass('/more')}`}>
-              MORE <ChevronDown size={14} strokeWidth={2.5} className="ml-1 text-gray-500 group-hover/more:text-[var(--toyota-red)] transition-transform duration-300 group-hover/more:-rotate-180" />
+              MORE
+              <ChevronDown
+                size={13}
+                strokeWidth={2.5}
+                className="ml-1 text-white/50 group-hover/more:text-[#eb0a1e] transition-transform duration-300 group-hover/more:-rotate-180"
+              />
             </div>
-            
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover/more:opacity-100 group-hover/more:pointer-events-auto transition-all duration-300 z-50 transform translate-y-2 group-hover/more:translate-y-0">
-              <div className="bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 w-[240px] rounded-2xl border border-gray-100 flex flex-col font-sans normal-case tracking-normal">
+
+            <div className="absolute top-full right-0 pt-2 opacity-0 pointer-events-none group-hover/more:opacity-100 group-hover/more:pointer-events-auto transition-all duration-200 z-50 transform translate-y-1 group-hover/more:translate-y-0">
+              <div className="bg-[#0c0c0c]/98 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.85)] p-2 w-[240px] border border-white/15 flex flex-col font-sans">
                 {moreDropdownItems.map((item, idx) => (
-                  <Link 
-                    key={idx} 
-                    href={item.href} 
-                    className="w-full px-4 py-2.5 rounded-xl text-[14px] font-medium text-gray-700 hover:text-black hover:bg-gray-50 transition-all duration-200 flex justify-between items-center group/item"
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className="w-full px-4 py-2 text-xs font-display font-semibold tracking-wider uppercase text-white/80 hover:text-white hover:bg-white/10 transition-all flex justify-between items-center group/item"
                   >
-                    {item.label}
-                    {item.hasSub && <ChevronRight size={14} className="text-gray-400 group-hover/item:text-black transition-colors" />}
+                    <span>{item.label}</span>
+                    {item.hasSub && (
+                      <ChevronRight size={13} className="text-white/40 group-hover/item:text-white transition-colors" />
+                    )}
                   </Link>
                 ))}
               </div>
@@ -118,87 +187,109 @@ export default function Header({ theme = "light", className = "" }: { theme?: "l
           </div>
         </nav>
 
-        {/* Right: Search */}
-        <div className="flex items-center">
-          <div className="hidden lg:block h-6 w-px bg-gray-300 mr-6"></div>
-          <motion.button 
-            className="hidden md:flex items-center text-[11px] font-bold text-[var(--toyota-red)] transition-colors tracking-widest hover:opacity-80"
-            whileHover={{ scale: 1.05 }}
+        {/* Right: Quick Action CTA & Mobile Hamburger */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => openModal('', 'TEST_DRIVE')}
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-[#eb0a1e] hover:bg-[#c90013] text-white text-[10px] font-display font-bold tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(235,10,30,0.35)]"
           >
-            <Search size={18} strokeWidth={2.5} className="mr-2" />
-            SEARCH
-          </motion.button>
-          
-          {/* Mobile Menu Toggle */}
-          <button 
+            <Car size={13} strokeWidth={2} />
+            <span>TEST DRIVE</span>
+          </button>
+
+          {/* Mobile Menu Button */}
+          <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-1 ml-4 text-gray-800 hover:text-[var(--toyota-red)] transition-colors relative z-[60]"
+            className="lg:hidden p-2 text-white/80 hover:text-white transition-colors relative z-[60]"
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
+            {isMobileMenuOpen ? <X size={24} strokeWidth={1.75} /> : <Menu size={24} strokeWidth={1.75} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer (Luxury Dark Theme) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-0 z-50 bg-white h-[100dvh] w-full flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+            className="fixed inset-0 z-50 bg-[#080808]/98 backdrop-blur-2xl h-[100dvh] w-full flex flex-col pt-24 pb-8 px-8 overflow-y-auto border-l border-white/10 text-white"
           >
-            <nav className="flex flex-col space-y-6 text-lg font-display font-bold text-[#222] tracking-widest">
-              <Link href="/virtual-showroom" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/virtual-showroom')}>
-                VIRTUAL SHOWROOM
-              </Link>
-              <Link href="/service" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/service')}>
+            <nav className="flex flex-col space-y-5 text-base font-display font-bold tracking-[0.2em] uppercase">
+              <Link
+                href="/service"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={getLinkClass('/service')}
+              >
                 SERVICE
               </Link>
-              <Link href="/t-care" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/t-care')}>
+              <Link
+                href="/t-care"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={getLinkClass('/t-care')}
+              >
                 T-CARE
               </Link>
-              <Link href="/used-cars" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/used-cars')}>
+              <Link
+                href="/used-cars"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={getLinkClass('/used-cars')}
+              >
                 USED CARS
               </Link>
-              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/about')}>
+              <Link
+                href="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={getLinkClass('/about')}
+              >
                 ABOUT US
               </Link>
-              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={getLinkClass('/contact')}>
+              <Link
+                href="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={getLinkClass('/contact')}
+              >
                 CONTACT US
               </Link>
-              
-              <div className="pt-6 mt-6 border-t border-gray-100">
-                <span className="text-gray-400 text-xs tracking-[0.2em]">MORE OPTIONS</span>
-                <div className="flex flex-col space-y-4 mt-4 font-sans font-medium text-base tracking-normal">
+
+              <div className="pt-6 mt-4 border-t border-white/10">
+                <span className="text-white/40 text-[10px] font-bold tracking-[0.25em] uppercase block mb-3 font-display">
+                  MORE OPTIONS
+                </span>
+                <div className="flex flex-col space-y-3 font-sans text-sm tracking-normal normal-case">
                   {moreDropdownItems.map((item, idx) => (
-                    <Link 
-                      key={idx} 
-                      href={item.href} 
+                    <Link
+                      key={idx}
+                      href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-gray-700 hover:text-[var(--toyota-red)] transition-colors flex items-center justify-between"
+                      className="text-white/70 hover:text-white transition-colors flex items-center justify-between py-1"
                     >
-                      {item.label}
-                      <ChevronRight size={16} className="text-gray-300" />
+                      <span>{item.label}</span>
+                      <ChevronRight size={14} className="text-white/30" />
                     </Link>
                   ))}
                 </div>
               </div>
             </nav>
-            
+
             <div className="mt-auto pt-8">
-              <button 
-                className="w-full flex justify-center items-center py-4 bg-gray-50 text-[var(--toyota-red)] font-bold tracking-widest text-sm rounded-xl"
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openModal('', 'TEST_DRIVE');
+                }}
+                className="w-full flex justify-center items-center gap-2 py-4 bg-[#eb0a1e] hover:bg-[#c90013] text-white font-display font-bold tracking-[0.2em] text-xs uppercase transition-colors shadow-lg"
               >
-                <Search size={18} strokeWidth={2.5} className="mr-2" />
-                SEARCH
+                <Car size={16} />
+                BOOK TEST DRIVE
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-    </motion.header>
+    </header>
   );
 }

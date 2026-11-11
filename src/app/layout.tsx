@@ -31,6 +31,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: "#050505",
+  colorScheme: "dark",
 };
 
 export const metadata: Metadata = {
@@ -67,6 +69,7 @@ export const metadata: Metadata = {
 };
 
 import GlobalLeadModal from "@/components/GlobalLeadModal";
+import ExitIntentModal from "@/components/ExitIntentModal";
 
 export default function RootLayout({
   children,
@@ -76,10 +79,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased overflow-x-hidden w-full`}
+      className={`${outfit.variable} ${montserrat.variable} ${caveat.variable} ${bebas.variable} h-full antialiased overflow-x-hidden w-full bg-[#050505] text-white`}
     >
-      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-[#111] overflow-x-hidden w-full">
+      <body className="min-h-full flex flex-col font-sans text-white bg-[#050505] overflow-x-hidden w-full">
         <GlobalLeadModal />
+        <ExitIntentModal />
         {children}
       </body>
     </html>

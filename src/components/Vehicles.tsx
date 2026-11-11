@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-
 import Image from 'next/image';
 
 export const cars = [
@@ -144,9 +142,41 @@ import { useLeadStore } from '@/store/useLeadStore';
 
 export default function Vehicles() {
   const { openModal } = useLeadStore();
+  const [carList, setCarList] = useState(cars);
   const [activeCar, setActiveCar] = useState(cars[0]);
   const [direction, setDirection] = useState(1);
   const [hasSwiped, setHasSwiped] = useState(false);
+
+  // Sync with dynamic Admin Store data in real time
+  useEffect(() => {
+    fetch('/api/public/store')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.vehicles) && data.vehicles.length > 0) {
+          const mapped = data.vehicles.map((v: {
+            id?: string;
+            slug?: string;
+            name: string;
+            tagline?: string;
+            exShowroomRange?: string;
+            onRoadKochiRange?: string;
+            basePrice?: string;
+            image?: string;
+          }) => ({
+            id: v.slug || v.id || v.name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+            name: v.name.toUpperCase(),
+            highlight: v.tagline || 'Experience unmatched Toyota craftsmanship and reliability.',
+            stats: [
+              { label: 'Ex-Showroom (Est.)', value: v.exShowroomRange || v.basePrice || 'TBA' },
+              { label: 'On-Road Kochi (Est.)', value: v.onRoadKochiRange || 'Contact Dealer' },
+            ],
+            image: v.image || '/hycross.png',
+          }));
+          setCarList(mapped);
+        }
+      })
+      .catch((err) => console.log('Public vehicles sync error:', err));
+  }, []);
 
   useEffect(() => {
     const el = document.getElementById(`car-nav-${activeCar.id}`);
@@ -183,15 +213,15 @@ export default function Vehicles() {
   };
 
   const handleNext = () => {
-    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+    const currentIndex = carList.findIndex(c => c.id === activeCar.id);
     setDirection(1);
-    setActiveCar(currentIndex < cars.length - 1 ? cars[currentIndex + 1] : cars[0]);
+    setActiveCar(currentIndex < carList.length - 1 ? carList[currentIndex + 1] : carList[0]);
   };
 
   const handlePrev = () => {
-    const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+    const currentIndex = carList.findIndex(c => c.id === activeCar.id);
     setDirection(-1);
-    setActiveCar(currentIndex > 0 ? cars[currentIndex - 1] : cars[cars.length - 1]);
+    setActiveCar(currentIndex > 0 ? carList[currentIndex - 1] : carList[carList.length - 1]);
   };
 
   const handleDragEnd = (e: unknown, { offset, velocity }: { offset: { x: number; y: number }, velocity: { x: number; y: number } }) => {
@@ -281,12 +311,12 @@ export default function Vehicles() {
           <div 
             className="flex overflow-x-auto gap-8 md:gap-12 [&::-webkit-scrollbar]:hidden w-full relative z-50 pointer-events-auto items-center pb-4 pt-2"
           >
-            {cars.map((car, idx) => (
+            {carList.map((car, idx) => (
               <button
                 key={car.id}
                 id={`car-nav-${car.id}`}
                 onClick={() => {
-                  const currentIndex = cars.findIndex(c => c.id === activeCar.id);
+                  const currentIndex = carList.findIndex(c => c.id === activeCar.id);
                   if (idx !== currentIndex) {
                     setDirection(idx > currentIndex ? 1 : -1);
                     setActiveCar(car);
@@ -375,6 +405,7 @@ export default function Vehicles() {
                       className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.9)]"
                       draggable={false}
                       priority
+                      loading="eager"
                     />
                     
                     {/* Physical Mirror Reflection on the Floor */}
@@ -451,25 +482,14 @@ export default function Vehicles() {
                   transition={{ delay: 0.8 }}
                   className="relative z-10"
                 >
-                  
-                  <Link 
-                    href={`/virtual-showroom/`}
-                    className="group/btn relative w-full overflow-hidden bg-[#ed1b2f] border border-[#ed1b2f] text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-[#c90013] hover:shadow-[0_0_40px_rgba(237,27,47,0.4)] rounded-sm text-center mb-4 block"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      360° Showroom <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </span>
-                  </Link>
-
                   <button 
                     onClick={() => openModal(activeCar.name, 'TEST_DRIVE')}
-                    className="group/btn relative w-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-zinc-950 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] rounded-sm"
+                    className="group/btn relative w-full overflow-hidden bg-[#ed1b2f] border border-[#ed1b2f] text-white px-8 py-5 font-bold text-[11px] tracking-[0.2em] uppercase transition-all duration-700 hover:bg-[#c90013] hover:shadow-[0_0_40px_rgba(237,27,47,0.4)] rounded-sm"
                   >
                     <span className="relative z-10 flex items-center justify-between w-full">
                       Book Test Drive
                       <ArrowRight size={16} className="transform group-hover/btn:translate-x-3 transition-transform duration-700 ease-out" />
                     </span>
-                    <div className="absolute inset-0 bg-white transform scale-x-0 origin-left group-hover/btn:scale-x-100 transition-transform duration-700 ease-[0.25,1,0.5,1]" />
                   </button>
                 </motion.div>
 

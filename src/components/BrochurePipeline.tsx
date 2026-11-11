@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronLeft, X, Download } from 'lucide-react';
@@ -9,8 +9,27 @@ import { cars } from './Vehicles';
 export default function BrochurePipeline() {
   const { closeModal } = useLeadStore();
   const [step, setStep] = useState(1);
+  const [carList, setCarList] = useState<any[]>(cars);
   const [selectedCar, setSelectedCar] = useState<any>(null);
   const [direction, setDirection] = useState(1);
+
+  // Sync with live brochure links configured in Admin
+  useEffect(() => {
+    fetch('/api/public/store')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.vehicles) && data.vehicles.length > 0) {
+          const mapped = data.vehicles.map((v: any) => ({
+            id: v.slug || v.id,
+            name: v.name.toUpperCase(),
+            image: v.image || '/hycross.png',
+            brochureUrl: v.brochureUrl || `/brochures/${v.slug}.pdf`,
+          }));
+          setCarList(mapped);
+        }
+      })
+      .catch((err) => console.log('Brochure pipeline sync error:', err));
+  }, []);
 
   const variants = {
     enter: (direction: number) => ({
@@ -84,7 +103,7 @@ export default function BrochurePipeline() {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto w-full">
-                {cars.map((car) => (
+                {carList.map((car) => (
                   <div
                     key={car.id}
                     onClick={() => {
@@ -140,13 +159,28 @@ export default function BrochurePipeline() {
                 </p>
 
                 <a
-                  href={`https://www.nippontoyota.co.in/brochure/`}
+                  href={selectedCar.brochureUrl || `https://www.nippontoyota.co.in/brochure/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center w-full max-w-sm bg-white hover:bg-[#eb0a1e] text-black hover:text-white transition-colors duration-500 py-5 px-8 rounded-sm mx-auto"
+                  download
+                  onClick={() => {
+                    // Record brochure download inquiry in the local CRM leads table
+                    fetch('/api/lead', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        leadType: 'BROCHURE',
+                        name: 'Brochure Visitor',
+                        phone: 'Online Download',
+                        targetCar: selectedCar.name,
+                        extraInfo: `Downloaded ${selectedCar.name} official PDF catalog`,
+                      }),
+                    }).catch(() => {});
+                  }}
+                  className="group inline-flex items-center justify-center w-full max-w-sm bg-white hover:bg-[#eb0a1e] text-black hover:text-white transition-colors duration-500 py-5 px-8 rounded-sm mx-auto cursor-pointer"
                 >
                   <Download size={20} className="mr-4" />
-                  <span className="font-bold tracking-[0.2em] uppercase text-sm">Download Brochure</span>
+                  <span className="font-bold tracking-[0.2em] uppercase text-sm">Download Official Brochure</span>
                 </a>
 
                 <button 

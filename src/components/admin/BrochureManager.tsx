@@ -60,8 +60,18 @@ export default function BrochureManager({ initialVehicles }: BrochureManagerProp
         body: formData,
       });
 
-      const uploadData = await uploadRes.json();
-      if (!uploadRes.ok) throw new Error(uploadData.error || 'Upload failed');
+      const uploadText = await uploadRes.text();
+      let uploadData: { url?: string; error?: string } = {};
+      try {
+        uploadData = JSON.parse(uploadText);
+      } catch {
+        if (uploadRes.status === 413) {
+          throw new Error('Brochure PDF is too large. Please upload a PDF under 4.5MB.');
+        }
+        throw new Error(`Upload server error (${uploadRes.status}): ${uploadText.slice(0, 100)}`);
+      }
+
+      if (!uploadRes.ok || !uploadData.url) throw new Error(uploadData.error || 'Upload failed');
 
       // 2. Assign to vehicle
       const updateRes = await fetch('/api/admin/brochures', {
@@ -70,7 +80,14 @@ export default function BrochureManager({ initialVehicles }: BrochureManagerProp
         body: JSON.stringify({ vehicleId, brochureUrl: uploadData.url }),
       });
 
-      const updateData = await updateRes.json();
+      const updateText = await updateRes.text();
+      let updateData: { vehicle?: VehicleModel; error?: string } = {};
+      try {
+        updateData = JSON.parse(updateText);
+      } catch {
+        throw new Error(`Server error (${updateRes.status}): ${updateText.slice(0, 100)}`);
+      }
+
       if (!updateRes.ok) throw new Error(updateData.error || 'Failed to link brochure to vehicle');
 
       // Update state

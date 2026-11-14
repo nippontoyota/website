@@ -395,9 +395,6 @@ interface SupabaseLeadRow {
   extra_info: string | null;
   status: string;
   notes: string | null;
-  assigned_officer?: string | null;
-  icrop_status?: string | null;
-  ctdms_lead_id?: string | null;
 }
 
 function mapRowToLead(row: SupabaseLeadRow): LeadRecord {
@@ -413,9 +410,6 @@ function mapRowToLead(row: SupabaseLeadRow): LeadRecord {
     extraInfo: row.extra_info || undefined,
     status: (row.status as LeadRecord['status']) || 'NEW',
     notes: row.notes || undefined,
-    assignedOfficer: row.assigned_officer || undefined,
-    icropStatus: (row.icrop_status as LeadRecord['icropStatus']) || undefined,
-    ctdmsLeadId: row.ctdms_lead_id || undefined,
   };
 }
 
@@ -638,9 +632,6 @@ export async function addLead(leadData: Omit<LeadRecord, 'id' | 'createdAt' | 's
         extra_info: newLead.extraInfo || null,
         status: newLead.status,
         notes: newLead.notes || null,
-        assigned_officer: newLead.assignedOfficer || null,
-        icrop_status: newLead.icropStatus || null,
-        ctdms_lead_id: newLead.ctdmsLeadId || null,
       });
     } catch (err) {
       console.warn('Failed to insert lead to Supabase:', err);
@@ -667,9 +658,6 @@ export async function updateLead(id: string, update: Partial<LeadRecord>): Promi
       const dbPayload: Record<string, unknown> = {};
       if (update.status) dbPayload.status = update.status;
       if (update.notes !== undefined) dbPayload.notes = update.notes;
-      if (update.assignedOfficer !== undefined) dbPayload.assigned_officer = update.assignedOfficer;
-      if (update.icropStatus !== undefined) dbPayload.icrop_status = update.icropStatus;
-      if (update.ctdmsLeadId !== undefined) dbPayload.ctdms_lead_id = update.ctdmsLeadId;
 
       if (Object.keys(dbPayload).length > 0) {
         await supabase.from('nippon_leads').update(dbPayload).eq('id', id);

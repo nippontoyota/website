@@ -102,6 +102,72 @@ export default function VehicleEditorModal({
     }
   };
 
+  // Client-side image compression to prevent HTTP 413 "Request Entity Too Large"
+  const compressImage = async (file: File): Promise<File> => {
+    if (!file.type.startsWith('image/') || file.type.includes('svg')) {
+      return file;
+    }
+    // If under 600KB, use directly
+    if (file.size <= 600 * 1024) {
+      return file;
+    }
+
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement('img');
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1600;
+          const MAX_HEIGHT = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = Math.round((height * MAX_WIDTH) / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = Math.round((width * MAX_HEIGHT) / height);
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(file);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                resolve(file);
+                return;
+              }
+              const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '.webp'), {
+                type: 'image/webp',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            },
+            'image/webp',
+            0.85
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Upload Handlers
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'vehicles' | 'brochures') => {
     const file = e.target.files?.[0];
@@ -111,8 +177,17 @@ export default function VehicleEditorModal({
     else setUploadingBrochure(true);
 
     try {
+      let fileToUpload = file;
+      if (type === 'vehicles') {
+        try {
+          fileToUpload = await compressImage(file);
+        } catch (compErr) {
+          console.warn('Image compression skipped, using original:', compErr);
+        }
+      }
+
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', fileToUpload);
       formData.append('type', type);
 
       const res = await fetch('/api/admin/upload', {
@@ -120,13 +195,23 @@ export default function VehicleEditorModal({
         body: formData,
       });
 
-      const data = await res.json();
+      const responseText = await res.text();
+      let data: { success?: boolean; url?: string; error?: string } = {};
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        if (res.status === 413) {
+          throw new Error('Image file is too large for upload. Please choose an image under 4MB.');
+        }
+        throw new Error(`Upload server error (${res.status}): ${responseText.slice(0, 100)}`);
+      }
+
       if (!res.ok) throw new Error(data.error || 'Upload failed');
 
-      if (type === 'vehicles') {
+      if (type === 'vehicles' && data.url) {
         setImage(data.url);
         toast.success('Vehicle image uploaded');
-      } else {
+      } else if (data.url) {
         setBrochureUrl(data.url);
         toast.success('Brochure PDF uploaded');
       }
@@ -228,7 +313,17 @@ export default function VehicleEditorModal({
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const responseText = await res.text();
+      let data: { success?: boolean; vehicle?: VehicleModel; error?: string } = {};
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        if (res.status === 413) {
+          throw new Error('Payload too large. Please use an image URL or smaller image under 4MB.');
+        }
+        throw new Error(`Server error (${res.status}): ${responseText.slice(0, 100)}`);
+      }
+
       if (!res.ok) throw new Error(data.error || 'Failed to save model');
 
       toast.success(isNew ? `Created ${name} successfully` : `Updated ${name} details successfully`);

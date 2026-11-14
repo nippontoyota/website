@@ -107,6 +107,9 @@ export type LeadRecord = {
   extraInfo?: string;
   status: LeadStatus;
   notes?: string;
+  assignedOfficer?: string;
+  icropStatus?: 'PENDING' | 'PUNCHED';
+  ctdmsLeadId?: string;
 };
 
 export type TaxSlab = {

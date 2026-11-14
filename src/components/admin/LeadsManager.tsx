@@ -11,6 +11,7 @@ import {
   User,
   X,
   Edit2,
+  Send,
 } from 'lucide-react';
 import { LeadRecord, LeadStatus } from '@/lib/types/admin';
 import { toast } from '@/lib/toast';
@@ -46,12 +47,32 @@ export default function LeadsManager({ initialLeads }: LeadsManagerProps) {
   // Notes Modal State
   const [editingNotesLead, setEditingNotesLead] = useState<LeadRecord | null>(null);
   const [notesText, setNotesText] = useState('');
+  const [isSendingReport, setIsSendingReport] = useState(false);
 
   const notify = (type: 'success' | 'error', message: string) => {
     if (type === 'success') {
       toast.success(message);
     } else {
       toast.error(message);
+    }
+  };
+
+  // Trigger 6:00 PM Daily Leads Report
+  const handleSendDailyReport = async () => {
+    setIsSendingReport(true);
+    try {
+      const res = await fetch('/api/cron/daily-leads-report', { method: 'POST' });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        notify('success', `6 PM Report generated (${data.totalLeadsToday} leads). ${data.emailMessage}`);
+      } else {
+        throw new Error(data.error || 'Failed to dispatch report');
+      }
+    } catch (err: unknown) {
+      console.error(err);
+      notify('error', 'Failed to dispatch report');
+    } finally {
+      setIsSendingReport(false);
     }
   };
 
@@ -197,13 +218,25 @@ export default function LeadsManager({ initialLeads }: LeadsManagerProps) {
           </p>
         </div>
 
-        <button
-          onClick={handleExportCSV}
-          className="py-2.5 px-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-display text-xs font-bold tracking-wider uppercase flex items-center gap-2 cursor-pointer transition-colors shrink-0"
-        >
-          <Download size={14} />
-          <span>Export CSV ({filteredLeads.length})</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={handleSendDailyReport}
+            disabled={isSendingReport}
+            className="py-2.5 px-4 bg-[#eb0a1e]/20 hover:bg-[#eb0a1e]/30 border border-[#eb0a1e]/40 text-[#ff4d5a] hover:text-white font-display text-xs font-bold tracking-wider uppercase flex items-center gap-2 cursor-pointer transition-colors shrink-0 disabled:opacity-50"
+            title="Trigger the 6:00 PM Marketing Leads Report immediately"
+          >
+            <Send size={14} />
+            <span>{isSendingReport ? 'Sending...' : '⚡ Send 6 PM Report'}</span>
+          </button>
+
+          <button
+            onClick={handleExportCSV}
+            className="py-2.5 px-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-display text-xs font-bold tracking-wider uppercase flex items-center gap-2 cursor-pointer transition-colors shrink-0"
+          >
+            <Download size={14} />
+            <span>Export CSV ({filteredLeads.length})</span>
+          </button>
+        </div>
       </div>
 
       {/* Status Counters */}

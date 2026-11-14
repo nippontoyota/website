@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { carDetails } from '@/data/carDetails';
+import { getSupabaseClient } from '@/lib/server/supabase';
 import {
   NipponStoreData,
   VehicleModel,
@@ -382,8 +383,46 @@ function buildInitialStoreData(): NipponStoreData {
 // In-memory cache for ultra-fast response
 let memoryCache: NipponStoreData | null = null;
 
+interface SupabaseLeadRow {
+  id: string;
+  created_at: string;
+  name: string;
+  phone: string;
+  lead_type: string;
+  target_car: string | null;
+  location: string | null;
+  current_car: string | null;
+  extra_info: string | null;
+  status: string;
+  notes: string | null;
+  assigned_officer?: string | null;
+  icrop_status?: string | null;
+  ctdms_lead_id?: string | null;
+}
+
+function mapRowToLead(row: SupabaseLeadRow): LeadRecord {
+  return {
+    id: row.id,
+    createdAt: row.created_at,
+    name: row.name,
+    phone: row.phone,
+    leadType: row.lead_type as LeadRecord['leadType'],
+    targetCar: row.target_car || undefined,
+    location: row.location || undefined,
+    currentCar: row.current_car || undefined,
+    extraInfo: row.extra_info || undefined,
+    status: (row.status as LeadRecord['status']) || 'NEW',
+    notes: row.notes || undefined,
+    assignedOfficer: row.assigned_officer || undefined,
+    icropStatus: (row.icrop_status as LeadRecord['icropStatus']) || undefined,
+    ctdmsLeadId: row.ctdms_lead_id || undefined,
+  };
+}
+
 export async function getStoreData(): Promise<NipponStoreData> {
   if (memoryCache) return memoryCache;
+
+  let parsed: NipponStoreData;
 
   try {
     if (!fs.existsSync(DATA_DIR)) {
@@ -393,12 +432,12 @@ export async function getStoreData(): Promise<NipponStoreData> {
     if (!fs.existsSync(STORE_FILE)) {
       const initial = buildInitialStoreData();
       await saveStoreData(initial);
-      memoryCache = initial;
-      return initial;
+      parsed = initial;
+    } else {
+      const raw = await fs.promises.readFile(STORE_FILE, 'utf-8');
+      parsed = JSON.parse(raw) as NipponStoreData;
     }
 
-    const raw = await fs.promises.readFile(STORE_FILE, 'utf-8');
-    const parsed = JSON.parse(raw) as NipponStoreData;
     let needsResave = false;
 
     if (!parsed.rtoConfig) {
@@ -433,15 +472,49 @@ export async function getStoreData(): Promise<NipponStoreData> {
     if (needsResave) {
       await saveStoreData(parsed);
     }
-
-    memoryCache = parsed;
-    return parsed;
   } catch (error) {
     console.error('Error reading nippon store, falling back to initial data:', error);
-    const initial = buildInitialStoreData();
-    memoryCache = initial;
-    return initial;
+    parsed = buildInitialStoreData();
   }
+
+  // Attempt to sync from Supabase if configured
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      // 1. Fetch config from Supabase
+      const { data: configRow } = await supabase
+        .from('nippon_config')
+        .select('data')
+        .eq('id', 'main_store')
+        .maybeSingle();
+
+      if (configRow?.data) {
+        const cfg = configRow.data as Partial<NipponStoreData>;
+        if (cfg.vehicles && Array.isArray(cfg.vehicles)) parsed.vehicles = cfg.vehicles;
+        if (cfg.heroCards && Array.isArray(cfg.heroCards)) parsed.heroCards = cfg.heroCards;
+        if (cfg.campaigns) parsed.campaigns = cfg.campaigns;
+        if (cfg.branches && Array.isArray(cfg.branches)) parsed.branches = cfg.branches;
+        if (cfg.rtoConfig) parsed.rtoConfig = cfg.rtoConfig;
+        if (cfg.socialLinks && Array.isArray(cfg.socialLinks)) parsed.socialLinks = cfg.socialLinks;
+      }
+
+      // 2. Fetch leads from Supabase
+      const { data: leadRows } = await supabase
+        .from('nippon_leads')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (leadRows && Array.isArray(leadRows) && leadRows.length > 0) {
+        parsed.leads = (leadRows as SupabaseLeadRow[]).map(mapRowToLead);
+      }
+    } catch (sbErr) {
+      // Supabase table may not exist yet or network issue; safely fall back to local file
+      console.warn('Supabase sync skipped, using local store data:', sbErr);
+    }
+  }
+
+  memoryCache = parsed;
+  return parsed;
 }
 
 export async function saveStoreData(data: NipponStoreData): Promise<void> {
@@ -459,7 +532,27 @@ export async function saveStoreData(data: NipponStoreData): Promise<void> {
     await fs.promises.rename(TMP_FILE, STORE_FILE);
   } catch (error) {
     console.error('Error saving nippon store:', error);
-    throw error;
+  }
+
+  // Asynchronously sync config to Supabase
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      await supabase.from('nippon_config').upsert({
+        id: 'main_store',
+        data: {
+          vehicles: data.vehicles,
+          heroCards: data.heroCards,
+          campaigns: data.campaigns,
+          branches: data.branches,
+          rtoConfig: data.rtoConfig,
+          socialLinks: data.socialLinks,
+        },
+        updated_at: data.lastUpdated,
+      });
+    } catch (err) {
+      console.warn('Failed to sync config to Supabase:', err);
+    }
   }
 }
 
@@ -528,6 +621,32 @@ export async function addLead(leadData: Omit<LeadRecord, 'id' | 'createdAt' | 's
 
   store.leads.unshift(newLead); // Newest leads first
   await saveStoreData(store);
+
+  // Sync to Supabase table
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      await supabase.from('nippon_leads').insert({
+        id: newLead.id,
+        created_at: newLead.createdAt,
+        name: newLead.name,
+        phone: newLead.phone,
+        lead_type: newLead.leadType,
+        target_car: newLead.targetCar || null,
+        location: newLead.location || null,
+        current_car: newLead.currentCar || null,
+        extra_info: newLead.extraInfo || null,
+        status: newLead.status,
+        notes: newLead.notes || null,
+        assigned_officer: newLead.assignedOfficer || null,
+        icrop_status: newLead.icropStatus || null,
+        ctdms_lead_id: newLead.ctdmsLeadId || null,
+      });
+    } catch (err) {
+      console.warn('Failed to insert lead to Supabase:', err);
+    }
+  }
+
   return newLead;
 }
 
@@ -540,6 +659,26 @@ export async function updateLead(id: string, update: Partial<LeadRecord>): Promi
 
   store.leads[index] = { ...store.leads[index], ...update };
   await saveStoreData(store);
+
+  // Sync update to Supabase
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const dbPayload: Record<string, unknown> = {};
+      if (update.status) dbPayload.status = update.status;
+      if (update.notes !== undefined) dbPayload.notes = update.notes;
+      if (update.assignedOfficer !== undefined) dbPayload.assigned_officer = update.assignedOfficer;
+      if (update.icropStatus !== undefined) dbPayload.icrop_status = update.icropStatus;
+      if (update.ctdmsLeadId !== undefined) dbPayload.ctdms_lead_id = update.ctdmsLeadId;
+
+      if (Object.keys(dbPayload).length > 0) {
+        await supabase.from('nippon_leads').update(dbPayload).eq('id', id);
+      }
+    } catch (err) {
+      console.warn('Failed to update lead in Supabase:', err);
+    }
+  }
+
   return store.leads[index];
 }
 
@@ -547,6 +686,16 @@ export async function deleteLead(id: string): Promise<void> {
   const store = await getStoreData();
   store.leads = store.leads.filter((l) => l.id !== id);
   await saveStoreData(store);
+
+  // Sync deletion to Supabase
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      await supabase.from('nippon_leads').delete().eq('id', id);
+    } catch (err) {
+      console.warn('Failed to delete lead in Supabase:', err);
+    }
+  }
 }
 
 export async function updateRtoConfig(config: RegionalRTOConfig): Promise<void> {

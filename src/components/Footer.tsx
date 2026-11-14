@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MapPin, Phone } from 'lucide-react';
 import { useLeadStore } from '@/store/useLeadStore';
-import SocialIcon from '@/components/admin/SocialIcon';
+import SocialIcon from '@/components/SocialIcon';
 
 const DEFAULT_SOCIALS = [
   { id: 'social-instagram', platform: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/nippon.toyota/' },

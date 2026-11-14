@@ -45,10 +45,10 @@ export default function ContactContent() {
       {/* Hero Section */}
       <div className="relative h-[50vh] min-h-[450px] w-full bg-zinc-900">
         <Image 
-          src="/nippon-towers.jpg" 
+          src="/nippon-toyota-image.png" 
           alt="Nippon Toyota Locations" 
           fill sizes="100vw"
-          className="object-cover opacity-60 object-center mix-blend-overlay"
+          className="object-cover opacity-75 object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

@@ -380,8 +380,10 @@ function buildInitialStoreData(): NipponStoreData {
   };
 }
 
-// In-memory cache for ultra-fast response
+// In-memory cache with 10-second TTL to guarantee fresh data across serverless instances
 let memoryCache: NipponStoreData | null = null;
+let lastCacheFetchTime = 0;
+const CACHE_TTL_MS = 10000; // 10 seconds
 
 interface SupabaseLeadRow {
   id: string;
@@ -413,8 +415,11 @@ function mapRowToLead(row: SupabaseLeadRow): LeadRecord {
   };
 }
 
-export async function getStoreData(): Promise<NipponStoreData> {
-  if (memoryCache) return memoryCache;
+export async function getStoreData(forceFresh = false): Promise<NipponStoreData> {
+  const isCacheExpired = Date.now() - lastCacheFetchTime > CACHE_TTL_MS;
+  if (memoryCache && !forceFresh && !isCacheExpired) {
+    return memoryCache;
+  }
 
   let parsed: NipponStoreData;
 
@@ -508,12 +513,14 @@ export async function getStoreData(): Promise<NipponStoreData> {
   }
 
   memoryCache = parsed;
+  lastCacheFetchTime = Date.now();
   return parsed;
 }
 
 export async function saveStoreData(data: NipponStoreData): Promise<void> {
   data.lastUpdated = new Date().toISOString();
   memoryCache = data;
+  lastCacheFetchTime = Date.now();
 
   try {
     if (!fs.existsSync(DATA_DIR)) {

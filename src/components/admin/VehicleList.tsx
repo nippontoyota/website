@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   Plus,
   Search,
@@ -22,6 +23,7 @@ interface VehicleListProps {
 }
 
 export default function VehicleList({ initialVehicles }: VehicleListProps) {
+  const router = useRouter();
   const [vehicles, setVehicles] = useState<VehicleModel[]>(initialVehicles);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -80,11 +82,12 @@ export default function VehicleList({ initialVehicles }: VehicleListProps) {
       const index = prev.findIndex((item) => item.id === saved.id || item.slug === saved.slug);
       if (index >= 0) {
         const next = [...prev];
-        next[index] = saved;
+        next[index] = { ...saved };
         return next;
       }
-      return [saved, ...prev];
+      return [{ ...saved }, ...prev];
     });
+    router.refresh();
   };
 
   const handleToggleStatus = async (v: VehicleModel) => {
@@ -237,6 +240,7 @@ export default function VehicleList({ initialVehicles }: VehicleListProps) {
                 <div className="w-full h-36 bg-gradient-to-b from-white/[0.02] to-transparent border border-white/5 relative p-2 mb-4 flex items-center justify-center overflow-hidden">
                   {v.image ? (
                     <Image
+                      key={`${v.id}-${v.image}`}
                       src={v.image}
                       alt={v.name}
                       fill
